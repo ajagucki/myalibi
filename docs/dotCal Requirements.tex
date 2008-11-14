@@ -1,0 +1,119 @@
+\documentclass[11pt]{article}
+\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   % ... or a4paper or a5paper or ... 
+%\geometry{landscape}                % Activate for for rotated page geometry
+\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{epstopdf}
+\usepackage{ulem}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+\title{title}
+\author{Kelsey Cairns - Team Orange}
+\date{\today} % delete this line to display the current date
+
+\begin{document}
+
+\begin{centering}
+\textbf{\huge{Android dotCal}}\\
+\LARGE{Requirements}
+
+\end{centering}
+
+\tableofcontents
+
+\section{Overview}
+
+The dotCal application is designed to run on the Android phone. The purpose of this application is to easily let the user track where they were and when. The user starts an event with a single click. The phone should then automatically find its location. When the user is done with their activity, they can click ``Stop," and their location and time spent there will be logged as a calendar entry.
+
+With future versions, the recorded information will be publishable to the web. The intent is to help automate social networking and blogging.
+
+\section{Functional Components}
+
+\subsection{User Interface}
+
+The user interface needs to be simple and intuitive. The user will interact with the following screens:
+
+\begin{itemize}
+	\item{Setup Screen: Gathers the user's settings.}
+	\item{Start Screen: Allows the user to trigger the start of events.}
+	\item{Current Event Screen: Allows the user to stop the current event.}
+	\item{Change Category Screen: Allows the user to change the current event's category.}
+	\item{Summary Screen: Appears after an event has been stopped.}
+	\item{Reminder Popup Screen: Reminds the user that there's a dotCal event running.}
+	\item{Screen allowing the user to publish an event to a blog or other web service. This will not be implemented until later versions.}
+	\item{Screen allowing the user to add notes, tags, or any written description to the event. This will be done through Android's calendar application instead of dotCal's interface.}
+\end{itemize}
+
+\subsection{Setup Screen} 
+
+The Setup Screen is used to change two settings:
+
+\begin{itemize}
+	\item{Reminder Time Interval, which determines how often to remind the user that an event is running; it is configurable from 0-4 days, 0-23 hours, and 0-59 minutes. There is no ``Never" option.}
+	\item{Calendar to Publish, which determines the calendar in which to place events; the options given include only the calendars listed in the phone's calendar application. There is no ability to create a new calendar from within dotCal.}
+\end{itemize}
+
+It is not necessary to invoke this screen to use the application; the reminder time interval defaults to two hours and the calendar in which to publish defaults to the user's default calendar given by the phone's calendar application. In a future version, if the user intends to publish to a blog, relevant information for that needs to be gathered as well.
+
+% no more main screen.
+
+% setup button only on start screen
+
+% running and stopped screens display start time
+\subsection{Start Screen}
+
+The Start Screen allows the user to start an event by clicking one of four category buttons. These categories are:
+
+\begin{itemize}
+	\item{Work} 
+	\item{Play}
+	\item{Eat}
+	\item{Other}
+\end{itemize}
+
+In addition to the category buttons, there will also be a ``Settings" button to take the user to the Setup Screen.
+
+\subsection{Current Event Screen}
+
+This screen appears when an event is started. It displays the start time of the event, and the chosen category for the event. The screen presents two buttons: one to change the event's category and one to stop the event.
+
+Pressing ``Change Category" takes the user to the Change Category Screen. Pressing ``Stop Event" takes the user to the Summary Screen.
+
+\subsection{Change Category Screen}
+
+This screen appears only when the user presses ``Change Category" in the Current Event Screen. This screen presents four category choices exactly like the Start Screen, but does not include the ``Settings" button. When the user pushes one of the four category buttons, they are taken back to the Current Event Screen, which will now show the newly selected event category. The event's start time is not changed by this screen; only the event's category may be changed by this screen.
+
+\subsection{Summary Screen}
+
+After the user presses ``Stop" on the Current Event Screen, or in the Reminder Popup Screen, the event is finished and the Summary Screen is displayed. It displays the start- and stop times of the event, the event's category, and presents two buttons: one to edit the event and one to save the event as-is and return to the Start Screen.
+
+\subsection{Reminder Popup Screen}
+
+When an event has been running for the amount of time specified in the Reminder Time Interval setting, the Reminder Popup Screen will appear as a window on top of whatever application Android is currently running. This popup screen displays a message like, ``dotCal Reminder: Your `Play' event has been in progress since 2:00pm." The popup screen presents two buttons:
+\begin{itemize}
+	\item{``Continue Activity", which makes the popup screen go away and does not end the event. The reminder will pop up again after another Reminder Time Interval amount of time passes.}
+	\item{``Stop Activity Now", which acts like the Current Event screen's Stop button, taking the user to the dotCal application and bringing up the Summary Screen}
+\end{itemize}
+
+\subsection{Event Life Cycle}
+
+Upon the start of a new event, dotCal gathers and stores specific information: the current time, the event's category, and the phone's current GPS coordinates.
+
+If an event is left running for the amount of time specified by the reminder interval, the Reminder Popup Screen will appear.
+
+When an event is ended, the time will be recorded, and information about the event will be transferred to the calendar. The summary screen will appear, giving the user the choice between editing the event or continuing in dotCal.
+
+
+\subsection{Event Editing}
+
+The user has the option to add tags or a description to an event as it is completed. If possible, this should be as simple as opening the event in Android's calendar. The user can then edit the event through the phone's calendar. If use of calendar is not possible, a screen should still appear, allowing the user to type in a description.
+
+\subsection{Calendar}
+The completed event in Android's calendar will have the location in geo-coordinates as well as the event's category, start and end time. (These will be stored in the ``Where", ``What", ``From" and ``To" fields, respectively.) If notes must be added through the dotCal interface, the ``Description" field should hold any notes the user made.
+
+
+
+\end{document}
