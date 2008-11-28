@@ -12,7 +12,7 @@
 
 %------------- Commands ---------------$
 
-\newcommand{\bt}[1]{{\sc  #1}}
+\newcommand{\bt}[1]{{\sc #1}}
 
 
 
@@ -84,22 +84,22 @@ The space above the category buttons should include a summary (category, times, 
 
 This screen appears when an event is started. It displays the start time of the event, and the chosen category for the event. The screen presents three buttons: one to change the event's category, one to stop the event, and one to cancel the event.
 
-Pressing {\sc Change Category} takes the user to the Change Category Screen. Pressing {\sc Stop Event} takes the user to the Summary Screen. The {\sc Cancel Event} button will display the event confirmation popup. If the user chooses to cancel the event, the user will be taken back to the start event screen and the event will not be recorded.
+Pressing \bt{Change Category} takes the user to the Change Category Screen. Pressing \bt{Stop Event} takes the user to the Summary Screen. The \bt{Cancel Event} button will display the event confirmation popup. If the user chooses to cancel the event, the user will be taken back to the start event screen and the event will not be recorded.
 
 \subsection{Change Category Screen}
 
-This screen appears only when the user presses {\sc Change Category} in the Current Event Screen. This screen presents four category choices exactly like the Start Screen. When the user pushes one of the four category buttons, they are taken back to the Current Event Screen, which will now show the newly selected event category. The event's start time is not changed by this screen; only the event's category may be changed by this screen.
+This screen appears only when the user presses \bt{Change Category} in the Current Event Screen. This screen presents four category choices exactly like the Start Screen, but without the ``Last Event'' summary. When the user pushes one of the four category buttons, they are taken back to the Current Event Screen, which will now show the newly selected event category. The event's start time is not changed by this screen; only the event's category may be changed by this screen.
 
 \subsection{Summary Screen}
 
-After the user presses {\sc Stop}  on the Current Event Screen, or in the Reminder Popup Screen, the event is finished and the Summary Screen is displayed. It displays the start- and stop times of the event, the event's category, and presents two buttons: one to edit the event and one to save the event as-is and return to the Start Screen.
+After the user presses \bt{Stop}  on the Current Event Screen, or in the Reminder Popup Screen, the event is finished and the Summary Screen is displayed. It displays the start- and stop times of the event, the event's category, and presents two buttons: one to edit the event and one to save the event as-is and return to the Start Screen.
 
 \subsection{Reminder Popup Screen}
 
 When an event has been running for the amount of time specified in the Reminder Time Interval setting, the Reminder Popup Screen will appear as a window on top of whatever application Android is currently running. This popup screen displays a message like, ``dotCal Reminder: Your `Play' event has been in progress since 2:00pm." The popup screen presents two buttons:
 \begin{itemize}
-	\item{{\sc Continue Activity}, which makes the popup screen go away and does not end the event. The reminder will pop up again after another Reminder Time Interval amount of time passes.}
-	\item{{\sc Stop Activity Now}, which acts like the Current Event screen's Stop button, taking the user to the dotCal application and bringing up the Summary Screen}
+	\item{\bt{Continue Activity}, which makes the popup screen go away and does not end the event. The reminder will pop up again after another Reminder Time Interval amount of time passes.}
+	\item{\bt{Stop Activity Now}, which acts like the Current Event screen's Stop button, taking the user to the dotCal application and bringing up the Summary Screen}
 \end{itemize}
 
 \subsection{Cancelation Confirmation Popup Screen}
@@ -108,7 +108,7 @@ Any user actions that cause the cancelation of an event should trigger this popu
 
 \subsection{Event Life Cycle}
 
-Upon the start of a new event, dotCal gathers and stores specific information: the current time, the event's category, and the phone's current GPS coordinates. 
+Upon the start of a new event, dotCal gathers and stores specific information: the current time, the event's category, and the phone's current GPS coordinates. While the GPS obtains coordinates, a ``busy'' splash screen appears. If the GPS fails, or takes longer than 7 seconds, the app records the location as unknown.
 
 If an event is left running for the amount of time specified by the reminder interval, the Reminder Popup Screen will appear.
 
