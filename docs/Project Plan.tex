@@ -72,7 +72,7 @@ Kelsey & 0 & not worthy of signature & 11/23 \\
 \begin{tabular}{|l|l|l|l|}
  \hline
 \textbf{Team Member} & \textbf{Primary Role} & \textbf{Responsibilities of Primary Role} & \textbf{Backup Roles}\\ \hline
-Nate Ertner & Project Manager & ... & ..\\ \hline
+Nate Ertner & Project Manager & some really really really really really really really really long description... & ..\\ \hline
 Adam DiCarlo & Computer Nerd & ... & ...\\ \hline
 Kelsey Cairns & User Needs Analyst & ... & ... \\ \hline
 Sky Cunningham &  Lead Architect & ... & ... \\ \hline
@@ -84,6 +84,93 @@ Peter Welte & Quality Assurance & ... & ...\\ \hline
 
 \section{Risk Management}
 \section{Quality Assurance}
+
+\subsection{Preconditions and Assertions}
+
+\begin{itemize}
+\item Refine requirements document whenever preconditions are not already determined
+\item Create validation functions for use by preconditions and assertions, as needed
+\item Write preconditions and assertions in code
+\end{itemize}
+
+\subsection{Buddy Review}
+
+\begin{itemize}
+
+\item Any code changes made on the main source and build components will be published to all developers
+\item The goal is to allow multiple developers to view changes, so developers know what is changing, can catch bugs, and are encouraged to write readable code.
+\end{itemize}
+
+\subsection{Review Meetings}
+
+\begin{itemize}
+
+\item Assign buddy reviewers
+\item Select an at-risk section of code for weekly review meetings. Issues to look for include security, \item efficiency, scalability, operability (install, upgrade, etc), and maintainability.
+\item Each two weeks, identify reviewers and schedule review meetings
+\item Reviewers study the material individually for 1 hour
+\item Reviewers meet to inspect the material for 1 hour
+\item Place review meeting notes in the wiki and track any issues identified in review meetings
+\end{itemize}
+
+\subsection{Unit Tests}
+
+\begin{itemize}
+\item Set up infrastructure for easy execution of JUnit tests (this is just an Ant target)
+\item Create unit tests for each class when the class is created
+\item Execute unit tests before each commit. All tests must pass before developer can commit, otherwise open new issue(s) for failed tests. These "smoke tests" will be executed in each developer's normal development environment.
+\item Execute unit tests completely on each release candidate to check for regressions. These regression tests will be executed on a dedicated QA machine.
+\item Update unit tests whenever requirements change
+\end{itemize}
+
+\subsection{System Tests}
+
+\begin{itemize}
+\item Design and specify a detailed automated test suite.
+\item Review the system test suite to make sure that every UI screen and element is covered
+\item Execute system tests completely on each release candidate. These system tests will be carried out on a dedicated QA machine.
+\item Update system tests whenever requirements change
+\end{itemize}
+
+\subsection{Regression Testing}
+
+\begin{itemize}
+\item We will adopt a policy of frequently re-running all automated tests, including those that have previously been successful. This will help catch regressions (bugs that we thought were fixed, but that appear again).
+\item Automated tests will be run as often as possible, preferably on check-in of new code.
+\item Failures will be reported via email or web.
+\end{itemize}
+
+\subsection{Build Testing}
+
+\begin{itemize}
+\item On check in of any code or build system changes, the build system will be run.
+\item Failures will be reported via email or web.
+\end{itemize}
+
+\subsection{Beta Testing}
+
+\begin{itemize}
+\item Involve beta testers early in the development process.
+\item Beta testing should focus on functionality, usability, and operability
+\item Issues identified during Beta testing will be reported in the issue tracker
+\item Do beta testing on each major release candidate or when major new milestones are reached
+\end{itemize}
+
+\subsection{Stress Testing}
+
+\begin{itemize}
+\item Tools such as Android Monkey will be used to test that the system doesn't crash given random input.
+\item Other tools will be developed to ensure the system can handle high volumes and high frequencies of events
+\end{itemize}
+
+\subsection{QA Management}
+\begin{itemize}
+\item Update this test plan whenever requirements change
+\item Document test results and communicate them to the entire development team
+\item Estimate remaining (not yet detected) defects based on current issue tracking data, defect rates, and metrics on code size and the impact of changes.
+\item Keep all issues up-to-date in an issue tracking database. The issue tracker is available to all project members here. The meaning of issue states, priorities, and other attributes are defined in the \item SDM (software development methodology, or glossary)
+\end{itemize}
+
 \section{Deployment}
 
 
