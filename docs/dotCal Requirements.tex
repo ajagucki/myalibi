@@ -1,7 +1,7 @@
 \documentclass[11pt]{article}
 \usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
 \geometry{letterpaper}                   % ... or a4paper or a5paper or ... 
-%\geometry{landscape}                % Activate for for rotated page geometry
+%\geometry{landscape}                % Activate for rotated page geometry
 \usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
 \usepackage{graphicx}
 \usepackage{amssymb}
@@ -57,14 +57,16 @@ The user interface needs to be simple and intuitive. The user will interact with
 
 \subsection{Setup Screen} 
 
-The Setup Screen is used to change two settings:
-
+The Setup Screen is used to examine or change the following settings:
 \begin{itemize}
-	\item{Reminder Time Interval, which determines whether or not to remind the user that an event is running, and the time period between each reminder. The reminder is controlled by a check box. If the box is checked, interval selector becomes activated; it is configurable from 0-4 days, 0-23 hours, and 0-59 minutes. If both days and hours are set to zero, minutes has a minimum of 1. The check box should be checked by default. If it is not checked, the interval selector is inactive.}
-	\item{Calendar to Publish, which determines the calendar in which to place events; the options given include only the write-accassable calendars listed in the phone's calendar application. There is no ability to create a new calendar from within dotCal.}
+	\item{Remind Me, a checkbox which determines whether to remind the user periodically that an event is running. Only if this option is checked is the Reminder Time Interval setting enabled.}
+	\item{Reminder Time Interval, comprised of ``Days," ``Hours," and ``Minutes" controls, gives the time period between each reminder. It is configurable from 0-4 days, 0-23 hours, and 0-59 minutes; however, if both days and hours are set to zero, minutes has a minimum of 1.}
+	\item{Calendar to Publish, which determines the calendar in which to place events; the options given include only the write-accessible calendars listed in the phone's calendar application. There is no ability to create a new calendar from within dotCal.}
 \end{itemize}
 
-It is not necessary to invoke this screen to use the application; the reminder time interval defaults to one hours and the calendar in which to publish defaults to the user's default calendar given by the phone's calendar application. In a future version, if the user intends to publish to a blog, relevant information for that needs to be gathered as well. This should be done through a separate tabs in the settings screen. 
+It is not necessary to invoke this screen to use the application; Remind Me defaults to checked, Reminder Time Interval defaults to one hour, and Calendar to Publish defaults to the user's default calendar given by the phone's calendar application.
+
+In a future version, if the user intends to publish to a blog, relevant information for that needs to be gathered as well. This should be done through separate tabs in the settings screen. 
 
 
 \subsection{Start Screen}
@@ -78,25 +80,25 @@ The Start Screen allows the user to start an event by clicking one of four categ
 	\item{Other}
 \end{itemize}
 
-The space above the category buttons should include a summary (category, times, and location) of the last completed event. If this is the user's first event, this will be replaced with a welcome message and a link to online documentation.
+The space above the category buttons should show a summary (category, times, and location) of the last completed event. If this is the user's first event, the space above the category buttons instead shows a welcome message and a link to online documentation.
 
 \subsection{Current Event Screen}
 
 This screen appears when an event is started. It displays the start time of the event, and the chosen category for the event. The screen presents three buttons: one to change the event's category, one to stop the event, and one to cancel the event.
 
-Pressing \bt{Change Category} takes the user to the Change Category Screen. Pressing \bt{Stop Event} takes the user to the Summary Screen. The \bt{Cancel Event} button will display the event confirmation popup. If the user chooses to cancel the event, the user will be taken back to the start event screen and the event will not be recorded.
+Pressing \bt{Change Category} takes the user to the Change Category Screen. Pressing \bt{Stop Event} takes the user to the Summary Screen. Pressing \bt{Cancel Event} displays the Cancelation Confirmation Popup Screen. If the user chooses to cancel the event, the user will be taken back to the Start Screen and the event will not be recorded.
 
 \subsection{Change Category Screen}
 
-This screen appears only when the user presses \bt{Change Category} in the Current Event Screen. This screen presents four category choices exactly like the Start Screen, but without the ``Last Event'' summary. When the user pushes one of the four category buttons, they are taken back to the Current Event Screen, which will now show the newly selected event category. The event's start time is not changed by this screen; only the event's category may be changed by this screen.
+This screen appears only when the user presses \bt{Change Category} in the Current Event Screen. This screen presents four category choices exactly like the Start Screen, but with the message ``Please select the new category for this event" instead of and in place of the ``Last Event'' summary. When the user pushes one of the four category buttons, they are taken back to the Current Event Screen, which will now show the newly selected event category. The event's start time is not changed by this screen; only the event's category may be changed by this screen.
 
 \subsection{Summary Screen}
 
-After the user presses \bt{Stop}  on the Current Event Screen, or in the Reminder Popup Screen, the event is finished and the Summary Screen is displayed. It displays the start- and stop times of the event, the event's category, and presents two buttons: one to edit the event and one to save the event as-is and return to the Start Screen.
+After the user presses \bt{Stop Event} in the Current Event Screen, or in the Reminder Popup Screen, the event is finished and the Summary Screen is displayed. It displays the start- and stop times of the event, the event's category, and presents two buttons: one to edit the event and one to save the event as-is and return to the Start Screen.
 
 \subsection{Reminder Popup Screen}
 
-When an event has been running for the amount of time specified in the Reminder Time Interval setting, the Reminder Popup Screen will appear as a window on top of whatever application Android is currently running. This popup screen displays a message like, ``dotCal Reminder: Your `Play' event has been in progress since 2:00pm." The popup screen presents two buttons:
+If the Remind Me option is enabled and an event has been running for the amount of time specified in the Reminder Time Interval setting, the Reminder Popup Screen will appear as a window on top of whatever application Android is currently running. This popup screen displays a message like, ``dotCal Reminder: Your `Play' event has been in progress since 2:00pm." The popup screen presents two buttons:
 \begin{itemize}
 	\item{\bt{Continue Activity}, which makes the popup screen go away and does not end the event. The reminder will pop up again after another Reminder Time Interval amount of time passes.}
 	\item{\bt{Stop Activity Now}, which acts like the Current Event screen's Stop button, taking the user to the dotCal application and bringing up the Summary Screen}
@@ -104,15 +106,19 @@ When an event has been running for the amount of time specified in the Reminder 
 
 \subsection{Cancelation Confirmation Popup Screen}
 
-Any user actions that cause the cancelation of an event should trigger this popup. This popup has two buttons. One allows the user the cancel the event, and returns to the Start Event Screen. The other continues the event, as if the 
+This popup is triggered by the user pressing either \bt{Cancel Event} or the physical back button when the Current Event Screen is active.
+
+This popup has two buttons: \bt{Cancel Event} allows the user the cancel the event, and returns to the Start Event Screen; \bt{Continue Event} continues the event, as if the user had never performed the action which triggered this popup.
 
 \subsection{Event Life Cycle}
 
-Upon the start of a new event, dotCal gathers and stores specific information: the current time, the event's category, and the phone's current GPS coordinates. While the GPS obtains coordinates, a ``busy'' splash screen appears. If the GPS fails, or takes longer than 7 seconds, the app records the location as unknown.
+Upon the start of a new event, dotCal gathers and stores specific information: the current time, the event's category, and the phone's current GPS coordinates. While the GPS obtains coordinates, a ``busy'' splash screen appears. If the GPS fails, or takes longer than 7 seconds, the application records the new event's location as ``Unknown."
 
-If an event is left running for the amount of time specified by the reminder interval, the Reminder Popup Screen will appear.
+After an event is started, the application need not be active or running in the phone until the user wishes to stop or cancel the event.
 
-When an event is ended, the time will be recorded, and information about the event will be transferred to the calendar. Times sent to the calendar should be  rounded to the nearest minute. The summary screen will appear, giving the user the choice between editing the event or continuing in dotCal.
+If the Remind Me option is enabled, and an event is left running for the amount of time specified by the Reminder Time Interval, the Reminder Popup Screen will appear.
+
+When an event is ended, the time will be recorded, and information about the event will be transferred to the calendar. Times sent to the calendar will be rounded to the nearest minute. The Summary Screen will appear, giving the user the choice between editing the event or continuing in dotCal.
 
 
 \subsection{Event Editing}
@@ -126,7 +132,21 @@ The completed event in Android's calendar will have the location in geo-coordina
 
 If the application takes significant time to load, a splash screen should be implemented.
 
-Throughout the application, the phone's physical back button will take the user to the previous screen. The Summary screen is an exception; the back button will take the user to the start event screen.  If the user presses the back button while an event is being recorded, this is equivalent to canceling the event, and the confirmation message will display.
+Upon starting, the application will display either
+\begin{itemize}
+	\item{the Start Event Screen, if no event was previously left running, or}
+	\item{the Current Event Screen, if an event was left running when the application was last exited, or}
+	\item{the Reminder Popup Screen, if the application's starting was triggered by the Reminder Time Interval expiring.}
+\end{itemize}
 
+Throughout the application, the phone's physical back button will take the user to the previous screen. The Summary Screen is an exception; there, the back button will take the user to the Start Screen.  If the user presses the back button while an event is being recorded, this is equivalent to pressing \bt{Cancel Event}, and the Cancelation Confirmation Popup Screen will display.
+
+From each screen of the application, the Slide-Up Menu is accessible. The Slide-Up Menu slides upward into view on the bottom of the screen when the phone's physical MENU button is pressed, but is not otherwise visible. The Slide-Up Menu contains two buttons:
+\begin{itemize}
+	\item{\bt{Settings}, which invokes the Setup Screen}
+	\item{\bt{About}, which invokes the About Screen}
+\end{itemize}
+
+The Slide-Up Menu's \bt{Settings} button is enabled only when the Start Screen is active; on all other screens, it is disabled. The \bt{About} button is enabled during all screens.
 
 \end{document}
