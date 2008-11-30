@@ -1,7 +1,7 @@
 \documentclass[11pt]{article}
 \usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
 \geometry{letterpaper}                   % ... or a4paper or a5paper or ... 
-%\geometry{landscape}                % Activate for for rotated page geometry
+%\geometry{landscape}                % Activate for rotated page geometry
 \usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
 \usepackage{graphicx}
 \usepackage{amssymb}
@@ -58,11 +58,12 @@ Kelsey & 0 & not worthy of signature & 11/23 \\
 
 
 \section{Overview}
+
 \section{Deliverables}
 Installable Android Package (APK) along with a 1.0 tagged source tree in the source control repository.
 \section{Assumptions, Constraints and References}
-\section{Development Process}
 
+\section{Development Process}
 \begin{enumerate}
  \item \textbf{Establish customer needs.} \textit{Everyone} will meet with neutralSpace (nS) and determine overall purpose of application and expected functionality. (\underline{Complete})
  \item \textbf{Write needs down in the form of a Requirements Document.} \textit{Kelsey} and \textit{Adam} will develop a concise list of detailed program requirements. \textit{Sky} will create a Visio document reflecting these needs with wireframes and mockups of the application screens, along with the program flow. (\underline{Complete})
@@ -80,11 +81,112 @@ Installable Android Package (APK) along with a 1.0 tagged source tree in the sou
 \section{Calendar}
 \section{Meetings and Reviews}
 \section{Resource Identification}
-\section{Configuration Management}
-\section{Roles}
+	Summary of resources identified:
+	\begin{itemize}
+		\item{T-Mobile G1 Phone Device}
+		\item{Tools Provided by neutralSpace}
+		\item{Development Computers}
+		\item{Development Tools}
+		\item{Team Members}
+	\end{itemize}
 
+	\subsection{T-Mobile G1 Phone Device}
+		This unit is provided by neutralSpace on an as-needed basis for testing the software outside of the software phone emulator during development. This device helps us 
+
+	\subsection{Tools Provided by neutralSpace}
+		The project management system, called Redmine, is provided and administered by neutralSpace. The team uses this software to
+		\begin{itemize}
+			\item{Keep track of issues: Tasks to be done, features to add, bugs to fix, weekly goals to meet}
+			\item{Host a central store of frequently evolving team knowledge, in its Wiki component: Meeting agendas, tutorials}
+			\item{View source code or document PDFs through the Subversion repository web interface provided by Redmine when viewing them directly from a source check out is inconvenient}
+			\item{Allow neutralSpace to see our work and progress as it evolves, by working in the open}
+		\end{itemize}
+	\subsection{Development Computers}
+		Portland State University's Capstone Lab has six machines which we can use for development. These machines will be set up by the team's Lead Computer Nerd. Each team member gets one machine which they can use in person or remotely as they see fit, for the application's development or related tasks. These systems will have an automated mutual-backup mechanism to keep data on them relatively safe.
+
+	Team members may also use personal machines for the project, with each member responsible for keeping their work on their personal machine backed up. Members may contact a Computer Nerd for help on configuring a backup system for their personal systems if desired.
+
+	\subsection{Development Tools}
+		The software tools to be used are almost all open-source software. These components are readily available on the Internet and will be installed on all of the team's Capstone Lab machines by the Lead Computer Nerd. Open-source components used include
+		\begin{itemize}
+			\item{Eclipse IDE with Android Plugin}
+			\item{Android SDK and emulator}
+			\item{Git and Subversion source code control systems}
+		\end{itemize}
+		Non-free applications used include Microsoft Visio for creation of diagrams, such as screen mockups. Members must each obtain licenses to use Microsoft applications through Portland States MSDNaa (Academic Alliance) program.
+
+	\subsection{Team Members}
+		Adam, Armando, Kelsey, Nathan, Peter, and Sky each lead one facet of the team and project (see {\em Roles} section, below).
+
+		Each member is responsible for delegating tasks for the area they lead. For example, Adam is the Lead Computer Nerd, so if he needs help with system administration or other computer nerd tasks, he can ask for help from the backup Computer Nerds, Peter and Armando.
+
+\section{Configuration Management}
+	Source Code, Build, and Documentation are managed parts of the application's configuration.
+
+	\subsection{Source Code Management}
+		neutralSpace's Subversion repository is considered the official source of the latest code, or the ``Primary Source Repository." Only the ``trunk" branch is to be used in the Primary Source Repository; no new branches are to be created. Creating temporary local branches on development machines using Git is recommended when adding features.
+
+		Initially, each developer will clone the Primary Source Repository using ``git svn clone," or check out said repository using ``svn checkout," at the developer's preference. When creating new code or modifying existing code, developers will follow a procedure similar to this:
+		\begin{itemize}
+			\item{Before writing code, sync to the Primary Source Repository}
+			\item{Create and check out a new git branch for the feature about to be written}
+			\item{Write new code with corresponding comments and JavaDoc-syntax comments}
+			\item{Document expected preconditions and post conditions using debugging assertions in every function; explain non-obvious assertions with a short comment}
+		\end{itemize}
+		Before checking a new feature into the Primary Source Repository, developers will follow this procedure:
+		\begin{itemize}
+			\item{Make sure the new code builds without error or warning}
+			\item{Test the new code in the emulator}
+			\item{Write or modify a unit test for the new code if possible}
+			\item{Verify that the new code passes the new unit test}
+			\item{Verify the new unit test's falsifiability with a bad test case}
+			\item{Verify that the application as a whole still passes all current unit tests (regression testing)}
+			\item{Commit to the local branch created above}
+			\item{Sync local master branch to Primary Source Repository again}
+			\item{Merge new local branch to local master branch}
+			\item{Push new commit upstream to the Primary Source Repository}
+		\end{itemize}
+
+		Developers should not generally commit to the Primary Source Repository ``work in progress" (WIP) code, such as code that doesn't build or causes the application to crash; developers can instead make several WIP commits to their working local git branches (without regard to commit message content or format) while making changes, then eventually merge the local commits into one bigger commit with a clear commit message (see {\em Writing Commit Messages}).
+
+		Developers are encouraged to
+		\begin{itemize}
+			\item{Create small, self-contained commits}
+			\item{Create cohesive commits, in general, which change code related to a single feature or bug}
+			\item{Put non-cohesive changes which are not related to a specific feature or bug in their own ``maintenance" commits}
+			\item{Push upstream to the Primary Source Repository on a frequent basis, in order to ensure continual code integration and to keep the rest of the team up-to-date}
+		\end{itemize}
+
+		\subsubsection{Writing Commit Messages}
+			Typically, commit messages should be in this format:
+
+			
+			\hspace{10mm}{\it Summary line}
+
+
+			\hspace{10mm}{\it Optional longer description paragraph(s)}
+
+			Ideal commit messages:
+			\begin{itemize}
+				\item{Are concise, clear, generally in active voice starting with a verb (e.g., ``Changed X to do Y" rather than ``X has been changed to be able to do Y in this revision"), though other forms can be used as deemed appropriate}
+				\item{Contain relevant Redmine issue numbers}
+				\item{Describe test cases added or modified, as well as code}
+				\item{Are free of obvious typos and errors, such as missing or repeated words, and misspellings}
+			\end{itemize}
+	\subsection{Build Management}
+		Ant targets are used to build the application, unit tests, and documentation. When adding new files, developers update the appropriate ant targets. When changing the Eclipse project, Ant targets, or other build scripts, developers include a short description of the change in their commit message.
+
+	\subsection{Documentation Management}
+		Documentation creation and modification should be done similarly to code creation and modification as outlined above (see {\em Source Code Management}). LaTeX is used for documentation in part because it allows multiple contributors to merge changes more easily than with binary document formats.
+
+		For ease of viewing the current versions of LaTeX documents, the compiled (PDF) versions of each document should be included in each Primary Source Repository commit changing a document.
+
+	\subsection{Test Management}
+		As outlined above (see {\em Source Code Management}), developers run all unit tests and any newly created unit tests before creating each commit; developers regularly (with most source code commits) create and verify the validity of new unit test cases.
+
+\section{Roles}
 \begin{tabular}{|l|l|l|}
- \hline
+\hline
 \textbf{Role} & \textbf{Lead} & \textbf{Backup}  \\ \hline
 Project Manager & Nate Ertner & None\\ \hline
 Computer Nerd & Adam DiCarlo  & Armando/Peter\\ \hline
@@ -97,6 +199,8 @@ Quality Assurance & Peter Welte  & Armando/Sky \\ \hline
 
 
 \section{Risk Management}
+
+
 \section{Quality Assurance}
 
 For the Android dotCal project, QA activities will be integrated into all aspects of the project development process.
