@@ -62,6 +62,20 @@ Kelsey & 0 & not worthy of signature & 11/23 \\
 \section{Deliverables}
 Installable Android Package (APK) along with a 1.0 tagged source tree in the source control repository.
 \section{Assumptions, Constraints and References}
+	The team assumes that:
+	\begin{itemize}
+	\item The application will run on the ``T-Mobile G1" Android-platform phone
+	\item Any updates published by Google to
+		\begin{itemize}
+		\item Android SDK,
+		\item Android Operating System,
+		\item Android Calendar API,
+		\item Google Calendar Web API, or
+		\item Android Marketplace
+		\end{itemize}
+		during the application's development will be inconsequential to the schedule and system architecture
+	\item neutralSpace will use Eclipse to build the application, or will nonetheless find satisfactory the team providing Eclipse Project and Ant build scripts
+	\end{itemize}
 
 \section{Development Process}
 \begin{enumerate}
@@ -91,7 +105,7 @@ Installable Android Package (APK) along with a 1.0 tagged source tree in the sou
 	\end{itemize}
 
 	\subsection{T-Mobile G1 Phone Device}
-		This unit is provided by neutralSpace on an as-needed basis for testing the software outside of the software phone emulator during development. This device helps us 
+		This unit is provided by neutralSpace on an as-needed basis for testing the application outside of the software phone emulator during development. While the team will use the emulator for most testing, it is helpful to occasionally run the application on the actual phone as a ``sanity check" -- that is, to reaffirm that the application does indeed work properly on the actual target device.
 
 	\subsection{Tools Provided by neutralSpace}
 		The project management system, called Redmine, is provided and administered by neutralSpace. The team uses this software to
@@ -199,7 +213,64 @@ Quality Assurance & Peter Welte  & Armando/Sky \\ \hline
 
 
 \section{Risk Management}
+Infrastructure- and personnel-related risks are identified below.
 
+	\subsection{Infrastructure Risks}
+		% TODO: Figure out how to have LaTeX make tabular environments
+		% span multiple pages. For now, just use one table per item.
+		\begin{tabular}{lp{118mm}}\\
+		{\bf Risk:}        & Phone's GPS unit is inaccurate wherever it is used \\
+		{\bf Consequence:} & Recorded calendar location data is meaningless; application may be considered useless by neutralSpace\\
+		{\bf Mitigation:}  & None. The phone's GPS unit cannot be changed. neutralSpace has agreed that we are not responsible for the phone's GPS accuracy\\\\
+		\end{tabular}
+
+		\begin{tabular}{lp{118mm}}\\
+		{\bf Risk:}        & Redmine (project management software) data loss\\
+		{\bf Consequence:} & Delay, possible information loss\\
+		{\bf Mitigation:}  & Verify (now) that neutralSpace has a frequent automated backup system in place for Redmine. Ask neutralSpace (now) to provide us a method to create a backup of the Redmine Wiki. In the event of data loss, wait for neutralSpace to restore the system from backup.\\\\
+		\end{tabular}
+
+		\begin{tabular}{lp{118mm}}\\
+		{\bf Risk:}        & Total Redmine data loss with no neutralSpace backup source\\
+		{\bf Consequence:} & Major delay and information loss\\
+		{\bf Mitigation:}  & The team must wait for neutralSpace to create a new Redmine instance, and then reconstruct issues in the issue tracker from Redmine notification emails. The team must reconstruct the Wiki from a team member's most recent backup if one is available.\\\\
+		\end{tabular}
+
+		\begin{tabular}{lp{118mm}}\\
+		{\bf Risk:}        & Phone loss or destruction\\
+		{\bf Consequence:} & Inability to test on actual hardware\\
+		{\bf Mitigation:}  & Test using only emulator until neutralSpace has replaced the phone\\\\
+		\end{tabular}
+
+		\begin{tabular}{lp{118mm}}\\
+		{\bf Risk:}        & Subversion source code repository data loss\\
+		{\bf Consequence:} & Delay\\
+		{\bf Mitigation:}  & Verify (now) that neutralSpace has a frequent automated backup system in place for the repository. Restore from backup if available, or determine who on the team has the latest repository check out and create a new repository using their check out\\\\
+		\end{tabular}
+
+		\begin{tabular}{lp{118mm}}\\
+		{\bf Risk:}        & Development computer data loss\\
+		{\bf Consequence:} & Delay\\
+		{\bf Mitigation:}  & Configure development computers to be automatically backed up using a mutual backup system; in the event of data loss on one machine, its data can be restored from one of the other machines\\\\
+		\end{tabular}
+
+		\begin{tabular}{lp{118mm}}\\
+		{\bf Risk:}        & Android Calendar API inexistant\\
+		{\bf Consequence:} & If mitigation possible, delay; if not, possible failure of project\\
+		{\bf Mitigation:}  & 1. Contact Google Android developers and persuade them to write/finish the API (in a timely manner); or 2. Write our own Google Calendar web-API interface code and have the application put events into the web calendar (this will cause a more complicated implementation of the application in addition to the extra work of writing the web API)\\\\
+		\end{tabular}
+
+	\subsection{Personnel Risks}
+
+		\begin{tabular}{lp{118mm}}\\
+		{\bf Risk:}        & Member unable to work due to leaving team, refusing, being ill, or other circumstances\\
+		{\bf Consequence:} & Other members must take on responsibility of lost member\\
+		{\bf Mitigation:}  & Assign lost member's primary responsibility to pre-determined understudy or understudies (see {\em Roles} section, above)\\\\
+
+		{\bf Risk:}        & Personal conflict among members\\
+		{\bf Consequence:} & Loss of focus of members or group, delay\\
+		{\bf Mitigation:}  & Attempt to resolve conflict with ``Radical Honesty" communication techniques, and with another group member present as mediator if necessary; if no member-mediator can be agreed upon, ask the Capstone Coordinator to be the mediator\\\\
+		\end{tabular}
 
 \section{Quality Assurance}
 
