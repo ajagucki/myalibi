@@ -8,6 +8,7 @@
 \usepackage{amsmath}
 \usepackage{epstopdf}
 \usepackage{ulem}
+\usepackage[colorlinks]{hyperref} %allows for links, e.g. \href{<url>}{<text>}
 %\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
 
 \title{Project Plan}
@@ -297,8 +298,8 @@ For the Android dotCal project, QA activities will be integrated into all aspect
 \begin{itemize}
 
 \item Assign buddy reviewers
-\item Select an at-risk section of code for weekly review meetings. Issues to look for include security, \item efficiency, scalability, operability (install, upgrade, etc), and maintainability.
-\item Each two weeks, identify reviewers and schedule review meetings
+\item Select an at-risk section of code for bi-weekly review meetings. Issues to look for include security, efficiency, scalability, operability (install, upgrade, etc), and maintainability.
+\item Every two weeks, identify reviewers and schedule review meetings
 \item Reviewers study the material individually for 1 hour
 \item Reviewers meet to inspect the material for 1 hour
 \item Place review meeting notes in the wiki and track any issues identified in review meetings
@@ -309,7 +310,7 @@ For the Android dotCal project, QA activities will be integrated into all aspect
 \begin{itemize}
 \item Set up infrastructure for easy execution of JUnit tests (this is just an Ant target)
 \item Create unit tests for each class when the class is created
-\item Execute unit tests before each commit. All tests must pass before developer can commit, otherwise open new issue(s) for failed tests. These "smoke tests" will be executed in each developer's normal development environment.
+\item Execute unit tests before each commit. All tests must pass before developer can commit, otherwise open new issue(s) for failed tests. These ``smoke tests" will be executed in each developer's normal development environment.
 \item Execute unit tests completely on each release candidate to check for regressions. These regression tests will be executed on a dedicated QA machine.
 \item Update unit tests whenever requirements change
 \end{itemize}
@@ -358,8 +359,7 @@ For the Android dotCal project, QA activities will be integrated into all aspect
 \begin{itemize}
 \item Update this test plan whenever requirements change
 \item Document test results and communicate them to the entire development team
-\item Estimate remaining (not yet detected) defects based on current issue tracking data, defect rates, and metrics on code size and the impact of changes.
-\item Keep all issues up-to-date in an issue tracking database. The issue tracker is available to all project members here. The meaning of issue states, priorities, and other attributes are defined in the \item SDM (software development methodology, or glossary)
+\item Keep all issues up-to-date in an issue tracking database. The \href{https://projects.neutralspace.com/projects/android/issues}{issue tracker} is available to all project members. The meaning of issue states, priorities, and other attributes are defined in the SDM (software development methodology, or glossary)
 \end{itemize}
 
 \section{Deployment}
