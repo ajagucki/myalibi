@@ -51,11 +51,7 @@ public class Setup extends Activity {
 		}
 		
 		reminderDp = (DelayPicker) findViewById(R.id.delay_picker);
-        int reminderDelay = extras.getInt(Alibi.PREF_REMIND_DELAY);
-        int days = reminderDelay / 1440;
-        int hours = (reminderDelay % 1440) / 60;
-        int minutes = (reminderDelay % 1440) % 60;
-        reminderDp.updateDelay(days, hours, minutes);
+        reminderDp.updateDelay(extras.getInt(Alibi.PREF_REMIND_DELAY));
         
 		remindCb = (CheckBox) findViewById(R.id.reminder_checkbox);
 		remindCb.setOnCheckedChangeListener(remindCbListener);
@@ -71,7 +67,7 @@ public class Setup extends Activity {
         super.onSaveInstanceState(outState);
         outState.putInt(Alibi.PREF_CALENDAR_ID, (int) calendarS.getSelectedItemId());
         outState.putBoolean(Alibi.PREF_REMIND, remindCb.isChecked());
-        outState.putInt(Alibi.PREF_REMIND_DELAY, getReminderDelay());
+        outState.putInt(Alibi.PREF_REMIND_DELAY, reminderDp.getDelayInMinutes());
     }
 
     private OnCheckedChangeListener remindCbListener = new OnCheckedChangeListener() {
@@ -91,7 +87,7 @@ public class Setup extends Activity {
             Bundle bundle = new Bundle();
             bundle.putInt(Alibi.PREF_CALENDAR_ID, (int) calendarS.getSelectedItemId());
             bundle.putBoolean(Alibi.PREF_REMIND, remindCb.isChecked());
-            bundle.putInt(Alibi.PREF_REMIND_DELAY, getReminderDelay());
+            bundle.putInt(Alibi.PREF_REMIND_DELAY, reminderDp.getDelayInMinutes());
             
             Intent intent = new Intent();
             intent.putExtras(bundle);
@@ -100,13 +96,5 @@ public class Setup extends Activity {
         }
 	    
 	};
-	
-	private int getReminderDelay() {
-	    int reminderDelay = 0;
-	    reminderDelay += (reminderDp.getDays() * 1440);
-	    reminderDelay += (reminderDp.getHours() * 60);
-	    reminderDelay +=  reminderDp.getMinutes();
-	    return reminderDelay;
-	}
 
 }

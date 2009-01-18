@@ -160,11 +160,20 @@ public class DelayPicker extends FrameLayout {
 
     public void updateDelay(int days, int hours, int minutes) {
         this.days = days;
-        daysPicker.setCurrent(this.days);
         this.hours = hours;
-        hoursPicker.setCurrent(this.hours);
         this.minutes = minutes;
+        daysPicker.setCurrent(this.days);
+        hoursPicker.setCurrent(this.hours);
         minutesPicker.setCurrent(this.minutes);
+    }
+    
+    public void updateDelay(int delayInMinutes) {
+        days    =  delayInMinutes / 1440;
+        hours   = (delayInMinutes % 1440) / 60;
+        minutes = (delayInMinutes % 1440) % 60;
+        daysPicker.setCurrent(days);
+        hoursPicker.setCurrent(hours);
+        minutesPicker.setCurrent(minutes);
     }
 
     private static class SavedState extends BaseSavedState {
@@ -276,6 +285,14 @@ public class DelayPicker extends FrameLayout {
 
 	public int getMinutes() {
 		return minutes;
+	}
+	
+	public int getDelayInMinutes() {
+        int delay = 0;
+        delay += (getDays() * 1440);
+        delay += (getHours() * 60);
+        delay +=  getMinutes();
+        return delay;
 	}
 }
 
