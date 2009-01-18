@@ -145,6 +145,7 @@ public class DelayPicker extends FrameLayout {
     protected void updateMinutes() {
         if (daysPicker.getCurrent() == 0 && hoursPicker.getCurrent() == 0
                 && minutesPicker.getCurrent() == 0) {
+            minutes = 1;
             minutesPicker.setCurrent(1);
         }
     }
@@ -157,10 +158,13 @@ public class DelayPicker extends FrameLayout {
         minutesPicker.setEnabled(enabled);
     }
 
-    public void updateDate(int days, int hours, int minutes) {
+    public void updateDelay(int days, int hours, int minutes) {
         this.days = days;
+        daysPicker.setCurrent(this.days);
         this.hours = hours;
+        hoursPicker.setCurrent(this.hours);
         this.minutes = minutes;
+        minutesPicker.setCurrent(this.minutes);
     }
 
     private static class SavedState extends BaseSavedState {
