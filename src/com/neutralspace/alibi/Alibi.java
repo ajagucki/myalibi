@@ -34,7 +34,7 @@ public class Alibi extends Activity {
         // TODO: Make the default calendar id the currently selected calendar
         setCalendarId(settings.getInt(PREF_CALENDAR_ID, 1));
         setRemind(settings.getBoolean(PREF_REMIND, true));
-        setReminderDelay(settings.getInt(PREF_REMIND_DELAY, 30));
+        setReminderDelay(settings.getInt(PREF_REMIND_DELAY, 60));
         
         // Set listener for 'Settings' button
         Button settingsButton = (Button) findViewById(R.id.settings);

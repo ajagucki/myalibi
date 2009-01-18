@@ -101,6 +101,7 @@ public class DelayPicker extends FrameLayout {
         hoursPicker.setFormatter(NumberPicker.TWO_DIGIT_FORMATTER);
         hoursPicker.setRange(0, 23, displayedHours);
         hoursPicker.setSpeed(100);
+        hoursPicker.setCurrent(1);
         hoursPicker.setOnChangeListener(new OnChangedListener() {
             public void onChanged(NumberPicker picker, int oldVal, int newVal) {
                 hours = newVal;
@@ -126,7 +127,6 @@ public class DelayPicker extends FrameLayout {
         minutesPicker = (NumberPicker) findViewById(R.id.minutes);
         minutesPicker.setRange(0, 59, displayedMinutes);
         minutesPicker.setSpeed(100);
-        minutesPicker.setCurrent(30);
         minutesPicker.setOnChangeListener(new OnChangedListener() {
             public void onChanged(NumberPicker picker, int oldVal, int newVal) {
                 minutes = newVal;

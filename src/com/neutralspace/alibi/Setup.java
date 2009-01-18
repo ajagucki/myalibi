@@ -16,6 +16,9 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.neutralspace.alibi.widget.DelayPicker;
 
+/**
+ * The Setup activity is used to examine or change Alibi's settings.
+ */
 public class Setup extends Activity {
     
     public static final Uri CALENDARS_URI = Uri.parse("content://calendar/calendars");
