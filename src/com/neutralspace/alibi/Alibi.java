@@ -1,7 +1,10 @@
 package com.neutralspace.alibi;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 public class Alibi extends Activity {
 	public static final String PREFS_NAME = "AlibiSettings";
@@ -12,7 +15,16 @@ public class Alibi extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
-        // XXX: For testing setup page, uncomment:
-        //setContentView(R.layout.setup);
+        // Set listener for 'Settings' button
+        Button settingsButton = (Button) findViewById(R.id.settings);
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                // Go to Setup screen
+                Intent intent = new Intent(view.getContext(), Setup.class);
+                startActivity(intent);
+            }
+            
+        });
     }
 }
