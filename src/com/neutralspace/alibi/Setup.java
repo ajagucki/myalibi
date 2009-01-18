@@ -22,7 +22,7 @@ import com.neutralspace.alibi.widget.DelayPicker;
 public class Setup extends Activity {
     
     public static final Uri CALENDARS_URI = Uri.parse("content://calendar/calendars");
-    public static final String[] projection = new String[] { "_id", "displayName" };
+    public static final String[] calsProjection = new String[] { "_id", "displayName" };
     
     private Spinner calendarS;
     private CheckBox remindCb;
@@ -39,10 +39,10 @@ public class Setup extends Activity {
 	
 		// Initialize widgets
 		calendarS = (Spinner) findViewById(R.id.calendar_spinner);
-        Cursor c = getContentResolver().query(CALENDARS_URI, projection, null, null, null);
+        Cursor cursor = getContentResolver().query(CALENDARS_URI, calsProjection, null, null, null);
 		String[] from = new String[] { "displayName" };
 		int[] to = new int[] { android.R.id.text1 };
-		SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, android.R.layout.simple_spinner_item, c, from, to);
+		SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, android.R.layout.simple_spinner_item, cursor, from, to);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		calendarS.setAdapter(adapter);
 		int calendarId = extras.getInt(Alibi.PREF_CALENDAR_ID);

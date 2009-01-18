@@ -3,13 +3,16 @@ package com.neutralspace.alibi;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 public class Alibi extends Activity {
     
     public static final String PREFS_NAME = "AlibiSettings";
+    private static final String TAG = "Alibi";
     
     // Settings
     private int calendarId;
@@ -23,7 +26,6 @@ public class Alibi extends Activity {
     public static final int RESULT_SETTINGS = RESULT_FIRST_USER + 1;
     public static final int YOUR_CUSTOM_RESULT_CODE = RESULT_FIRST_USER + 2;
 	
-    /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,8 +33,7 @@ public class Alibi extends Activity {
         
         // Restore settings
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        // TODO: Make the default calendar id the currently selected calendar
-        setCalendarId(settings.getInt(PREF_CALENDAR_ID, 1));
+        setCalendarId(settings.getInt(PREF_CALENDAR_ID, getSelectedCalendarId()));
         setRemind(settings.getBoolean(PREF_REMIND, true));
         setReminderDelay(settings.getInt(PREF_REMIND_DELAY, 60));
         
@@ -53,6 +54,31 @@ public class Alibi extends Activity {
             }
             
         });
+    }
+
+    /**
+     * Returns the ID of the Calendar that is currently selected for system-wide
+     * use on the phone.
+     * 
+     * Do not confuse this selected Calendar ID with that of Alibi's chosen
+     * Calendar ID -- the ID returned from this method is used to choose a sane
+     * default value for Alibi's Calendar ID setting.
+     * 
+     * @return the ID of the Calendar that is currently selected on the phone
+     */
+    private int getSelectedCalendarId() {
+        String[] calsProjection = new String[] { "_id", "selected" };
+        Cursor cursor = getContentResolver().query(Setup.CALENDARS_URI, 
+                calsProjection, null, null, null);
+        if (cursor.moveToFirst()) {
+            do {
+                if (cursor.getInt(cursor.getColumnIndex("selected")) > 0) {
+                    return (int) cursor.getLong(cursor.getColumnIndex("_id"));
+                }
+            } while (cursor.moveToNext());
+        }
+        Log.w(TAG, "Could not find the system's currently selected Calendar ID, using default ID: 1");
+        return 1;
     }
 
     @Override
@@ -112,5 +138,7 @@ public class Alibi extends Activity {
         editor.putBoolean(PREF_REMIND, isRemind());
         editor.putInt(PREF_REMIND_DELAY, getReminderDelay());
         editor.commit();
+        
+        Log.i(TAG, "Settings updated");
     }
 }
