@@ -1,144 +1,34 @@
 package com.neutralspace.alibi;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.os.Bundle;
+import android.app.Application;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 
-public class Alibi extends Activity {
+public class Alibi extends Application {
+
+    public static final String TAG = "Alibi";
     
-    public static final String PREFS_NAME = "AlibiSettings";
-    private static final String TAG = "Alibi";
-    
-    // Settings
-    private int calendarId;
-    private boolean remind;
-    private int reminderDelay;  // in minutes
-    // Keys for settings bundle
-    public static final String PREF_CALENDAR_ID = "calendarId";
-    public static final String PREF_REMIND = "remind";
-    public static final String PREF_REMIND_DELAY = "reminderDelay";
-    // Custom Activity result codes
-    public static final int RESULT_SETTINGS = RESULT_FIRST_USER + 1;
-    public static final int YOUR_CUSTOM_RESULT_CODE = RESULT_FIRST_USER + 2;
-	
+    private SettingsManager settingsManager;
+
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+    public void onCreate() {
+        Log.i(TAG, "Starting up.");
+        super.onCreate();
         
-        // Restore settings
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        setCalendarId(settings.getInt(PREF_CALENDAR_ID, getSelectedCalendarId()));
-        setRemind(settings.getBoolean(PREF_REMIND, true));
-        setReminderDelay(settings.getInt(PREF_REMIND_DELAY, 60));
-        
-        // Set listener for 'Settings' button
-        Button settingsButton = (Button) findViewById(R.id.settings);
-        settingsButton.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View view) {
-                Bundle settingsBundle = new Bundle();
-                settingsBundle.putInt(PREF_CALENDAR_ID, getCalendarId());
-                settingsBundle.putBoolean(PREF_REMIND, isRemind());
-                settingsBundle.putInt(PREF_REMIND_DELAY, getReminderDelay());
-                
-                // Go to Setup screen
-                Intent intent = new Intent(view.getContext(), Setup.class);
-                intent.putExtras(settingsBundle);
-                startActivityForResult(intent, RESULT_SETTINGS);
-            }
-            
-        });
-    }
-
-    /**
-     * Returns the ID of the Calendar that is currently selected for system-wide
-     * use on the phone.
-     * 
-     * Do not confuse this selected Calendar ID with that of Alibi's chosen
-     * Calendar ID -- the ID returned from this method is used to choose a sane
-     * default value for Alibi's Calendar ID setting.
-     * 
-     * @return the ID of the Calendar that is currently selected on the phone
-     */
-    private int getSelectedCalendarId() {
-        String[] calsProjection = new String[] { "_id", "selected" };
-        Cursor cursor = getContentResolver().query(Setup.CALENDARS_URI, 
-                calsProjection, null, null, null);
-        if (cursor.moveToFirst()) {
-            do {
-                if (cursor.getInt(cursor.getColumnIndex("selected")) > 0) {
-                    return (int) cursor.getLong(cursor.getColumnIndex("_id"));
-                }
-            } while (cursor.moveToNext());
-        }
-        Log.w(TAG, "Could not find the system's currently selected Calendar ID, using default ID: 1");
-        return 1;
+        Log.i(TAG, "Starting managers.");
+        settingsManager = new SettingsManager(this);
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        
-        Bundle extras = data != null ? data.getExtras() : null;
-
-        switch(requestCode) {
-            case RESULT_SETTINGS:
-                saveSettings(extras);
-                break;
-            case YOUR_CUSTOM_RESULT_CODE:
-                // Do something
-                break;
-        }
+    public void onTerminate() {
+        super.onTerminate();
     }
 
-    public int getCalendarId() {
-        return calendarId;
+    public SettingsManager getSettingsManager() {
+        return settingsManager;
     }
 
-    public void setCalendarId(int calendarId) {
-        this.calendarId = calendarId;
+    public void setSettingsManager(SettingsManager settingsManager) {
+        this.settingsManager = settingsManager;
     }
 
-    public boolean isRemind() {
-        return remind;
-    }
-
-    public void setRemind(boolean remind) {
-        this.remind = remind;
-    }
-
-    public int getReminderDelay() {
-        return reminderDelay;
-    }
-
-    public void setReminderDelay(int reminderDelay) {
-        this.reminderDelay = reminderDelay;
-    }
-    
-    private void saveSettings(Bundle settingsBundle) {
-        if (settingsBundle == null) {
-            return;
-        }
-        
-        // Save in memory
-        setCalendarId(settingsBundle.getInt(PREF_CALENDAR_ID));
-        setRemind(settingsBundle.getBoolean(PREF_REMIND));
-        setReminderDelay(settingsBundle.getInt(PREF_REMIND_DELAY));
-        
-        // Save in external storage
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putInt(PREF_CALENDAR_ID, getCalendarId());
-        editor.putBoolean(PREF_REMIND, isRemind());
-        editor.putInt(PREF_REMIND_DELAY, getReminderDelay());
-        editor.commit();
-        
-        Log.i(TAG, "Settings updated");
-    }
 }
