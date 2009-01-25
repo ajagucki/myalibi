@@ -10,7 +10,7 @@ import android.test.suitebuilder.TestSuiteBuilder;
  *
  * To run all suites found in this apk:
  * $ adb shell am instrument -w \
- *   com.neutralspace.alibi/android.test.InstrumentationTestRunner
+ *   com.neutralspace.alibi.tests/android.test.InstrumentationTestRunner
  *
  * To run just this suite from the command line:
  * $ adb shell am instrument -w \
