@@ -8,6 +8,7 @@ public class Alibi extends Application {
     public static final String TAG = "Alibi";
     
     private SettingsManager settingsManager;
+    private UserEventManager userEventManager;
 
     @Override
     public void onCreate() {
@@ -16,6 +17,7 @@ public class Alibi extends Application {
         
         Log.i(TAG, "Instantiating managers.");
         settingsManager = new SettingsManager(this);
+        userEventManager = new UserEventManager(this);
     }
 
     @Override
@@ -29,6 +31,10 @@ public class Alibi extends Application {
 
     public void setSettingsManager(SettingsManager settingsManager) {
         this.settingsManager = settingsManager;
+    }
+
+    public UserEventManager getUserEventManager() {
+        return userEventManager;
     }
 
 }
