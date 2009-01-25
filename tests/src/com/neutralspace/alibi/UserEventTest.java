@@ -5,7 +5,6 @@ import java.util.Date;
 
 import junit.framework.TestCase;
 import android.location.Location;
-import android.os.Bundle;
 
 public class UserEventTest extends TestCase {
     
@@ -30,20 +29,7 @@ public class UserEventTest extends TestCase {
         userEvent.setEndTime(FAKE_END_TIME);
         userEvent.setUserNotes(FAKE_USER_NOTES);
         
-        // Add to the bundle
-        Bundle bundle = new Bundle();
-        bundle.putParcelable("userEvent", userEvent);
-        
-        // Retrieve from bundle
-        UserEvent retrievedEvent = bundle.getParcelable("userEvent");
-        
-        // Ensure the event is still in its expected condition
-        assertEquals(userEvent.getLocation().getLongitude(), retrievedEvent.getLocation().getLongitude());
-        assertEquals(userEvent.getLocation().getLatitude(), retrievedEvent.getLocation().getLatitude());
-        assertEquals(userEvent.getCategory(), retrievedEvent.getCategory());
-        assertEquals(userEvent.getStartTime(), retrievedEvent.getStartTime());
-        assertEquals(userEvent.getEndTime(), retrievedEvent.getEndTime());
-        assertEquals(userEvent.getUserNotes(), retrievedEvent.getUserNotes());
+        // TODO: finish
         
     }
 

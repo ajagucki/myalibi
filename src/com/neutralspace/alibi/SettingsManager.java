@@ -5,6 +5,13 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.util.Log;
 
+/**
+ * Keeps track of Alibi's application settings.
+ * 
+ * The settings persist on external storage through the SharedPreferences
+ * Android API.
+ *
+ */
 public class SettingsManager {
     
     public static final String PREFS_NAME = "AlibiSettings";

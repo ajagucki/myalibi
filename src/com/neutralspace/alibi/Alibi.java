@@ -14,7 +14,7 @@ public class Alibi extends Application {
         Log.i(TAG, "Starting up.");
         super.onCreate();
         
-        Log.i(TAG, "Starting managers.");
+        Log.i(TAG, "Instantiating managers.");
         settingsManager = new SettingsManager(this);
     }
 
