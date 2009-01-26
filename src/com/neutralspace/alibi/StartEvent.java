@@ -20,8 +20,8 @@ public class StartEvent extends AlibiActivity {
 		setContentView(R.layout.start_event);
 		Button workButton = (Button) findViewById(R.id.work);
 		Button playButton = (Button) findViewById(R.id.play);
-		Button eatButton = (Button) findViewById(R.id.eat);
-		Button otherButton = (Button) findViewById(R.id.other);
+//		Button eatButton = (Button) findViewById(R.id.eat);
+//		Button otherButton = (Button) findViewById(R.id.other);
 		
 		workButton.setOnClickListener(new View.OnClickListener(){
 			
