@@ -75,25 +75,18 @@ public class StartEvent extends Activity {
 		});
 		*/
 		
-        // Set listener for 'Settings' button
-        Button settingsButton = (Button) findViewById(R.id.settings);
-        settingsButton.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View view) {
-                // Go to Setup screen
-                Intent intent = new Intent(view.getContext(), Setup.class);
-                startActivity(intent);
-            }
-            
-        });
-		
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		boolean retVal = super.onCreateOptionsMenu(menu);
-		menu.add(0, MENU_SETTINGS, 0, R.string.menu_settings);
-		menu.add(0, MENU_ABOUT, 0, R.string.menu_about);
+		
+		MenuItem menuItem = menu.add(Menu.NONE, MENU_SETTINGS, Menu.NONE, R.string.menu_settings);
+		menuItem.setIcon(android.R.drawable.ic_menu_preferences);
+		
+		menuItem = menu.add(Menu.NONE, MENU_ABOUT, Menu.NONE, R.string.menu_about);
+		menuItem.setIcon(android.R.drawable.ic_menu_info_details);
+		
 		return retVal;
 	}
 
@@ -102,8 +95,9 @@ public class StartEvent extends Activity {
 		
 		switch (item.getItemId()) {
 		case MENU_SETTINGS:	
-			Intent i = new Intent();
-	//		i...
+            // Go to Setup screen
+            Intent intent = new Intent(this, Setup.class);
+            startActivity(intent);
 			return true;
 		case MENU_ABOUT:
 			return true;
