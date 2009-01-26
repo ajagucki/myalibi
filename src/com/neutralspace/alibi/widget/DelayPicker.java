@@ -37,7 +37,7 @@ import com.neutralspace.alibi.android.widget.NumberPicker.OnChangedListener;
 @Widget
 public class DelayPicker extends FrameLayout {
     private static final String[] displayedDays = new String[5];
-    private static final String[] displayedHours = new String[25];
+    private static final String[] displayedHours = new String[24];
     private static final String[] displayedMinutes = new String[60];
     
     static {
@@ -98,10 +98,8 @@ public class DelayPicker extends FrameLayout {
             true);
         
         hoursPicker = (NumberPicker) findViewById(R.id.hours);
-        hoursPicker.setFormatter(NumberPicker.TWO_DIGIT_FORMATTER);
         hoursPicker.setRange(0, 23, displayedHours);
         hoursPicker.setSpeed(100);
-        hoursPicker.setCurrent(1);
         hoursPicker.setOnChangeListener(new OnChangedListener() {
             public void onChanged(NumberPicker picker, int oldVal, int newVal) {
                 hours = newVal;
@@ -112,7 +110,6 @@ public class DelayPicker extends FrameLayout {
             }
         });
         daysPicker = (NumberPicker) findViewById(R.id.days);
-        daysPicker.setFormatter(NumberPicker.TWO_DIGIT_FORMATTER);
         daysPicker.setRange(0, 4, displayedDays);
         daysPicker.setSpeed(100);
         daysPicker.setOnChangeListener(new OnChangedListener() {

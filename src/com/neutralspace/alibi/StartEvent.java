@@ -8,9 +8,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+/**
+ * This is the default main screen of Alibi.
+ */
 public class StartEvent extends Activity {
+    
 	public static final int MENU_SETTINGS = Menu.FIRST;
 	public static final int MENU_ABOUT = Menu.FIRST + 1;
+	
+    // Custom Activity result codes
+    public static final int YOUR_CUSTOM_RESULT_CODE = RESULT_FIRST_USER + 1;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +75,17 @@ public class StartEvent extends Activity {
 		});
 		*/
 		
-		
+        // Set listener for 'Settings' button
+        Button settingsButton = (Button) findViewById(R.id.settings);
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                // Go to Setup screen
+                Intent intent = new Intent(view.getContext(), Setup.class);
+                startActivity(intent);
+            }
+            
+        });
 		
 	}
 
@@ -94,5 +111,16 @@ public class StartEvent extends Activity {
 		return super.onMenuItemSelected(featureId, item);
 	}
 	
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        
+//        Bundle extras = data != null ? data.getExtras() : null;
 
+        switch(requestCode) {
+            case YOUR_CUSTOM_RESULT_CODE:
+                // Do something
+                break;
+        }
+    }
 }
