@@ -26,6 +26,13 @@ public class UserEvent {
     private long startTime; // in ms
     private long endTime;
     private String userNotes;
+    
+    public UserEvent(Location location, Category category, long startTime) {
+        super();
+        this.location = location;
+        this.category = category;
+        this.startTime = startTime;
+    }
 
     public Location getLocation() {
         return location;
@@ -68,10 +75,21 @@ public class UserEvent {
     }
 
     enum Category {
-        WORK,
-        PLAY,
-        EAT,
-        OTHER,
+        
+        WORK( "Work" ),
+        PLAY( "Play" ),
+        EAT(  "Eat"  ),
+        OTHER("Other");
+        
+        private final String title;
+
+        public String getTitle() {
+            return title;
+        }
+
+        private Category(String title) {
+            this.title = title;
+        }
     }
 
 }

@@ -19,13 +19,10 @@ public class UserEventTest extends TestCase {
         final String FAKE_USER_NOTES = "That's what she said.";
         
         // Create fake event
-        UserEvent userEvent = new UserEvent();
         Location location = new Location("gps");
         location.setLongitude(FAKE_LONGITUDE);
         location.setLatitude(FAKE_LATITUDE);
-        userEvent.setLocation(location);
-        userEvent.setCategory(FAKE_CATEGORY);
-        userEvent.setStartTime(FAKE_START_TIME);
+        UserEvent userEvent = new UserEvent(location, FAKE_CATEGORY, FAKE_START_TIME);
         userEvent.setEndTime(FAKE_END_TIME);
         userEvent.setUserNotes(FAKE_USER_NOTES);
         
