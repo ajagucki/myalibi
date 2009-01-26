@@ -1,9 +1,10 @@
 package com.neutralspace.alibi;
 
-import android.app.Activity;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -18,7 +19,7 @@ import com.neutralspace.alibi.widget.DelayPicker;
 /**
  * The Setup activity is used to examine or change Alibi's settings.
  */
-public class Setup extends Activity {
+public class Setup extends AlibiActivity {
     
     public static final Uri CALENDARS_URI = Uri.parse("content://calendar/calendars");
     public static final String[] calsProjection = new String[] { "_id", "displayName" };
@@ -109,5 +110,13 @@ public class Setup extends Activity {
         }
 	    
 	};
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        boolean retVal = super.onPrepareOptionsMenu(menu);
+        MenuItem menuItem = menu.findItem(MENU_SETTINGS);
+        menuItem.setEnabled(false);
+        return retVal;
+    }
 
 }
