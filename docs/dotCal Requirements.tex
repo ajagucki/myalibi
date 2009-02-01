@@ -49,7 +49,7 @@ The user interface needs to be simple and intuitive. The user will interact with
 	\item{Current Event Screen: Allows the user to stop the current event.}
 	\item{Change Category Screen: Allows the user to change the current event's category.}
 	\item{Summary Screen: Appears after an event has been stopped.}
-	\item{Reminder Popup Screen: Reminds the user that there's a dotCal event running.}
+	\item{Reminder Notification Screen: Reminds the user that there's a dotCal event running.}
 	\item{Cancelation Confirmation Popup Screen: Obtains user confirmation before canceling an event.}
 	\item{Screen allowing the user to publish an event to a blog or other web service. This will not be implemented until later versions.}
 	\item{Screen allowing the user to add notes, tags, or any written description to the event. This will be done through Android's calendar application instead of dotCal's interface.}
@@ -94,16 +94,11 @@ This screen appears only when the user presses \bt{Change Category} in the Curre
 
 \subsection{Summary Screen}
 
-After the user presses \bt{Stop Event} in the Current Event Screen, or in the Reminder Popup Screen, the event is finished and the Summary Screen is displayed. It displays the start- and stop times of the event, the event's category, and presents two buttons: one to edit the event and one to save the event as-is and return to the Start Screen.
+After the user presses \bt{Stop Event} in the Current Event Screen, the event is finished and the Summary Screen is displayed. It displays the start- and stop times of the event, the event's category, and presents two buttons: one to edit the event and one to save the event as-is and return to the Start Screen.
 
-\subsection{Reminder Popup Screen}
+\subsection{Reminder Notification Screen}
 
-If the Remind Me option is enabled and an event has been running for the amount of time specified in the Reminder Time Interval setting, the Reminder Popup Screen will appear as a window on top of whatever application Android is currently running. This popup screen displays a message like, ``dotCal Reminder: Your `Play' event has been in progress since 2:00pm." The popup screen presents two buttons:
-\begin{itemize}
-	\item{\bt{Continue Activity}, which makes the popup screen go away and does not end the event. The reminder will pop up again after another Reminder Time Interval amount of time passes.}
-	\item{\bt{Stop Activity Now}, which acts like the Current Event screen's Stop button, taking the user to the dotCal application and bringing up the Summary Screen}
-\end{itemize}
-
+If the Remind Me option is enabled and an event has been running for the amount of time specified in the Reminder Time Interval setting, the Reminder Notification Screen will appear briefly on the screen as a system notification, above whatever application Android is currently running. This notification displays a message like, ``dotCal Reminder: Your `Play' event has been in progress since 2:00pm." The message disappears after a short time and is logged in the system notification list. When the user views the notification in the system notification list, they can click it to activate the application, directly invoking the Current Event Screen. 
 \subsection{Cancelation Confirmation Popup Screen}
 
 This popup is triggered by the user pressing either \bt{Cancel Event} or the physical back button when the Current Event Screen is active.
@@ -116,7 +111,7 @@ Upon the start of a new event, dotCal gathers and stores specific information: t
 
 After an event is started, the application need not be active or running in the phone until the user wishes to stop or cancel the event.
 
-If the Remind Me option is enabled, and an event is left running for the amount of time specified by the Reminder Time Interval, the Reminder Popup Screen will appear.
+If the Remind Me option is enabled, and an event is left running for the amount of time specified by the Reminder Time Interval, the Reminder Notification Screen will appear.
 
 When an event is ended, the time will be recorded, and information about the event will be transferred to the calendar. Times sent to the calendar will be rounded to the nearest minute. The Summary Screen will appear, giving the user the choice between editing the event or continuing in dotCal.
 
@@ -136,7 +131,7 @@ Upon starting, the application will display either
 \begin{itemize}
 	\item{the Start Event Screen, if no event was previously left running, or}
 	\item{the Current Event Screen, if an event was left running when the application was last exited, or}
-	\item{the Reminder Popup Screen, if the application's starting was triggered by the Reminder Time Interval expiring.}
+	\item{the Reminder Notification Screen, if the application's starting was triggered by the Reminder Time Interval expiring.}
 \end{itemize}
 
 Throughout the application, the phone's physical back button will take the user to the previous screen. The Summary Screen is an exception; there, the back button will take the user to the Start Screen.  If the user presses the back button while an event is being recorded, this is equivalent to pressing \bt{Cancel Event}, and the Cancelation Confirmation Popup Screen will display.
