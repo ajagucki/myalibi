@@ -22,8 +22,8 @@ public class UserEventTest extends TestCase {
         Location location = new Location("gps");
         location.setLongitude(FAKE_LONGITUDE);
         location.setLatitude(FAKE_LATITUDE);
-        UserEvent userEvent = new UserEvent(location, FAKE_CATEGORY,
-				FAKE_START_TIME, FAKE_END_TIME);
+        UserEvent userEvent = new UserEvent(location, FAKE_CATEGORY, FAKE_START_TIME);
+        userEvent.setEndTime(FAKE_END_TIME);
         userEvent.setUserNotes(FAKE_USER_NOTES);
         
         assertEquals(FAKE_LATITUDE, userEvent.getLocation().getLatitude());

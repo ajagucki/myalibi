@@ -168,7 +168,8 @@ public class UserEventDAO {
         long startTime = cursor.getLong(cursor.getColumnIndex(KEY_START_TIME));
         long endTime = cursor.getLong(cursor.getColumnIndex(KEY_END_TIME));
         String userNotes = cursor.getString(cursor.getColumnIndex(KEY_USER_NOTES));
-        UserEvent userEvent = new UserEvent(location, category, startTime, endTime);
+        UserEvent userEvent = new UserEvent(location, category, startTime);
+        userEvent.setEndTime(endTime);
         if (userNotes != null) {
         	userEvent.setUserNotes(userNotes);
         }

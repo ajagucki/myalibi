@@ -27,12 +27,11 @@ public class UserEvent {
     private long endTime;
     private String userNotes;
     
-    public UserEvent(Location location, Category category, long startTime, long endTime) {
+    public UserEvent(Location location, Category category, long startTime) {
         super();
         this.location = location;
         this.category = category;
         this.startTime = startTime;
-        this.endTime = endTime;
     }
 
     public Location getLocation() {
