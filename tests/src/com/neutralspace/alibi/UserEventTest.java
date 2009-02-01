@@ -8,7 +8,7 @@ import android.location.Location;
 
 public class UserEventTest extends TestCase {
     
-    public void testUserEventParcelability() {
+    public void testUserEventCreation() {
         final double FAKE_LONGITUDE = -121.45356;
         final double FAKE_LATITUDE  = 46.51119;
         final UserEvent.Category FAKE_CATEGORY = UserEvent.Category.PLAY;
@@ -22,11 +22,16 @@ public class UserEventTest extends TestCase {
         Location location = new Location("gps");
         location.setLongitude(FAKE_LONGITUDE);
         location.setLatitude(FAKE_LATITUDE);
-        UserEvent userEvent = new UserEvent(location, FAKE_CATEGORY, FAKE_START_TIME);
-        userEvent.setEndTime(FAKE_END_TIME);
+        UserEvent userEvent = new UserEvent(location, FAKE_CATEGORY,
+				FAKE_START_TIME, FAKE_END_TIME);
         userEvent.setUserNotes(FAKE_USER_NOTES);
         
-        // TODO: finish
+        assertEquals(FAKE_LATITUDE, userEvent.getLocation().getLatitude());
+        assertEquals(FAKE_LONGITUDE, userEvent.getLocation().getLongitude());
+        assertEquals(FAKE_CATEGORY, userEvent.getCategory());
+        assertEquals(FAKE_START_TIME, userEvent.getStartTime());
+        assertEquals(FAKE_END_TIME, userEvent.getEndTime());
+        assertEquals(FAKE_USER_NOTES, userEvent.getUserNotes());
         
     }
 

@@ -15,23 +15,23 @@ import android.test.ApplicationTestCase;
 public class AlibiApplicationTests extends ApplicationTestCase<Alibi> {
 
     public AlibiApplicationTests() {
-        super(Alibi.class);
-      }
+		super(Alibi.class);
+	}
 
-      @Override
-      protected void setUp() throws Exception {
-          super.setUp();
-          createApplication();
-      }
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+		createApplication();
+	}
 
-      /**
-       * The name 'test preconditions' is a convention to signal that if this
-       * test doesn't pass, the test case was not set up properly and it might
-       * explain any and all failures in other tests.  This is not guaranteed
-       * to run before other tests, as junit uses reflection to find the tests.
-       */
-      public void testPreconditions() {
-          assertNotNull(getApplication().getSettingsManager());
-      }
+	/**
+	 * The name 'test preconditions' is a convention to signal that if this test
+	 * doesn't pass, the test case was not set up properly and it might explain
+	 * any and all failures in other tests. This is not guaranteed to run before
+	 * other tests, as junit uses reflection to find the tests.
+	 */
+	public void testPreconditions() {
+		assertNotNull(getApplication().getSettingsManager());
+	}
       
 }

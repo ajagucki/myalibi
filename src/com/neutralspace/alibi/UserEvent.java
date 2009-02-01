@@ -27,11 +27,12 @@ public class UserEvent {
     private long endTime;
     private String userNotes;
     
-    public UserEvent(Location location, Category category, long startTime) {
+    public UserEvent(Location location, Category category, long startTime, long endTime) {
         super();
         this.location = location;
         this.category = category;
         this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     public Location getLocation() {
@@ -74,7 +75,7 @@ public class UserEvent {
         this.userNotes = userNotes;
     }
 
-    enum Category {
+	enum Category {
         
         WORK( "Work" ),
         PLAY( "Play" ),
@@ -89,6 +90,22 @@ public class UserEvent {
 
         private Category(String title) {
             this.title = title;
+        }
+        
+        public static Category getCategory(String title) {
+        	if (title.equals(WORK.getTitle())) {
+        		return WORK;
+        	}
+        	else if (title.equals(PLAY.getTitle())) {
+        		return PLAY;
+        	}
+        	else if (title.equals(EAT.getTitle())) {
+        		return EAT;
+        	}
+        	else if (title.equals(OTHER.getTitle())) {
+        		return OTHER;
+        	}
+			return null;
         }
     }
 

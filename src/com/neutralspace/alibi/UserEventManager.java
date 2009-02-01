@@ -5,6 +5,7 @@ import java.util.Calendar;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.SQLException;
 import android.net.Uri;
 import android.util.Log;
 
@@ -13,12 +14,16 @@ import android.util.Log;
  * 
  * This manager acts as an interface for exchanging data with Android's 
  * Calendar application.
+ * 
+ * If there is no current event running, getCurrentEvent() will be null.
  */
 public class UserEventManager {
     
     private Context context;
     private UserEvent currentEvent;
+    private long currentEventId;
     private SettingsManager settingsManager;
+    private UserEventDAO userEventDAO;
     
     private final Uri CALENDAR_EVENTS_URI = Uri.parse("content://calendar/events");
     
@@ -26,6 +31,20 @@ public class UserEventManager {
         super();
         this.context = context;
         this.settingsManager = ((Alibi) context).getSettingsManager();
+        this.userEventDAO = new UserEventDAO(context);
+        
+        // Try to restore an existing current event
+        userEventDAO.open();
+        currentEventId = userEventDAO.fetchCurrentId();
+        if (currentEventId >= 0) {
+        	try {
+				currentEvent = userEventDAO.fetchUserEvent(currentEventId);
+			}
+        	catch (SQLException e) {
+				Log.e(Alibi.TAG, "Failed to restore current event: " + e.getMessage());
+			}
+        }
+        userEventDAO.close();
     }
     
     /**
@@ -40,8 +59,18 @@ public class UserEventManager {
         }
         currentEvent = userEvent;
         
-        // TODO: Persist current event in the database so if the application
-        // ends we can restore upon next load.
+        // Persist current event in the database (to restore application state later)
+        userEventDAO.open();
+        currentEventId = userEventDAO.createUserEvent(userEvent);
+        if (currentEventId == -1) {
+        	Log.e(Alibi.TAG, "Failed to create the user event.");
+        	cancel();
+        }
+        else {
+	        Log.i(Alibi.TAG, "Started a " + userEvent.getCategory().getTitle()
+					+ " event (ID: " + currentEventId + ").");
+        }
+        userEventDAO.close();
     }
 
     /**
@@ -71,8 +100,21 @@ public class UserEventManager {
             throw new Exception("Failed to insert calendar event.");
         }
         
-        currentEvent = null;
+        Log.i(Alibi.TAG, "Finished a " + currentEvent.getCategory().getTitle()
+				+ " event (ID: " + currentEventId + ").");
+        cancel();
     }
+
+	private void clearCurrentEventDb() {
+		userEventDAO.open();
+		if (userEventDAO.deleteUserEvent(currentEventId) == false) {
+        	Log.e(Alibi.TAG, "Failed to delete the current user event.");
+        }
+        if (userEventDAO.updateCurrentId(-1) == false) {
+        	Log.e(Alibi.TAG, "Failed to clear the current user event id.");
+        }
+        userEventDAO.close();
+	}
     
     private ContentValues getCalendarContentValues(UserEvent userEvent) {
         String title = "My Alibi: " + userEvent.getCategory().getTitle();
@@ -106,8 +148,9 @@ public class UserEventManager {
      */
     public void cancel() {
         currentEvent = null;
-        // TODO: Remove current event from local database so the event is not
-        // restored upon next application start-up
+        currentEventId = -1;
+        // Remove current event from local database
+        clearCurrentEventDb();
     }
     
     /**
