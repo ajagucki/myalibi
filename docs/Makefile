@@ -8,5 +8,4 @@
 #
 
 plan:
-	pdflatex Project\ Plan.tex
-	mv Project\ Plan.pdf ProjectPlan.pdf
+	pdflatex ProjectPlan.tex
