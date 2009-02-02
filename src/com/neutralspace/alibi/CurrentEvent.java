@@ -34,7 +34,15 @@ public class CurrentEvent extends AlibiActivity {
         cancelButton.setOnClickListener(new View.OnClickListener(){
             
             public void onClick(View view){
-                // ...
+                Intent i = new Intent(view.getContext(), StartEvent.class);
+                startActivity(i);
+                
+                UserEventManager uem = ((Alibi) getApplication()).getUserEventManager();
+                uem.cancel();
+                
+                finish();
+                
+                //
             }
         });
 ;
