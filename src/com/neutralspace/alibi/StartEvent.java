@@ -46,7 +46,7 @@ public class StartEvent extends AlibiActivity {
             UserEvent newEvent = new UserEvent(loc, this.category, startTime);
             
             try {
-                uem.begin(newEvent);
+                uem.start(newEvent);
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();

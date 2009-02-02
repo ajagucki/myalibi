@@ -1,4 +1,3 @@
-<?xml version="1.0" ?>
 <project name="Android" default="debug">
     <!-- SDK Locations -->
     <property name="sdk-folder" value="/opt/android" />

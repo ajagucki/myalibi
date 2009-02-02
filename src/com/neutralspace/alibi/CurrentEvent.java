@@ -38,11 +38,8 @@ public class CurrentEvent extends AlibiActivity {
                 startActivity(i);
                 
                 UserEventManager uem = ((Alibi) getApplication()).getUserEventManager();
-                uem.cancel();
-                
-                finish();
-                
-                //
+                uem.delete();
+                finish();                
             }
         });
 ;

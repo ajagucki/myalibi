@@ -10,7 +10,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.SQLException;
 import android.net.Uri;
-import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
 
@@ -58,7 +57,7 @@ public class UserEventManager {
      * @param userEvent the event to start
      * @throws Exception thrown if the event could not be started
      */
-    public void begin(UserEvent userEvent) throws Exception {
+    public void start(UserEvent userEvent) throws Exception {
         if (currentEvent != null) {
             Log.w(Alibi.TAG, "Beginning an event before the current finished.");
         }
@@ -70,12 +69,13 @@ public class UserEventManager {
         currentEventId = userEventDAO.createUserEvent(userEvent);
         if (currentEventId == -1) {
         	Log.e(Alibi.TAG, "Failed to create the user event.");
-        	cancel();
+        	delete();
         }
         else {
 	        Log.i(Alibi.TAG, "Started a " + userEvent.getCategory().getTitle()
 					+ " event (ID: " + currentEventId + ").");
         }
+        userEventDAO.updateCurrentId(currentEventId);
         userEventDAO.close();
     }
 
@@ -113,12 +113,13 @@ public class UserEventManager {
      * If the current event does not have its end-time set, the current event 
      * gets its end-time set to the time that this method is called.
      * 
+     * @returns URI for the Calendar event which was created
      * @throws Exception thrown if the calendar event could not be inserted
      */
-    public void finish() throws Exception {
+    public Uri stop() throws Exception {
         if (currentEvent == null) {
             Log.w(Alibi.TAG, "Tried to finish before the current event began.");
-            return;
+            throw new Exception("Tried to finish before the current event began.");
         }
 
         // TODO: Do we need to coerce java.util.Calendar to use the phone's locale?
@@ -136,7 +137,8 @@ public class UserEventManager {
 
         Log.i(Alibi.TAG, "Finished a " + currentEvent.getCategory().getTitle()
 				+ " event (ID: " + currentEventId + ").");
-        cancel();
+        delete();
+        return rowUri;
     }
 
 	private void clearCurrentEventDb() {
@@ -178,13 +180,13 @@ public class UserEventManager {
     }
     
     /**
-     * Cancels the current event.
+     * Deletes the current event from Alibi (not from the phone's calendar).
      */
-    public void cancel() {
-        currentEvent = null;
-        currentEventId = -1;
+    public void delete() {
         // Remove current event from local database
         clearCurrentEventDb();
+        currentEvent = null;
+        currentEventId = -1;
         cancelAlarm();
     }
     
