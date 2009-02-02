@@ -1,9 +1,10 @@
 package com.neutralspace.alibi;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.content.Intent;
 
 public class CurrentEvent extends AlibiActivity {
     
@@ -20,7 +21,10 @@ public class CurrentEvent extends AlibiActivity {
         stopButton.setOnClickListener(new View.OnClickListener(){
             
             public void onClick(View view){
-                //  ...
+                //jump directly to EventSummary, which will stop the event.
+                Log.i(Alibi.TAG, "CurrentEvent -> EventSummary");
+                Intent i = new Intent(view.getContext(), EventSummary.class);
+                startActivity(i);
             }
         });
         

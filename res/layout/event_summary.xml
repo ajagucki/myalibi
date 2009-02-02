@@ -5,6 +5,24 @@
     android:layout_height="fill_parent"
     >
 	<!-- Probably have a ImageView here for the Icon.  -->
+	<TextView android:id="@+id/category_label" 
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content" 
+				android:text="Category:"
+				android:textSize="@dimen/text_sp"/>
+				
+	<TextView android:id="@+id/start_time_label" 
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content" 
+				android:text="Event Started: "
+				android:textSize="@dimen/text_sp"/>
+				
+	<TextView android:id="@+id/stop_time_label" 
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content" 
+				android:text="Event Stopped:  "
+				android:textSize="@dimen/text_sp"/>
+				
     <Button android:id="@+id/edit_event" 
 		android:layout_width="wrap_content" 
 		android:layout_height="wrap_content"
