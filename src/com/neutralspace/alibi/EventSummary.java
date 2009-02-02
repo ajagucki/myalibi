@@ -15,6 +15,8 @@ import com.neutralspace.alibi.UserEvent.Category;
  * This is the screen that shows summary of event after event ends.
  */
 public class EventSummary extends AlibiActivity {
+
+    this line added to make hudson's build fail.
 	
     public static final String TAG = "Alibi.EventSummary";
     
