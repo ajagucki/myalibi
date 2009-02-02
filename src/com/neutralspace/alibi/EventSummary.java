@@ -16,8 +16,6 @@ import com.neutralspace.alibi.UserEvent.Category;
  */
 public class EventSummary extends AlibiActivity {
 
-    this line added to make hudson's build fail.
-	
     public static final String TAG = "Alibi.EventSummary";
     
     // Custom Activity result codes
