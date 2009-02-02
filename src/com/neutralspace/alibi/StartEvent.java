@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.location.Location;
 
 /**
  * This is the default main screen of Alibi.
@@ -20,57 +21,43 @@ public class StartEvent extends AlibiActivity {
 		setContentView(R.layout.start_event);
 		Button workButton = (Button) findViewById(R.id.work);
 		Button playButton = (Button) findViewById(R.id.play);
-//		Button eatButton = (Button) findViewById(R.id.eat);
-//		Button otherButton = (Button) findViewById(R.id.other);
+		Button eatButton = (Button) findViewById(R.id.eat);
+		Button otherButton = (Button) findViewById(R.id.other);
 		
-		workButton.setOnClickListener(new View.OnClickListener(){
-			
-			public void onClick(View view){
-			//	Intent i = new Intent(this, CurrentEvent.class);
-			//	i.putExtra(...)
-			//	startActivity(i)
-			}
-		});
-		
-		playButton.setOnClickListener(new View.OnClickListener(){
-			
-			public void onClick(View view){
-			//	Intent i = new Intent(this, CurrentEvent.class);
-			//	i.putExtra(...)
-			//	startActivity(i)
-			}
-		});
-		
-		/*
-		eatButton.setOnClickListener(new View.OnClickListener(){
-			
-			public void onClick(View view){
-			//	Intent i = new Intent(this, CurrentEvent.class);
-			//	i.putExtra(...)
-			//	startActivity(i)
-			}
-		});
-		otherButton.setOnClickListener(new View.OnClickListener(){
-			
-			public void onClick(View view){
-			//	Intent i = new Intent(this, CurrentEvent.class);
-			//	i.putExtra(...)
-			//	startActivity(i)
-			}
-		});
-		
-		workButton.setOnClickListener(new View.OnClickListener(){
-			
-			public void onClick(View view){
-			//	Intent i = new Intent(this, CurrentEvent.class);
-			//	i.putExtra(...)
-			//	startActivity(i)
-			}
-		});
-		*/
-		
+		workButton.setOnClickListener(new StartEventListener(UserEvent.Category.WORK));
+        eatButton.setOnClickListener(new StartEventListener(UserEvent.Category.EAT));
+        playButton.setOnClickListener(new StartEventListener(UserEvent.Category.PLAY));
+        otherButton.setOnClickListener(new StartEventListener(UserEvent.Category.OTHER));
 	}
-	
+		
+	private class StartEventListener implements View.OnClickListener {
+	    UserEvent.Category category;
+	    
+	    public StartEventListener(UserEvent.Category category) {
+	        this.category = category;
+	    }
+	    
+		public void onClick(View view) {
+            Alibi app = (Alibi) getApplication();
+            // TODO: Use location from actual GPS unit
+            Location loc = new Location("+100.0");
+            UserEventManager uem = app.getUserEventManager();
+            long startTime = System.currentTimeMillis();
+            UserEvent newEvent = new UserEvent(loc, this.category, startTime);
+            
+            try {
+                uem.begin(newEvent);
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            
+            // TODO: Uncomment this code after writing CurrentEvent activity
+		    //Intent i = new Intent(this, CurrentEvent.class);
+			//startActivity(i)
+		}
+	};
+			
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

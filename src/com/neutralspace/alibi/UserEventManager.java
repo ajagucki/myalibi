@@ -2,11 +2,16 @@ package com.neutralspace.alibi;
 
 import java.util.Calendar;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.SQLException;
 import android.net.Uri;
+import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 
 /**
@@ -46,7 +51,7 @@ public class UserEventManager {
         }
         userEventDAO.close();
     }
-    
+
     /**
      * Starts a user event.
      * 
@@ -58,7 +63,8 @@ public class UserEventManager {
             Log.w(Alibi.TAG, "Beginning an event before the current finished.");
         }
         currentEvent = userEvent;
-        
+        setAlarm();
+
         // Persist current event in the database (to restore application state later)
         userEventDAO.open();
         currentEventId = userEventDAO.createUserEvent(userEvent);
@@ -74,6 +80,34 @@ public class UserEventManager {
     }
 
     /**
+     * Starts the count down for a Reminder notification for the current user
+     * event.
+     */
+    private void setAlarm() {
+        Intent intent = new Intent(this.context, ReminderAlarm.class);
+        PendingIntent sender = PendingIntent.getBroadcast(this.context, 0, intent, 0);
+
+        long interval  = 6 * 1000; // TODO: Don't just use testing value
+        long firstTime = SystemClock.elapsedRealtime() + interval;
+
+        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        am.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, firstTime, interval, sender);
+        Log.d(Alibi.TAG, "Alarm set");
+    }
+
+    /**
+     * Stops the current waiting-to-wake-up Reminder alarm and notification.
+     */
+    private void cancelAlarm() {
+        Intent intent = new Intent(this.context, ReminderAlarm.class);
+        PendingIntent sender = PendingIntent.getBroadcast(this.context, 0, intent, 0);
+        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        am.cancel(sender);
+        // TODO: Cancel notification entry as well
+        Log.d(Alibi.TAG, "Alarm canceled");
+    }
+
+    /**
      * Ends the current event and adds the event to the calendar.
      * 
      * If the current event does not have its end-time set, the current event 
@@ -86,7 +120,7 @@ public class UserEventManager {
             Log.w(Alibi.TAG, "Tried to finish before the current event began.");
             return;
         }
-        
+
         // TODO: Do we need to coerce java.util.Calendar to use the phone's locale?
         if (currentEvent.getEndTime() <= 0) {
             currentEvent.setEndTime(Calendar.getInstance().getTimeInMillis());
@@ -99,7 +133,7 @@ public class UserEventManager {
         if (rowUri == null) {
             throw new Exception("Failed to insert calendar event.");
         }
-        
+
         Log.i(Alibi.TAG, "Finished a " + currentEvent.getCategory().getTitle()
 				+ " event (ID: " + currentEventId + ").");
         cancel();
@@ -151,6 +185,7 @@ public class UserEventManager {
         currentEventId = -1;
         // Remove current event from local database
         clearCurrentEventDb();
+        cancelAlarm();
     }
     
     /**
