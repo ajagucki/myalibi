@@ -52,9 +52,8 @@ public class StartEvent extends AlibiActivity {
                 e.printStackTrace();
             }
             
-            // TODO: Uncomment this code after writing CurrentEvent activity
-		    //Intent i = new Intent(this, CurrentEvent.class);
-			//startActivity(i)
+		    Intent i = new Intent(view.getContext(), CurrentEvent.class);
+			startActivity(i);
 		}
 	};
 			

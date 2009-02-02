@@ -38,9 +38,7 @@ public class ReminderAlarm extends BroadcastReceiver {
         NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         Notification notification = new Notification(R.drawable.icon, message, System.currentTimeMillis());
         
-        // TODO: Write CurrentEvent (AlibiActivity) class
-        // TODO: Change this to use CurrentEvent.class
-        Intent currentEvent = new Intent(context, StartEvent.class);
+        Intent currentEvent = new Intent(context, CurrentEvent.class);
         PendingIntent pending = PendingIntent.getActivity(context, 0, currentEvent, 0);
         notification.setLatestEventInfo(context, "My Alibi Reminder", message, pending);
 
