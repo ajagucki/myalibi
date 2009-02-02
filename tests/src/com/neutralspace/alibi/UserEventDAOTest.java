@@ -87,7 +87,52 @@ public class UserEventDAOTest extends ApplicationTestCase<Alibi> {
 	}
 	
 	public void testDeleteUserEvent() {
+        UserEvent userEvent = getFakeUserEvent();
+        
+        userEventDAO.open();
+        
+        // Add to db
+        long id = userEventDAO.createUserEvent(userEvent);
+        assertEquals(false, id < 0);
+        
+        // Delete from db
+        assertTrue(userEventDAO.deleteUserEvent(id));
+        
+        try {
+			userEventDAO.fetchUserEvent(id);
+			// Exception should be thrown
+			assertTrue(false);
+		}
+        catch (SQLException e) {
+		}
 		
+        userEventDAO.close();
+	}
+	
+	public void testFetchCurrentId() {
+		long id = 42;
+		
+		userEventDAO.open();
+		
+		assertEquals(-1, userEventDAO.fetchCurrentId());
+		
+		userEventDAO.updateCurrentId(id);
+		assertEquals(id, userEventDAO.fetchCurrentId());
+		
+		userEventDAO.updateCurrentId(-1);
+		userEventDAO.close();
+	}
+	
+	public void testUpdateCurrentId() {
+		long id = 9001;
+		
+		userEventDAO.open();
+		
+		assertTrue(userEventDAO.updateCurrentId(id));
+		assertEquals(id, userEventDAO.fetchCurrentId());
+		
+		userEventDAO.updateCurrentId(-1);
+		userEventDAO.close();
 	}
 
 }
