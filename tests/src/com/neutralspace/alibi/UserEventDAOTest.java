@@ -1,10 +1,6 @@
 package com.neutralspace.alibi;
 
-import java.util.Calendar;
-import java.util.Date;
-
 import android.database.SQLException;
-import android.location.Location;
 import android.test.ApplicationTestCase;
 
 public class UserEventDAOTest extends ApplicationTestCase<Alibi> {
@@ -38,7 +34,7 @@ public class UserEventDAOTest extends ApplicationTestCase<Alibi> {
 	}
 	
 	public void testCreateAndFetchUserEvent() {
-        UserEvent userEvent = getFakeUserEvent();
+        UserEvent userEvent = UserEventTest.getFakeUserEvent();
         
         userEventDAO.open();
         
@@ -62,32 +58,12 @@ public class UserEventDAOTest extends ApplicationTestCase<Alibi> {
         assertEquals(userEvent.getStartTime(), fetchedEvent.getStartTime());
         assertEquals(userEvent.getEndTime(), fetchedEvent.getEndTime());
         assertEquals(userEvent.getUserNotes(), fetchedEvent.getUserNotes());
-		
-		userEventDAO.close();
-	}
-
-	private UserEvent getFakeUserEvent() {
-		final double FAKE_LONGITUDE = -121.45356;
-        final double FAKE_LATITUDE  = 46.51119;
-        final UserEvent.Category FAKE_CATEGORY = UserEvent.Category.PLAY;
-        Date time = Calendar.getInstance().getTime();
-        final long FAKE_START_TIME = time.getTime();
-        time.setHours(time.getHours() + 1);
-        final long FAKE_END_TIME = time.getTime();
-        final String FAKE_USER_NOTES = "That's what she said.";
         
-        // Create fake event
-        Location location = new Location("gps");
-        location.setLongitude(FAKE_LONGITUDE);
-        location.setLatitude(FAKE_LATITUDE);
-        UserEvent userEvent = new UserEvent(location, FAKE_CATEGORY, FAKE_START_TIME);
-        userEvent.setEndTime(FAKE_END_TIME);
-        userEvent.setUserNotes(FAKE_USER_NOTES);
-		return userEvent;
+        userEventDAO.close();
 	}
 	
 	public void testDeleteUserEvent() {
-        UserEvent userEvent = getFakeUserEvent();
+        UserEvent userEvent = UserEventTest.getFakeUserEvent();
         
         userEventDAO.open();
         
@@ -134,5 +110,20 @@ public class UserEventDAOTest extends ApplicationTestCase<Alibi> {
 		userEventDAO.updateCurrentId(-1);
 		userEventDAO.close();
 	}
+	
+	public void testDeleteAll() {
+		userEventDAO.open();
+		userEventDAO.createUserEvent(UserEventTest.getFakeUserEvent());
+		userEventDAO.updateCurrentId(1);
+		assertTrue(userEventDAO.deleteAll());
+		userEventDAO.close();
+	}
 
+	@Override
+	protected void tearDown() throws Exception {
+		userEventDAO.open();
+		userEventDAO.deleteAll();
+		userEventDAO.close();
+		super.tearDown();
+	}
 }

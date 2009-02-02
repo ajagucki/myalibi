@@ -237,5 +237,16 @@ public class UserEventDAO {
     	}
     	return true;
     }
+    
+    /**
+     * Deletes all data from the database.
+     * 
+     * @return true if any database rows were affected, false otherwise.
+     */
+    public boolean deleteAll() {
+    	int alibiRows = db.delete(DB_TABLE_ALIBIS, "1", null);
+    	int currentRows = db.delete(DB_TABLE_CURRENT, "1", null);
+    	return (currentRows+alibiRows) > 0;
+    }
 
 }
