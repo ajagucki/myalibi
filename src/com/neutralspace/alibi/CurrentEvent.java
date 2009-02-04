@@ -32,6 +32,8 @@ public class CurrentEvent extends AlibiActivity {
             
             public void onClick(View view){
                 //  ...
+            	Intent i = new Intent(view.getContext(), ChangeEvent.class);
+            	startActivity(i);
             }
         });
         
