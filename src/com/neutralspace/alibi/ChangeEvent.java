@@ -40,24 +40,12 @@ public class ChangeEvent extends AlibiActivity {
 		}
 		
 		public void onClick(View view){
-			//UserEvent ue = (((Alibi) getApplication()).getUserEventManager().getCurrentEvent());
 			((Alibi) getApplication()).getUserEventManager().getCurrentEvent().setCategory(category);
 			finish();
 		}
 	};
 	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// TODO Auto-generated method stub
-		return super.onCreateOptionsMenu(menu);
-	}
 
-	@Override
-	public boolean onMenuItemSelected(int featureId, MenuItem item) {
-		// TODO Auto-generated method stub
-		return super.onMenuItemSelected(featureId, item);
-	}
-	
 
 		
 

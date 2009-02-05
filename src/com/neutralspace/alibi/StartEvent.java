@@ -1,10 +1,13 @@
 package com.neutralspace.alibi;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationManager;
 
 /**
  * This is the default main screen of Alibi.
@@ -40,7 +43,8 @@ public class StartEvent extends AlibiActivity {
 		public void onClick(View view) {
             Alibi app = (Alibi) getApplication();
             // TODO: Use location from actual GPS unit
-            Location loc = new Location("+100.0");
+            Location loc = findLocation();
+          //  Location loc = new Location("+100.0");
             UserEventManager uem = app.getUserEventManager();
             long startTime = System.currentTimeMillis();
             UserEvent newEvent = new UserEvent(loc, this.category, startTime);
@@ -55,6 +59,22 @@ public class StartEvent extends AlibiActivity {
 		    Intent i = new Intent(view.getContext(), CurrentEvent.class);
 			startActivity(i);
 		}
+		
+		private Location findLocation(){
+			setContentView(R.layout.retrieve_location);
+			
+			LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+			Criteria c = new Criteria();
+			c.setAccuracy(Criteria.ACCURACY_FINE);
+			c.setBearingRequired(false);
+			c.setAltitudeRequired(false);
+			c.setCostAllowed(false);
+			String provider = lm.getBestProvider(c, true);
+			return lm.getLastKnownLocation(provider);
+
+			
+		}
+		
 	};
 			
     @Override
