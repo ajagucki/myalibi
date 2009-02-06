@@ -5,6 +5,18 @@
     android:layout_height="fill_parent"
     >
 	
+	<TextView android:id="@+id/current_category_label" 
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content" 
+				android:text="Category:"
+				android:textSize="@dimen/text_sp"/>
+				
+	<TextView android:id="@+id/current_start_time_label" 
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content" 
+				android:text="Event Started: "
+				android:textSize="@dimen/text_sp"/>
+	
     <Button android:id="@+id/stop" 
 		android:layout_width="wrap_content" 
 		android:layout_height="wrap_content"
