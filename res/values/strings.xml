@@ -3,4 +3,6 @@
     <string name="app_name">My Alibi</string>
     <string name="menu_settings">Settings</string>
     <string name="menu_about">About Alibi</string>
+    <string name="menu_cancel">Cancel Event</string>
+    <string name="menu_change_category">Change Category</string>
 </resources>

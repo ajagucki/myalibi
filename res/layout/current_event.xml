@@ -21,15 +21,5 @@
 		android:layout_width="wrap_content" 
 		android:layout_height="wrap_content"
 		android:text="Stop Event"/>
-
-    <Button android:id="@+id/change" 
-		android:layout_width="wrap_content" 
-		android:layout_height="wrap_content"
-		android:text="Change Category"/>
-		
-    <Button android:id="@+id/cancel" 
-		android:layout_width="wrap_content" 
-		android:layout_height="wrap_content"
-		android:text="Cancel Event"/>
 		
 </LinearLayout>

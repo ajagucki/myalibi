@@ -5,6 +5,8 @@ import java.util.Date;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -37,9 +39,7 @@ public class CurrentEvent extends AlibiActivity {
             startTimeLabel.setText("Event Started: " + d.toString());
         }
         
-        Button stopButton = (Button) findViewById(R.id.stop);
-        Button changeButton = (Button) findViewById(R.id.change);
-        Button cancelButton = (Button) findViewById(R.id.cancel);
+        Button stopButton = (Button) findViewById(R.id.stop);;
         
         stopButton.setOnClickListener(new View.OnClickListener(){
             
@@ -52,29 +52,46 @@ public class CurrentEvent extends AlibiActivity {
             }
         });
         
-        changeButton.setOnClickListener(new View.OnClickListener(){
-            
-            public void onClick(View view){
-                //  ...
-            	Intent i = new Intent(view.getContext(), ChangeEvent.class);
-            	startActivity(i);
-            	finish();
-            }
-        });
+    }
+    
+    //TODO: find a solution here, the offsets should not be hardcoded
+    public static final int MENU_CHANGE_CATEGORY = Menu.FIRST + 2;
+    public static final int MENU_CANCEL = Menu.FIRST + 3;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        boolean retVal = super.onCreateOptionsMenu(menu);
         
-        cancelButton.setOnClickListener(new View.OnClickListener(){
+        MenuItem menuItem = menu.add(Menu.NONE, MENU_CHANGE_CATEGORY, Menu.NONE, R.string.menu_change_category);
+        menuItem.setIcon(android.R.drawable.ic_menu_edit);
+        
+        menuItem = menu.add(Menu.NONE, MENU_CANCEL, Menu.NONE, R.string.menu_cancel);
+        menuItem.setIcon(android.R.drawable.ic_menu_delete);
+        
+
+        
+        return retVal;
+    }
+
+    @Override
+    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+        switch (item.getItemId()) {
+        case MENU_CANCEL: 
+            Intent i = new Intent(this, StartEvent.class);
+            startActivity(i);
             
-            public void onClick(View view){
-                Intent i = new Intent(view.getContext(), StartEvent.class);
-                startActivity(i);
-                
-                UserEventManager uem = ((Alibi)getApplication()).getUserEventManager();
-                
-                uem.delete();
-                finish();                
-            }
-        });
-;
+            UserEventManager uem = ((Alibi)getApplication()).getUserEventManager();
+            
+            uem.delete();
+            finish();
+            return true;
+        case MENU_CHANGE_CATEGORY:
+            Intent j = new Intent(this, ChangeEvent.class);
+            startActivity(j);
+            finish();
+            return true;
+        }
+        return super.onMenuItemSelected(featureId, item);
     }
 
 }
