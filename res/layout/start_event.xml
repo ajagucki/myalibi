@@ -2,32 +2,40 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:padding="0px">
 	
 	<TextView android:id="@+id/caption_text"
 		android:layout_gravity="center_horizontal"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text=" Alibi "/>
+		android:text=" My Alibi "
+		android:textStyle="bold"
+		android:textSize="35sp"/>
 		
 	<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_gravity="center_horizontal">
+		android:layout_gravity="center_horizontal"
+		android:padding="0px">
 		<TableRow>
 		    <Button android:id="@+id/work" 
 		    	android:layout_width="wrap_content" 
 				android:layout_height="wrap_content"
 				android:width="120dip"
 				android:height="120dip"
-				android:text="Work"/>
+				android:text="Work"
+				android:textStyle="bold"
+				android:textSize="25sp"/>
 		
 		    <Button android:id="@+id/play"
 				android:layout_width="wrap_content" 
 				android:layout_height="wrap_content"
 				android:width="120dip"
 				android:height="120dip"	
-				android:text="Play"/>
+				android:text="Play"
+				android:textStyle="bold"
+				android:textSize="25sp"/>
 		</TableRow>
 		<TableRow>
 	    <Button android:id="@+id/eat" 
@@ -35,14 +43,18 @@
 			android:layout_height="wrap_content"
 			android:width="120dip"
 			android:height="120dip"	
-			android:text="Eat"/>
+			android:text="Eat"
+			android:textSize="25sp"
+			android:textStyle="bold"/>
 			
 	    <Button android:id="@+id/other" 
 			android:layout_width="wrap_content" 
 			android:layout_height="wrap_content"
 			android:width="120dip"
 			android:height="120dip"
-			android:text="Other"/>
+			android:text="Other"
+			android:textSize="25sp"
+			android:textStyle="bold"/>
 		</TableRow>
 	</TableLayout>
 </LinearLayout>
