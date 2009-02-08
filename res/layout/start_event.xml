@@ -11,7 +11,7 @@
 		android:layout_height="wrap_content"
 		android:text=" My Alibi "
 		android:textStyle="bold"
-		android:textSize="50sp"
+		android:textSize="34sp"
 		android:padding="10dip"/>
 		
 	<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -27,7 +27,7 @@
 				android:height="150dip"
 				android:text="Work"
 				android:textStyle="bold"
-				android:textSize="25sp"
+				android:textSize="24sp"
 				android:padding="0dip"/>
 		
 		    <Button android:id="@+id/play"
@@ -37,7 +37,7 @@
 				android:height="150dip"	
 				android:text="Play"
 				android:textStyle="bold"
-				android:textSize="25sp"
+				android:textSize="24sp"
 				android:padding="0dip"/>
 		</TableRow>
 		<TableRow>
@@ -47,7 +47,7 @@
 			android:width="150dip"
 			android:height="150dip"	
 			android:text="Eat"
-			android:textSize="25sp"
+			android:textSize="24sp"
 			android:textStyle="bold"
 			android:padding="0dip"/>
 			
@@ -57,7 +57,7 @@
 			android:width="150dip"
 			android:height="150dip"
 			android:text="Other"
-			android:textSize="25sp"
+			android:textSize="24sp"
 			android:textStyle="bold"
 			android:padding="0dip"/>
 		</TableRow>

@@ -3,25 +3,63 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    >
+    android:padding="0dip">
 	
-    <Button android:id="@+id/work" 
-		android:layout_width="wrap_content" 
+	<TextView android:id="@+id/caption_text"
+		android:layout_gravity="center_horizontal"
+		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="Working"/>
-
-    <Button android:id="@+id/play" 
-		android:layout_width="wrap_content" 
-		android:layout_height="wrap_content"
-		android:text="Playing"/>
+		android:text=" Change Category "
+		android:textStyle="bold"
+		android:textSize="34sp"
+		android:padding="10dip"/>
 		
-    <Button android:id="@+id/eat" 
-		android:layout_width="wrap_content" 
+	<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="Eating"/>
+		android:layout_gravity="center_horizontal"
+		android:padding="0dip">
+		<TableRow>
+		    <Button android:id="@+id/work" 
+		    	android:layout_width="wrap_content" 
+				android:layout_height="wrap_content"
+				android:width="150dip"
+				android:height="150dip"
+				android:text="Work"
+				android:textStyle="bold"
+				android:textSize="24sp"
+				android:padding="0dip"/>
 		
-    <Button android:id="@+id/other" 
-		android:layout_width="wrap_content" 
-		android:layout_height="wrap_content"
-		android:text="Sleeping"/>	
+		    <Button android:id="@+id/play"
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content"
+				android:width="150dip"
+				android:height="150dip"	
+				android:text="Play"
+				android:textStyle="bold"
+				android:textSize="24sp"
+				android:padding="0dip"/>
+		</TableRow>
+		<TableRow>
+	    <Button android:id="@+id/eat" 
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"
+			android:width="150dip"
+			android:height="150dip"	
+			android:text="Eat"
+			android:textSize="24sp"
+			android:textStyle="bold"
+			android:padding="0dip"/>
+			
+	    <Button android:id="@+id/other" 
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"
+			android:width="150dip"
+			android:height="150dip"
+			android:text="Other"
+			android:textSize="24sp"
+			android:textStyle="bold"
+			android:padding="0dip"/>
+		</TableRow>
+	</TableLayout>
 </LinearLayout>
