@@ -42,41 +42,35 @@ public class StartEvent extends AlibiActivity {
 	    
 		public void onClick(View view) {
             Alibi app = (Alibi) getApplication();
-            // TODO: Use location from actual GPS unit
             Location loc = findLocation();
-          //  Location loc = new Location("+100.0");
             UserEventManager uem = app.getUserEventManager();
             long startTime = System.currentTimeMillis();
             UserEvent newEvent = new UserEvent(loc, this.category, startTime);
-            
+
             try {
                 uem.start(newEvent);
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             
 		    Intent i = new Intent(view.getContext(), CurrentEvent.class);
 			startActivity(i);
 		}
-		
-		private Location findLocation(){
-/*			setContentView(R.layout.retrieve_location);
-			
-			LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-			Criteria c = new Criteria();
-			c.setAccuracy(Criteria.ACCURACY_FINE);
-			c.setBearingRequired(false);
-			c.setAltitudeRequired(false);
-			c.setCostAllowed(false);
-			String provider = lm.getBestProvider(c, true);
-*/			return new Location("Unknown"); //lm.getLastKnownLocation(provider);
 
-			
-		}
-		
+        private Location findLocation(){
+            setContentView(R.layout.retrieve_location);
+
+            LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            Criteria c = new Criteria();
+            c.setAccuracy(Criteria.ACCURACY_FINE);
+            c.setBearingRequired(false);
+            c.setAltitudeRequired(false);
+            c.setCostAllowed(false);
+            String provider = lm.getBestProvider(c, true);
+            return lm.getLastKnownLocation(provider);			
+        }
 	};
-			
+	
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
