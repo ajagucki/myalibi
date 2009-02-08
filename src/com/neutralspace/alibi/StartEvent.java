@@ -70,7 +70,7 @@ public class StartEvent extends AlibiActivity {
 			c.setAltitudeRequired(false);
 			c.setCostAllowed(false);
 			String provider = lm.getBestProvider(c, true);
-*/			return null; //lm.getLastKnownLocation(provider);
+*/			return new Location("Unknown"); //lm.getLastKnownLocation(provider);
 
 			
 		}
