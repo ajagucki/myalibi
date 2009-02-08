@@ -1,5 +1,8 @@
 package com.neutralspace.alibi;
 
+import java.text.DateFormat;
+import java.util.Calendar;
+
 import android.location.Location;
 
 /**
@@ -108,4 +111,37 @@ public class UserEvent {
         }
     }
 
+    private Calendar getDayStart(Calendar cal) {
+        Calendar day = (Calendar) cal.clone();
+        day.set(Calendar.HOUR, 0);
+        day.set(Calendar.MINUTE, 0);
+        day.set(Calendar.SECOND, 0);
+        return day;
+    }
+
+	private String getNiceTime(long time) {
+	    /*Calendar now = Calendar.getInstance();
+	    Calendar someTime = Calendar.getInstance();
+	    someTime.setTimeInMillis(time);
+        assert now.after(someTime) || now.equals(someTime);
+        
+	    DateFormat df;
+	    if (getDayStart(now).equals(getDayStart(someTime))) {
+	        df = DateFormat.getInstance(); // SHORT instance
+	        return df.format(someTime);
+	    }
+	    df = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT);
+        return df.format(someTime);
+        */
+	    return "2:00 p.m.";
+	}
+	
+    public String getNiceStartTime() {
+        return getNiceTime(startTime);
+    }
+
+    public String getNiceEndTime() {
+        return getNiceTime(endTime);
+    }
+    
 }
