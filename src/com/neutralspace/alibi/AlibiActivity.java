@@ -2,8 +2,10 @@ package com.neutralspace.alibi;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 /**
  * Base activity class for Alibi activities. It provides common implementations
@@ -14,6 +16,25 @@ public class AlibiActivity extends Activity {
     public static final int MENU_SETTINGS = Menu.FIRST;
     public static final int MENU_ABOUT = Menu.FIRST + 1;
 
+    private TextView captionText = null;
+/*    private TextView categoryLabelText = null;
+    private TextView startTimeText = null;
+    private TextView endTimeText = null;
+    private TextView locationText = null;
+  */
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+    	captionText = (TextView) findViewById(R.id.caption_text);
+    }
+	
+	public void outputEvent(String caption, UserEvent ue){
+		if (captionText != null){
+			captionText.setText(caption);
+		}
+	}
+	
+	
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         boolean retVal = super.onCreateOptionsMenu(menu);

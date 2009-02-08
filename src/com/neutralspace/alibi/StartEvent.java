@@ -31,6 +31,8 @@ public class StartEvent extends AlibiActivity {
         eatButton.setOnClickListener(new StartEventListener(UserEvent.Category.EAT));
         playButton.setOnClickListener(new StartEventListener(UserEvent.Category.PLAY));
         otherButton.setOnClickListener(new StartEventListener(UserEvent.Category.OTHER));
+        
+        outputEvent("this is a screen", null);
 	}
 		
 	private class StartEventListener implements View.OnClickListener {
@@ -61,7 +63,7 @@ public class StartEvent extends AlibiActivity {
 		}
 		
 		private Location findLocation(){
-			setContentView(R.layout.retrieve_location);
+/*			setContentView(R.layout.retrieve_location);
 			
 			LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 			Criteria c = new Criteria();
@@ -70,7 +72,7 @@ public class StartEvent extends AlibiActivity {
 			c.setAltitudeRequired(false);
 			c.setCostAllowed(false);
 			String provider = lm.getBestProvider(c, true);
-			return lm.getLastKnownLocation(provider);
+*/			return null;//lm.getLastKnownLocation(provider);
 
 			
 		}
