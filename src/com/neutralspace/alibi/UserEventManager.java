@@ -135,7 +135,7 @@ public class UserEventManager {
             throw new Exception("Failed to insert calendar event.");
         }
 
-        Log.i(Alibi.TAG, "Finished a " + currentEvent.getCategory().getTitle()
+        Log.i(Alibi.TAG, "Stopped a " + currentEvent.getCategory().getTitle()
 				+ " event (ID: " + currentEventId + ").");
         delete();
         return rowUri;

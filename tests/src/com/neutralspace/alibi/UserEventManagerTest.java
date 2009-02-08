@@ -21,21 +21,5 @@ public class UserEventManagerTest extends ApplicationTestCase<Alibi> {
 	public void testPrecondtions() {
 		assertNotNull(userEventManager);
 	}
-	
-	public void testBegin() {
-		
-	}
-	
-	public void testFinish() {
-		
-	}
-	
-	public void testCancel() {
-		
-	}
-	
-	public void testGetCurrentEvent() {
-		
-	}
 
 }

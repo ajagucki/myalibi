@@ -3,6 +3,7 @@ package com.neutralspace.alibi;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.location.Criteria;
@@ -67,7 +68,13 @@ public class StartEvent extends AlibiActivity {
             c.setAltitudeRequired(false);
             c.setCostAllowed(false);
             String provider = lm.getBestProvider(c, true);
-            return lm.getLastKnownLocation(provider);			
+            
+            Location location = lm.getLastKnownLocation(provider);
+            if (location == null) {
+            	location = new Location("Unknown");
+            	Log.e(Alibi.TAG, "Provider '" + provider + "' was disabled.");
+            }
+            return location;
         }
 	};
 	
