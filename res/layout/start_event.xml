@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:padding="0px">
+    android:padding="0dip">
 	
 	<TextView android:id="@+id/caption_text"
 		android:layout_gravity="center_horizontal"
@@ -11,50 +11,55 @@
 		android:layout_height="wrap_content"
 		android:text=" My Alibi "
 		android:textStyle="bold"
-		android:textSize="35sp"/>
+		android:textSize="50sp"
+		android:padding="10dip"/>
 		
 	<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_gravity="center_horizontal"
-		android:padding="0px">
+		android:padding="0dip">
 		<TableRow>
 		    <Button android:id="@+id/work" 
 		    	android:layout_width="wrap_content" 
 				android:layout_height="wrap_content"
-				android:width="120dip"
-				android:height="120dip"
+				android:width="150dip"
+				android:height="150dip"
 				android:text="Work"
 				android:textStyle="bold"
-				android:textSize="25sp"/>
+				android:textSize="25sp"
+				android:padding="0dip"/>
 		
 		    <Button android:id="@+id/play"
 				android:layout_width="wrap_content" 
 				android:layout_height="wrap_content"
-				android:width="120dip"
-				android:height="120dip"	
+				android:width="150dip"
+				android:height="150dip"	
 				android:text="Play"
 				android:textStyle="bold"
-				android:textSize="25sp"/>
+				android:textSize="25sp"
+				android:padding="0dip"/>
 		</TableRow>
 		<TableRow>
 	    <Button android:id="@+id/eat" 
 			android:layout_width="wrap_content" 
 			android:layout_height="wrap_content"
-			android:width="120dip"
-			android:height="120dip"	
+			android:width="150dip"
+			android:height="150dip"	
 			android:text="Eat"
 			android:textSize="25sp"
-			android:textStyle="bold"/>
+			android:textStyle="bold"
+			android:padding="0dip"/>
 			
 	    <Button android:id="@+id/other" 
 			android:layout_width="wrap_content" 
 			android:layout_height="wrap_content"
-			android:width="120dip"
-			android:height="120dip"
+			android:width="150dip"
+			android:height="150dip"
 			android:text="Other"
 			android:textSize="25sp"
-			android:textStyle="bold"/>
+			android:textStyle="bold"
+			android:padding="0dip"/>
 		</TableRow>
 	</TableLayout>
 </LinearLayout>
