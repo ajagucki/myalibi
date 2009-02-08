@@ -3,62 +3,33 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:padding="0dip"
-    android:gravity="center_vertical">
-        
- 	<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:padding="0dip">
-		
-		<TableRow android:gravity="center_horizontal"
-			android:padding="10dip">		
-			<!-- Probably have a ImageView here for the Icon.  -->
-			<TextView android:id="@+id/category_label" 
-				android:layout_gravity="center_horizontal"
+    >
+	<!-- Probably have a ImageView here for the Icon.  -->
+	<TextView android:id="@+id/category_label" 
 				android:layout_width="wrap_content" 
 				android:layout_height="wrap_content" 
 				android:text="Category:"
 				android:textSize="@dimen/text_sp"/>
-		</TableRow>
-		<TableRow android:gravity="center_horizontal"
-			android:padding="10dip">
-			<TextView android:id="@+id/start_time_label" 
-				android:layout_gravity="center_horizontal"
+				
+	<TextView android:id="@+id/start_time_label" 
 				android:layout_width="wrap_content" 
 				android:layout_height="wrap_content" 
 				android:text="Event Started: "
 				android:textSize="@dimen/text_sp"/>
-		</TableRow>
-		<TableRow android:gravity="center_horizontal"
-			android:padding="10dip">
-			<TextView android:id="@+id/stop_time_label" 
-				android:layout_gravity="center_horizontal"
+				
+	<TextView android:id="@+id/stop_time_label" 
 				android:layout_width="wrap_content" 
 				android:layout_height="wrap_content" 
 				android:text="Event Stopped:  "
 				android:textSize="@dimen/text_sp"/>
-		</TableRow>			
-		<TableRow android:padding="10dip">
-	    <Button android:id="@+id/edit_event" 
-				android:layout_width="wrap_content" 
-				android:layout_height="wrap_content"
-				android:width="150dip"
-				android:height="100dip"
-				android:textSize="24sp"
-				android:textStyle="bold"
-				android:padding="0dip"
-				android:text="Edit Event"/>
-	
-	    <Button android:id="@+id/finish_event" 
-				android:layout_width="wrap_content" 
-				android:layout_height="wrap_content"
-				android:width="150dip"
-				android:height="100dip"	
-				android:textSize="24sp"
-				android:textStyle="bold"
-				android:padding="0dip"
-				android:text="Finished"/>
-		</TableRow>
-	</TableLayout>
+				
+    <Button android:id="@+id/edit_event" 
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"
+		android:text="Edit Event"/>
+
+    <Button android:id="@+id/finish_event" 
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"
+		android:text="Finished"/>
 </LinearLayout>
