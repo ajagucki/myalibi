@@ -62,7 +62,6 @@ public class UserEventManager {
             Log.w(Alibi.TAG, "Beginning an event before the current finished.");
         }
         currentEvent = userEvent;
-        setAlarm();
 
         // Persist current event in the database (to restore application state later)
         userEventDAO.open();
@@ -77,6 +76,9 @@ public class UserEventManager {
         }
         userEventDAO.updateCurrentId(currentEventId);
         userEventDAO.close();
+
+        // Don't set the alarm until the event is completely created
+        setAlarm();
     }
 
     /**
@@ -87,7 +89,9 @@ public class UserEventManager {
         Intent intent = new Intent(this.context, ReminderAlarm.class);
         PendingIntent sender = PendingIntent.getBroadcast(this.context, 0, intent, 0);
 
-        long interval  = 6 * 1000; // TODO: Don't just use testing value
+        int minutes = settingsManager.getReminderDelay();
+        long interval = minutes * 60 * 1000; /* convert to milliseconds */
+        
         long firstTime = SystemClock.elapsedRealtime() + interval;
 
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -103,7 +107,7 @@ public class UserEventManager {
         PendingIntent sender = PendingIntent.getBroadcast(this.context, 0, intent, 0);
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         am.cancel(sender);
-        // TODO: Cancel notification entry as well
+        ReminderAlarm.destroyNotification(this.context);
         Log.d(Alibi.TAG, "Alarm canceled");
     }
 

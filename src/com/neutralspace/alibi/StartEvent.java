@@ -51,6 +51,7 @@ public class StartEvent extends AlibiActivity {
             try {
                 uem.start(newEvent);
             } catch (Exception e) {
+                Log.e(Alibi.TAG, "Error starting UserEvent");
                 e.printStackTrace();
             }
             
