@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -54,9 +55,25 @@ public class EventSummary extends AlibiActivity {
 		
 		if (userEvent != null) {
 		    // get uri, category, start-time, stop-time
-		    
-		    TextView categoryLabel = (TextView) findViewById(R.id.category_label);
-		    categoryLabel.setText("Category: " + userEvent.getCategory().getTitle());
+
+		    // display appropriate category image
+		    ImageView categoryImage = (ImageView) findViewById(R.id.category_image);
+		    Integer imageResource = 0;
+		    switch (userEvent.getCategory()) {
+		    case WORK:
+		        imageResource = R.drawable.category_work;
+		        break;
+		    case PLAY: 
+		        imageResource = R.drawable.category_play;
+		        break;
+		    case EAT:
+		        imageResource = R.drawable.category_eat;
+		        break;
+		    case OTHER:
+		        imageResource = R.drawable.category_other;
+		        break;
+		    }
+		    categoryImage.setImageResource(imageResource);
 
 		    TextView startTimeLabel = (TextView) findViewById(R.id.start_time_label);
 		    startTimeLabel.setText("Event Started: " + userEvent.getNiceStartTime());

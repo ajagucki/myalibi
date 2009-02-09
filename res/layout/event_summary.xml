@@ -1,35 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:gravity="center"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    >
-	<!-- Probably have a ImageView here for the Icon.  -->
-	<TextView android:id="@+id/category_label" 
-				android:layout_width="wrap_content" 
-				android:layout_height="wrap_content" 
-				android:text="Category:"
-				android:textSize="@dimen/text_sp"/>
-				
+    > 
+    
+    <ImageView android:id="@+id/category_image" android:src="@drawable/category_work"
+	           android:layout_width="wrap_content" 
+	           android:layout_height="wrap_content"
+	           android:paddingBottom="16dip" />
+					
 	<TextView android:id="@+id/start_time_label" 
 				android:layout_width="wrap_content" 
 				android:layout_height="wrap_content" 
 				android:text="Event Started: "
-				android:textSize="@dimen/text_sp"/>
+				android:textSize="@dimen/text_sp"
+				android:paddingBottom="8dip" />
 				
 	<TextView android:id="@+id/stop_time_label" 
 				android:layout_width="wrap_content" 
 				android:layout_height="wrap_content" 
 				android:text="Event Stopped:  "
-				android:textSize="@dimen/text_sp"/>
+				android:textSize="@dimen/text_sp"
+				android:paddingBottom="16dip" />
 				
-    <Button android:id="@+id/edit_event" 
-		android:layout_width="wrap_content" 
-		android:layout_height="wrap_content"
-		android:text="Edit Event"/>
-
-    <Button android:id="@+id/finish_event" 
-		android:layout_width="wrap_content" 
-		android:layout_height="wrap_content"
-		android:text="Finished"/>
+	<!--  put these buttons in one layout so their width is equal -->			
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    			
+	    <Button android:id="@+id/edit_event" 
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content"
+			android:text="Edit This Event"
+			android:paddingBottom="8dip" />
+	
+	    <Button android:id="@+id/finish_event" 
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content"
+			android:text="Finished"/>
+		
+	</LinearLayout>
 </LinearLayout>
