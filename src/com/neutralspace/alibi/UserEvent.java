@@ -1,10 +1,6 @@
 package com.neutralspace.alibi;
 
-import java.text.DateFormat;
-import java.util.Calendar;
-
 import android.location.Location;
-import android.util.Log;
 
 /**
  * An Alibi user event whose members correlate to calendar event fields.
@@ -78,61 +74,12 @@ public class UserEvent {
         this.userNotes = userNotes;
     }
 
-    private Boolean sameDay(final Calendar left, final Calendar right) {
-        return left.get(Calendar.DAY_OF_YEAR) == right.get(Calendar.DAY_OF_YEAR) &&
-               left.get(Calendar.YEAR) == right.get(Calendar.YEAR);
-    }
-
-    /**
-     * Mutates given calendar to be right on the nearest minute.
-     * @param cal: The calendar to round
-     */
-    private void roundToMinutes(Calendar cal) {
-        int ms = cal.get(Calendar.MILLISECOND);
-        if (ms >= 500) {
-            cal.add(Calendar.MILLISECOND, 1000 - ms);
-            Log.d("roundToMinutes", "Added " + (1000 - ms) + "ms");
-        } else
-            cal.set(Calendar.MILLISECOND, 0);
-
-        int second = cal.get(Calendar.SECOND);
-        if (second >= 30) {
-            cal.add(Calendar.SECOND, 60 - second);
-            Log.d("roundToMinutes", "Added " + (60 - second) + "seconds");
-        } else
-            cal.set(Calendar.SECOND, 0);
-    }
-    
-    /**
-     * Formats the time given (in milliseconds since epoch) in a "nice" way,
-     * based on the current time. Example: "2:00 PM" if 'time' is during the
-     * same day as today; if not, more contextual information is given.
-     * @param time
-     * @return String representing nicely formatted time
-     */
-    private String getNiceTime(long time) {
-        Calendar now = Calendar.getInstance();
-        Calendar someTime = Calendar.getInstance();
-        someTime.setTimeInMillis(time);
-        assert now.after(someTime) || now.equals(someTime);
-        
-        roundToMinutes(now);
-        roundToMinutes(someTime);
-        DateFormat df;
-        if (sameDay(someTime, now)) {
-            df = DateFormat.getTimeInstance();
-            return df.format(someTime.getTime());
-        }
-        df = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT);
-        return df.format(someTime.getTime());
-    }
-    
     public String getNiceStartTime() {
-        return getNiceTime(startTime);
+        return DateUtils.getNiceTime(startTime);
     }
 
     public String getNiceEndTime() {
-        return getNiceTime(endTime);
+        return DateUtils.getNiceTime(endTime);
     }
 
 	enum Category {
