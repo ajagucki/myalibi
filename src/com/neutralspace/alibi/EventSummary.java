@@ -1,15 +1,14 @@
 package com.neutralspace.alibi;
 
-import java.util.Date;
 
+import android.content.ComponentName;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
-import com.neutralspace.alibi.UserEvent.Category;
 
 /**
  * This is the screen that shows summary of event after event ends.
@@ -18,10 +17,19 @@ public class EventSummary extends AlibiActivity {
 
     public static final String TAG = "Alibi.EventSummary";
     
+    //These are here because we can't resolve 
+    //  android.provider.Calendar.EVENT_BEGIN_TIME or android.provider.Calendar.END_TIME
+    //  so - NOTE! this could break if CalendarProvider.apk implementation changes.
+    private static final String EVENT_BEGIN_TIME = "beginTime";
+    private static final String EVENT_END_TIME = "endTime";
+    
+    
     // Custom Activity result codes
     public static final int YOUR_CUSTOM_RESULT_CODE = RESULT_FIRST_USER + 1;
     
     private UserEventManager userEventManager;
+    private UserEvent userEvent = null;
+    private Uri userEventUri = null; // from calendar
    
 	
 	@Override
@@ -29,12 +37,11 @@ public class EventSummary extends AlibiActivity {
 		super.onCreate(savedInstanceState);
 		
 		userEventManager = ((Alibi)getApplication()).getUserEventManager();
-		UserEvent userEvent = null;
 		
 		try {
 		    userEvent = userEventManager.getCurrentEvent(); 
 		    //XXX: would there ever be a case where userEvent would be null?
-            userEventManager.stop(); //stops, saves, and cleans up event resources
+            userEventUri = userEventManager.stop(); //stops, saves, and cleans up event resources
         } catch (Exception e) {
             Log.e(Alibi.TAG, "Couldn't finish event: " + e.getMessage());
             //XXX: what do we do to handle this error - go back to start?
@@ -52,27 +59,27 @@ public class EventSummary extends AlibiActivity {
 		    categoryLabel.setText("Category: " + userEvent.getCategory().getTitle());
 
 		    TextView startTimeLabel = (TextView) findViewById(R.id.start_time_label);
-		    Date d = new Date(userEvent.getStartTime());
-		    startTimeLabel.setText("Event Started: " + d.toString());
+		    startTimeLabel.setText("Event Started: " + userEvent.getNiceStartTime());
 
 		    TextView stopTimeLabel = (TextView) findViewById(R.id.stop_time_label);
-		    d = new Date(userEvent.getEndTime()); //XXX: 'endTime' should be 'stopTime'?
-            stopTimeLabel.setText("Event stopped: " + d.toString() );
-            
-            //TODO: get calendar uri which editButton will need.
+            stopTimeLabel.setText("Event stopped: " + userEvent.getNiceEndTime() );
 		}
 		
 		
 		
 		editButton.setOnClickListener(new View.OnClickListener(){
 			
-			public void onClick(View view){
-			    // TODO: How do we start calendar?
-			    Log.i(TAG, "Activating Calendar & waiting for result..");
-			//	Intent i = new Intent(this, CurrentEvent.class);
-			//	i.putExtra(...)
-			//	startActivity(i)
-			}
+		    public void onClick(View view){
+		        Log.i(TAG, "Editing event in calendar...");
+		        Intent intent = new Intent(Intent.ACTION_EDIT);
+		        ComponentName componentName = new ComponentName("com.android.calendar", "com.android.calendar.EditEvent");
+		        intent.setComponent(componentName);
+		        intent.setData(userEventUri);
+		        intent.putExtra(EVENT_BEGIN_TIME, userEvent.getStartTime());
+                intent.putExtra(EVENT_END_TIME, userEvent.getEndTime()); 
+		        startActivity(intent); 
+		        //XXX: next - if event is updated, how to access new start/end times for summary?
+		    }
 		});
 		
 		finishButton.setOnClickListener(new View.OnClickListener(){
@@ -80,9 +87,7 @@ public class EventSummary extends AlibiActivity {
 			public void onClick(View view){
 			    
 			    // Finish event & return to Start screen.
-			   
 			    Log.i(TAG, "Ending event...");
-			    
 			    
 			    Intent i = new Intent(view.getContext(), StartEvent.class);
 			    startActivity(i);
