@@ -29,7 +29,7 @@ public class AlibiActivity extends Activity {
         MenuItem menuItem = menu.add(Menu.NONE, MENU_SETTINGS, Menu.NONE, R.string.menu_settings);
         menuItem.setIcon(android.R.drawable.ic_menu_preferences);
         
-        menuItem = menu.add(Menu.NONE, MENU_ABOUT, Menu.NONE, R.string.menu_about);
+        menuItem = menu.add(Menu.NONE, MENU_ABOUT, Menu.CATEGORY_SECONDARY, R.string.menu_about);
         menuItem.setIcon(android.R.drawable.ic_menu_info_details);
         
         return retVal;
