@@ -1,6 +1,7 @@
 package com.neutralspace.alibi;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -14,7 +15,6 @@ public class ChangeEvent extends AlibiActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.change_event);
 		
-		//Button allButtons[] = new Button [4];
 		Button workButton = (Button) findViewById(R.id.work);
 		Button playButton = (Button) findViewById(R.id.play);
 		Button eatButton = (Button) findViewById(R.id.eat);
@@ -38,7 +38,13 @@ public class ChangeEvent extends AlibiActivity {
 		}
 		
 		public void onClick(View view){
-			((Alibi) getApplication()).getUserEventManager().getCurrentEvent().setCategory(category);
+			
+			try{
+				((Alibi) getApplication()).getUserEventManager().getCurrentEvent().setCategory(category);
+			} catch (Exception e){
+				Log.e(Alibi.TAG, "Unable to change location");
+			}
+			
 			finish();
 		}
 	};

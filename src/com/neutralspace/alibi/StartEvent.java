@@ -15,9 +15,12 @@ import android.location.LocationManager;
  */
 public class StartEvent extends AlibiActivity {
 	
-    // Custom Activity result codes
+    // Custom Activity result codes jhjh
     public static final int YOUR_CUSTOM_RESULT_CODE = RESULT_FIRST_USER + 1;
+
 	
+
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -43,10 +46,10 @@ public class StartEvent extends AlibiActivity {
 	    
 		public void onClick(View view) {
             Alibi app = (Alibi) getApplication();
-            Location loc = findLocation();
+    //        Location loc = findLocation();
             UserEventManager uem = app.getUserEventManager();
             long startTime = System.currentTimeMillis();
-            UserEvent newEvent = new UserEvent(loc, this.category, startTime);
+            UserEvent newEvent = new UserEvent(null, this.category, startTime);
 
             try {
                 uem.start(newEvent);
@@ -55,28 +58,12 @@ public class StartEvent extends AlibiActivity {
                 e.printStackTrace();
             }
             
-		    Intent i = new Intent(view.getContext(), CurrentEvent.class);
-			startActivity(i);
+            Intent locationIntent = new Intent(view.getContext(), FindLocation.class);
+            startActivity(locationIntent);
+
 		}
 
-        private Location findLocation(){
-            setContentView(R.layout.retrieve_location);
 
-            LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            Criteria c = new Criteria();
-            c.setAccuracy(Criteria.ACCURACY_FINE);
-            c.setBearingRequired(false);
-            c.setAltitudeRequired(false);
-            c.setCostAllowed(false);
-            String provider = lm.getBestProvider(c, true);
-            
-            Location location = lm.getLastKnownLocation(provider);
-            if (location == null) {
-            	location = new Location("Unknown");
-            	Log.e(Alibi.TAG, "Provider '" + provider + "' was disabled.");
-            }
-            return location;
-        }
 	};
 	
     @Override
