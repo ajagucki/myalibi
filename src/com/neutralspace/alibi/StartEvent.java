@@ -25,6 +25,16 @@ public class StartEvent extends AlibiActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		
+		UserEventManager uem = ((Alibi) getApplication()).getUserEventManager();
+		
+		//Check to see if there is a current event. If so, go to CurrentEvent
+		if(uem.getCurrentEvent() != null) {
+		    Intent i = new Intent(this, CurrentEvent.class);
+		    startActivity(i);
+		    finish();
+		}
+		
 		setContentView(R.layout.start_event);
 		Button workButton = (Button) findViewById(R.id.work);
 		Button playButton = (Button) findViewById(R.id.play);
