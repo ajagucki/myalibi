@@ -1,6 +1,7 @@
 package com.neutralspace.alibi;
 
 import android.os.Bundle;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -44,6 +45,9 @@ public class ChangeEvent extends AlibiActivity {
 			} catch (Exception e){
 				Log.e(Alibi.TAG, "Unable to change location");
 			}
+			
+			Intent i = new Intent(view.getContext(), CurrentEvent.class);
+			startActivity(i);
 			
 			finish();
 		}
