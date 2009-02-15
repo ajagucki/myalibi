@@ -153,8 +153,12 @@ public class UserEventDAO {
         Cursor cursor =
                 db.query(true, DB_TABLE_ALIBIS, columns, KEY_ROWID + "=" + rowId, null,
                         null, null, null, null);
-        if (cursor == null || cursor.moveToFirst() == false) {
-        	throw new SQLException();
+        if (cursor == null)
+            throw new SQLException();
+
+        if (!cursor.moveToFirst()) {
+            cursor.close();
+            throw new SQLException();
         }
         
         double latitude  = cursor.getDouble(cursor.getColumnIndex(KEY_LOC_LAT));
@@ -168,6 +172,8 @@ public class UserEventDAO {
         long startTime = cursor.getLong(cursor.getColumnIndex(KEY_START_TIME));
         long endTime = cursor.getLong(cursor.getColumnIndex(KEY_END_TIME));
         String userNotes = cursor.getString(cursor.getColumnIndex(KEY_USER_NOTES));
+        cursor.close();
+        
         UserEvent userEvent = new UserEvent(location, category, startTime);
         userEvent.setEndTime(endTime);
         if (userNotes != null) {
@@ -212,11 +218,17 @@ public class UserEventDAO {
      * @return the id of the current user event, or -1 if not set.
      */
     public long fetchCurrentId() {
-    	Cursor cursor = db.query(DB_TABLE_CURRENT, null, null, null, null, null, null);
-    	if (cursor == null || cursor.moveToFirst() == false) {
-    		return -1;
-    	}
-    	return cursor.getLong(cursor.getColumnIndex(KEY_CURRENT_ID));
+        Cursor cursor = db.query(DB_TABLE_CURRENT, null, null, null, null, null, null);
+        if (cursor == null)
+            return -1;
+
+        if (!cursor.moveToFirst()) {
+            cursor.close();
+            return -1;
+        }
+        long id = cursor.getLong(cursor.getColumnIndex(KEY_CURRENT_ID));
+        cursor.close();
+        return id;
     }
     
     /**
