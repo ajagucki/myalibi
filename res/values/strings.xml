@@ -5,4 +5,5 @@
     <string name="menu_about">About Alibi</string>
     <string name="menu_cancel">Cancel Event</string>
     <string name="menu_change_category">Change Category</string>
+    <string name="reminder_title">My Alibi Reminder</string>
 </resources>

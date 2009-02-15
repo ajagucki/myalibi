@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.widget.Toast;
 
 /**
@@ -25,26 +26,28 @@ public class ReminderAlarm extends BroadcastReceiver {
         UserEventManager uem = alibi.getUserEventManager();
         UserEvent event = uem.getCurrentEvent();
 
-        String message = "Your activity " + event.getCategory().getTitle() +
-                         " has been running since " + event.getNiceStartTime();
+        String msgNotify = "Activity " + event.getCategory().getTitle() +
+                          " in progress";
+        String msgToast = msgNotify + " since " + event.getNiceStartTime();
         Toast.makeText(
                 context,
-                "My Alibi Reminder" + "\n" + message,
+                context.getString(R.string.reminder_title) + "\n" + msgToast,
                 Toast.LENGTH_LONG
         ).show();
         
-        createNotification(context, message);
+        createNotification(context, msgNotify);
     }
     
     private void createNotification(Context context, String message) {
-        // We never want more than one notification, so always use the same ID
         NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         Notification notification = new Notification(R.drawable.icon, message, System.currentTimeMillis());
         
         Intent currentEvent = new Intent(context, CurrentEvent.class);
-        PendingIntent pending = PendingIntent.getActivity(context, 0, currentEvent, 0);
-        notification.setLatestEventInfo(context, "My Alibi Reminder", message, pending);
+        PendingIntent target = PendingIntent.getActivity(context, 0, currentEvent, 0);
+        String title = context.getString(R.string.reminder_title);
+        notification.setLatestEventInfo(context, title, message, target);
 
+        // We never want more than one notification, so always use the same ID
         nm.notify(NOTIFICATION_ID, notification);
     }
 
