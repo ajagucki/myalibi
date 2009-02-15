@@ -16,15 +16,23 @@ public class CurrentEvent extends AlibiActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.current_event);
+        UserEventManager userEventManager = ((Alibi)getApplication()).getUserEventManager();
+        UserEvent userEvent = null;
         
-        //Next section of code finds the current event and displays
-        //the category and start time
+        try {
+            userEvent = userEventManager.getCurrentEvent(); 
+            //XXX: would there ever be a case where userEvent would be null?
+        } catch (Exception e) {
+            Log.e(Alibi.TAG, "Couldn't finish event: " + e.getMessage());
+            //XXX: what do we do to handle this error - go back to start?
+        }
+        
+        setContentView(R.layout.current_event);
     
         ImageView categoryImage = (ImageView) findViewById(R.id.current_category_image);
         TextView startTimeLabel = (TextView) findViewById(R.id.current_start_time_label);
         
-        setCurrentCategoryInfo(categoryImage, startTimeLabel, null);
+        setCurrentEventInfo(userEvent, categoryImage, startTimeLabel, null);
         
         Button stopButton = (Button) findViewById(R.id.stop);;
         

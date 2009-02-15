@@ -36,26 +36,25 @@ public class EventSummary extends AlibiActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+        
+        userEventManager = ((Alibi)getApplication()).getUserEventManager();
 		
-		
-		userEventManager = ((Alibi)getApplication()).getUserEventManager();
-		
-		try {
-		    userEvent = userEventManager.getCurrentEvent(); 
-		    //XXX: would there ever be a case where userEvent would be null?
+        try {
+            userEvent = userEventManager.getCurrentEvent(); 
+            //XXX: would there ever be a case where userEvent would be null?
             userEventUri = userEventManager.stop(); //stops, saves, and cleans up event resources
         } catch (Exception e) {
             Log.e(Alibi.TAG, "Couldn't finish event: " + e.getMessage());
             //XXX: what do we do to handle this error - go back to start?
         }
-		
+        
         setContentView(R.layout.event_summary);
         
         ImageView categoryImage = (ImageView) findViewById(R.id.category_image);
         TextView startTimeLabel = (TextView) findViewById(R.id.start_time_label);
         TextView stopTimeLabel = (TextView) findViewById(R.id.stop_time_label);
         
-        setCurrentCategoryInfo(categoryImage, startTimeLabel, stopTimeLabel);
+        setCurrentEventInfo(userEvent, categoryImage, startTimeLabel, stopTimeLabel);
         
 		Button editButton = (Button) findViewById(R.id.edit_event);
 		Button finishButton = (Button) findViewById(R.id.finish_event);

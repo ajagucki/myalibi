@@ -62,19 +62,8 @@ public class AlibiActivity extends Activity {
      * @param startTimeLabel    A TextView to be set with the start time of the current event
      * @param stopTimeLabel     A TextView to be set with the stop time of the current event
      */
-    protected void setCurrentCategoryInfo(ImageView categoryImage, TextView startTimeLabel, TextView stopTimeLabel) {
-        
-        UserEventManager uem = ((Alibi)getApplication()).getUserEventManager();
-        UserEvent userEvent = null;
-        
-        try {
-            userEvent = uem.getCurrentEvent(); 
-            //XXX: would there ever be a case where userEvent would be null?
-        } catch (Exception e) {
-            Log.e(Alibi.TAG, "Couldn't finish event: " + e.getMessage());
-            //XXX: what do we do to handle this error - go back to start?
-        }
-        
+    protected void setCurrentEventInfo(UserEvent userEvent, ImageView categoryImage, TextView startTimeLabel, TextView stopTimeLabel) {
+            
         if (userEvent != null) {
 
             // display appropriate category image
@@ -102,7 +91,7 @@ public class AlibiActivity extends Activity {
             }
             
             if (stopTimeLabel != null) {
-                stopTimeLabel.setText("Event stopped: " + userEvent.getNiceEndTime() );
+                stopTimeLabel.setText("Event stopped: " + userEvent.getNiceEndTime());
             }
         }
     }
