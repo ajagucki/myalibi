@@ -69,8 +69,19 @@ public class EventSummary extends AlibiActivity {
 		        intent.setData(userEventUri);
 		        intent.putExtra(EVENT_BEGIN_TIME, userEvent.getStartTime());
                 intent.putExtra(EVENT_END_TIME, userEvent.getEndTime()); 
+                
+                //Add a StartEvent activity to the stack so when we go 'back' from editing, the app is still there
+                Intent i = new Intent(view.getContext(), StartEvent.class);
+                startActivity(i);
+              
+                //Next the edit event screen goes on the stack
 		        startActivity(intent); 
+		        
+		        //Now take EventSummary off the stack since we don't want to get back to it
+		        finish();
+		        
 		        //XXX: next - if event is updated, how to access new start/end times for summary?
+		        //Answer: after editing the event we don't go back to EventSummary
 		    }
 		});
 		
