@@ -23,6 +23,7 @@
 		android:width="140dip"
 		android:height="70dip"
 		android:text="Stop Event"
+		android:textSize="18sp"
 		android:textStyle="bold"/>
 		
 </LinearLayout>
