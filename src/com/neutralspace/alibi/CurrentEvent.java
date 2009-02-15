@@ -20,38 +20,11 @@ public class CurrentEvent extends AlibiActivity {
         
         //Next section of code finds the current event and displays
         //the category and start time
-        UserEventManager uem = ((Alibi)getApplication()).getUserEventManager();
-        UserEvent userEvent = null;
+    
+        ImageView categoryImage = (ImageView) findViewById(R.id.current_category_image);
+        TextView startTimeLabel = (TextView) findViewById(R.id.current_start_time_label);
         
-        try {    
-            userEvent = uem.getCurrentEvent();
-        } catch (Exception e) {
-            //What to do here?
-        }
-        
-        if(userEvent != null) {
-            // display appropriate category image
-            ImageView categoryImage = (ImageView) findViewById(R.id.current_category_image);
-            Integer imageResource = 0;
-            switch (userEvent.getCategory()) {
-            case WORK:
-                imageResource = R.drawable.category_work;
-                break;
-            case PLAY: 
-                imageResource = R.drawable.category_play;
-                break;
-            case EAT:
-                imageResource = R.drawable.category_eat;
-                break;
-            case OTHER:
-                imageResource = R.drawable.category_other;
-                break;
-            }
-            categoryImage.setImageResource(imageResource);
-
-            TextView startTimeLabel = (TextView) findViewById(R.id.current_start_time_label);
-            startTimeLabel.setText("Event Started: " + userEvent.getNiceStartTime());
-        }
+        setCurrentCategoryInfo(categoryImage, startTimeLabel, null);
         
         Button stopButton = (Button) findViewById(R.id.stop);;
         

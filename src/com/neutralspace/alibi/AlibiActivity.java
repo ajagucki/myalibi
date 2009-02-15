@@ -1,8 +1,12 @@
 package com.neutralspace.alibi;
 
 import android.app.Activity;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -48,6 +52,59 @@ public class AlibiActivity extends Activity {
             return true;
         }
         return super.onMenuItemSelected(featureId, item);
+    }
+    
+    /**
+     * Sets the current category information for category image, startTime, and stopTime.
+     * If null is passed to any argument, that view element will be ignored.
+     * Intended for use in CurrentEvent and EventSummary.
+     * @param categoryImage     An ImageView to be set with the current category image
+     * @param startTimeLabel    A TextView to be set with the start time of the current event
+     * @param stopTimeLabel     A TextView to be set with the stop time of the current event
+     */
+    protected void setCurrentCategoryInfo(ImageView categoryImage, TextView startTimeLabel, TextView stopTimeLabel) {
+        
+        UserEventManager uem = ((Alibi)getApplication()).getUserEventManager();
+        UserEvent userEvent = null;
+        
+        try {
+            userEvent = uem.getCurrentEvent(); 
+            //XXX: would there ever be a case where userEvent would be null?
+        } catch (Exception e) {
+            Log.e(Alibi.TAG, "Couldn't finish event: " + e.getMessage());
+            //XXX: what do we do to handle this error - go back to start?
+        }
+        
+        if (userEvent != null) {
+
+            // display appropriate category image
+            if(categoryImage != null) {
+                Integer imageResource = 0;
+                switch (userEvent.getCategory()) {
+                case WORK:
+                    imageResource = R.drawable.category_work;
+                    break;
+                case PLAY: 
+                    imageResource = R.drawable.category_play;
+                    break;
+                case EAT:
+                    imageResource = R.drawable.category_eat;
+                    break;
+                case OTHER:
+                    imageResource = R.drawable.category_other;
+                    break;
+                }
+                categoryImage.setImageResource(imageResource);
+            }
+            
+            if (startTimeLabel != null) {
+                startTimeLabel.setText("Event Started: " + userEvent.getNiceStartTime());
+            }
+            
+            if (stopTimeLabel != null) {
+                stopTimeLabel.setText("Event stopped: " + userEvent.getNiceEndTime() );
+            }
+        }
     }
 
 }

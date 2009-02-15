@@ -37,6 +37,7 @@ public class EventSummary extends AlibiActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		
 		userEventManager = ((Alibi)getApplication()).getUserEventManager();
 		
 		try {
@@ -48,41 +49,16 @@ public class EventSummary extends AlibiActivity {
             //XXX: what do we do to handle this error - go back to start?
         }
 		
-       
-		setContentView(R.layout.event_summary);
+        setContentView(R.layout.event_summary);
+        
+        ImageView categoryImage = (ImageView) findViewById(R.id.category_image);
+        TextView startTimeLabel = (TextView) findViewById(R.id.start_time_label);
+        TextView stopTimeLabel = (TextView) findViewById(R.id.stop_time_label);
+        
+        setCurrentCategoryInfo(categoryImage, startTimeLabel, stopTimeLabel);
+        
 		Button editButton = (Button) findViewById(R.id.edit_event);
 		Button finishButton = (Button) findViewById(R.id.finish_event);
-		
-		if (userEvent != null) {
-		    // get uri, category, start-time, stop-time
-
-		    // display appropriate category image
-		    ImageView categoryImage = (ImageView) findViewById(R.id.category_image);
-		    Integer imageResource = 0;
-		    switch (userEvent.getCategory()) {
-		    case WORK:
-		        imageResource = R.drawable.category_work;
-		        break;
-		    case PLAY: 
-		        imageResource = R.drawable.category_play;
-		        break;
-		    case EAT:
-		        imageResource = R.drawable.category_eat;
-		        break;
-		    case OTHER:
-		        imageResource = R.drawable.category_other;
-		        break;
-		    }
-		    categoryImage.setImageResource(imageResource);
-
-		    TextView startTimeLabel = (TextView) findViewById(R.id.start_time_label);
-		    startTimeLabel.setText("Event Started: " + userEvent.getNiceStartTime());
-
-		    TextView stopTimeLabel = (TextView) findViewById(R.id.stop_time_label);
-            stopTimeLabel.setText("Event stopped: " + userEvent.getNiceEndTime() );
-		}
-		
-		
 		
 		editButton.setOnClickListener(new View.OnClickListener(){
 			
