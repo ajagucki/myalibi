@@ -112,3 +112,4 @@ public class EventSummary extends AlibiActivity {
         }
     }
 }
+
