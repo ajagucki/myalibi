@@ -60,6 +60,8 @@ public class StartEvent extends AlibiActivity {
             
             Intent locationIntent = new Intent(view.getContext(), FindLocation.class);
             startActivity(locationIntent);
+            
+            finish();
 
 		}
 
