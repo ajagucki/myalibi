@@ -80,6 +80,9 @@ public class EventSummary extends AlibiActivity {
 			public void onClick(View view){
 			    // Finish event & return to Start screen.
 			    Log.i(TAG, "Finished " + userEvent.getCategory().getTitle() + " event.");
+			    
+			    Intent j = new Intent(view.getContext(), StartEvent.class);
+			    startActivity(j);
 			    finish(); // done with this activity now.
 			}
 		});
