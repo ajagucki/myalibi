@@ -35,13 +35,19 @@
 	    <Button android:id="@+id/edit_event" 
 			android:layout_width="fill_parent" 
 			android:layout_height="wrap_content"
+			android:width="140dip"
+			android:height="70dip"
 			android:text="Edit This Event"
-			android:paddingBottom="8dip" />
+			android:textStyle="bold"
+			android:paddingBottom="8dip"/>
 	
 	    <Button android:id="@+id/finish_event" 
 			android:layout_width="fill_parent" 
 			android:layout_height="wrap_content"
-			android:text="Finished"/>
+			android:width="140dip"
+			android:height="70dip"
+			android:text="Finished"
+			android:textStyle="bold"/>
 		
 	</LinearLayout>
 </LinearLayout>
