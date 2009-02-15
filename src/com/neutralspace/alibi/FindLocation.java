@@ -28,23 +28,22 @@ public class FindLocation extends AlibiActivity {
         
         String s = android.provider.Settings.System.getString
         (getContentResolver(), android.provider.Settings.System.LOCATION_PROVIDERS_ALLOWED);
-        Log.e(Alibi.TAG, " avail GPS: " + s);
+        Log.d(Alibi.TAG, " avail GPS: " + s);
         
         userLocation = lm.getLastKnownLocation(provider);
         
-        Log.e(Alibi.TAG, "Provider enabled status: " + lm.isProviderEnabled(provider));
+        Log.d(Alibi.TAG, "Provider enabled status: " + lm.isProviderEnabled(provider));
        
         if (userLocation == null) {
         	userLocation = new Location("Unknown");
         	Log.e(Alibi.TAG, "Provider '" + provider + "' was disabled.");
 
+        } else {
+        	Log.i(Alibi.TAG, "Location set to " + userLocation.toString());
+        	((Alibi) getApplication()).getUserEventManager().getCurrentEvent().setLocation(userLocation);
         }
         
-        Log.e(Alibi.TAG, " Location set to " + userLocation.toString());
- 		
-        ((Alibi) getApplication()).getUserEventManager().getCurrentEvent().setLocation(userLocation);
-       
-        Log.e(Alibi.TAG, " About to start current event");
+        Log.i(Alibi.TAG, "Calling current event");
 
 	    Intent currentEventIntent = new Intent(this.getBaseContext(), CurrentEvent.class);
 		startActivity(currentEventIntent);

@@ -15,7 +15,7 @@ import android.location.LocationManager;
  */
 public class StartEvent extends AlibiActivity {
 	
-    // Custom Activity result codes jhjh
+    // Custom Activity result codes
     public static final int YOUR_CUSTOM_RESULT_CODE = RESULT_FIRST_USER + 1;
 
 	
@@ -46,10 +46,10 @@ public class StartEvent extends AlibiActivity {
 	    
 		public void onClick(View view) {
             Alibi app = (Alibi) getApplication();
-    //        Location loc = findLocation();
+            Location loc = new Location("Unknown");
             UserEventManager uem = app.getUserEventManager();
             long startTime = System.currentTimeMillis();
-            UserEvent newEvent = new UserEvent(null, this.category, startTime);
+            UserEvent newEvent = new UserEvent(loc, this.category, startTime);
 
             try {
                 uem.start(newEvent);
