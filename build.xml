@@ -10,6 +10,20 @@
     <!-- Eclipse uses "bin" for its own output, so we do the same. -->
     <property name="outdir" value="bin" />
     
+
+	<!-- Run Monkey: test application with random input -->
+    <target name="monkey">
+        <echo>Testing app with Monkey (random input)... </echo>
+        <exec executable="${adb}" failonerror="true">
+            <arg value="shell" />
+            <arg value="monkey" />
+            <arg value="-p" />
+            <arg value="${application-package}" />
+            <arg value="-v" />
+            <arg value="300" />
+        </exec>
+    </target>
+    
     <!-- ************************************************************************************* -->
     <!-- No user servicable parts below. -->
 
