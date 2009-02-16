@@ -87,6 +87,11 @@ public class UserEventManager {
      * event.
      */
     private void setAlarm() {
+        if (!settingsManager.isRemind()) {
+            Log.d(Alibi.TAG, "Remind Me off; not setting alarm");
+            return;
+        }
+        
         Intent intent = new Intent(this.context, ReminderAlarm.class);
         PendingIntent sender = PendingIntent.getBroadcast(this.context, 0, intent, 0);
 
@@ -104,6 +109,13 @@ public class UserEventManager {
      * Stops the current waiting-to-wake-up Reminder alarm and notification.
      */
     private void cancelAlarm() {
+        // Settings *should not* be able to change during an event, so if
+        // "Remind Me" option is off now, it was off when event started, also 
+        if (!settingsManager.isRemind()) {
+            Log.d(Alibi.TAG, "Remind Me off; not canceling alarm");
+            return;
+        }
+
         Intent intent = new Intent(this.context, ReminderAlarm.class);
         PendingIntent sender = PendingIntent.getBroadcast(this.context, 0, intent, 0);
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
