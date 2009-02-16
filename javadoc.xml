@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="javadoc">
+    <target name="javadoc">
+        <javadoc access="public" author="true" classpath="." destdir="docs/javadoc" doctitle="Alibi Code Documentation" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="com.neutralspace.alibi,com.neutralspace.alibi.widget,com.neutralspace.alibi.android.widget,com.neutralspace.alibi.android.annotation,com.neutralspace.alibi.android.text" source="1.6" sourcepath="src" splitindex="true" use="true" version="true">
+            <link href="file:/home/shark/capstone/android-sdk/docs/reference"/>
+        </javadoc>
+    </target>
+</project>

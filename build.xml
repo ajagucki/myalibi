@@ -23,6 +23,13 @@
             <arg value="300" />
         </exec>
     </target>
+
+	<!-- Build javadocs. 
+		Note, javadocs are in another build file so that file can be updated by Eclipse as need be. -->
+	<target name="javadoc">
+		<ant antfile="javadoc.xml" target="javadoc" inheritAll="false"/>
+	</target>
+	
     
     <!-- ************************************************************************************* -->
     <!-- No user servicable parts below. -->
