@@ -1,6 +1,7 @@
 package com.neutralspace.alibi;
 
 import java.util.Calendar;
+import java.util.TimeZone;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -165,7 +166,9 @@ public class UserEventManager {
                 .getUserNotes() : "";
         long dtstart = userEvent.getStartTime();
         long dtend = userEvent.getEndTime();
-        String eventTimezone = "PST"; // TODO: Get timezone of phone here
+        
+        // Use default TimeZone of the phone
+        String eventTimezone = TimeZone.getDefault().getID();
         
         ContentValues values = new ContentValues();
         values.put("eventTimezone", eventTimezone);
