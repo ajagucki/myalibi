@@ -1,14 +1,11 @@
 package com.neutralspace.alibi;
 
-import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationManager;
 
 /**
  * This is the default main screen of Alibi.
