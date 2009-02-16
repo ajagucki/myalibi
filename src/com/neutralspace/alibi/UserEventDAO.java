@@ -6,7 +6,9 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationManager;
 import android.util.Log;
 
 
@@ -161,10 +163,19 @@ public class UserEventDAO {
             throw new SQLException();
         }
         
+        // Get the best Location provider to construct this location
+        LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        Criteria c = new Criteria();
+        c.setAccuracy(Criteria.ACCURACY_FINE);
+        c.setBearingRequired(false);
+        c.setAltitudeRequired(false);
+        c.setCostAllowed(false);
+        String provider = lm.getBestProvider(c, true);
+        Log.d(Alibi.TAG, "UserEventDAO#fetchUserEvent used the '" + provider + "' LocationProvider.");
+        
         double latitude  = cursor.getDouble(cursor.getColumnIndex(KEY_LOC_LAT));
         double longitude = cursor.getDouble(cursor.getColumnIndex(KEY_LOC_LON));
-        // TODO: Get the correct Location provider to construct this location
-        Location location = new Location("gps");
+        Location location = new Location(provider);
         location.setLatitude(latitude);
         location.setLongitude(longitude);
         UserEvent.Category category = UserEvent.Category.getCategory(cursor
