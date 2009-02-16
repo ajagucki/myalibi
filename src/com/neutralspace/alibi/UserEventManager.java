@@ -127,7 +127,6 @@ public class UserEventManager {
             throw new Exception("Tried to finish before the current event began.");
         }
 
-        // TODO: Do we need to coerce java.util.Calendar to use the phone's locale?
         if (currentEvent.getEndTime() <= 0) {
             currentEvent.setEndTime(Calendar.getInstance().getTimeInMillis());
         }
