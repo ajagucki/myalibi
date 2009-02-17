@@ -41,7 +41,7 @@ public class ChangeEvent extends AlibiActivity {
 		public void onClick(View view){
 			
 			try{
-				((Alibi) getApplication()).getUserEventManager().getCurrentEvent().setCategory(category);
+				((Alibi) getApplication()).getUserEventManager().setCategory(category);
 			} catch (Exception e){
 				Log.e(Alibi.TAG, "Unable to change location");
 			}

@@ -84,6 +84,13 @@ public class SettingsManager {
         return reminderDelay;
     }
 
+    /**
+     * @return Reminder interval in milliseconds
+     */
+    public long getReminderDelayMillis() {
+        return (long) reminderDelay * 60 * 1000;
+    }
+    
     public void setReminderDelay(int reminderDelay) {
         this.reminderDelay = reminderDelay;
     }

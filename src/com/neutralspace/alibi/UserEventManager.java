@@ -95,9 +95,7 @@ public class UserEventManager {
         Intent intent = new Intent(this.context, ReminderAlarm.class);
         PendingIntent sender = PendingIntent.getBroadcast(this.context, 0, intent, 0);
 
-        int minutes = settingsManager.getReminderDelay();
-        long interval = minutes * 60 * 1000; /* convert to milliseconds */
-        
+        long interval = settingsManager.getReminderDelayMillis();        
         long firstTime = SystemClock.elapsedRealtime() + interval;
 
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -120,7 +118,7 @@ public class UserEventManager {
         PendingIntent sender = PendingIntent.getBroadcast(this.context, 0, intent, 0);
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         am.cancel(sender);
-        ReminderAlarm.destroyNotification(this.context);
+        ReminderAlarm.cancelNotification(this.context);
         Log.d(Alibi.TAG, "Alarm canceled");
     }
 
@@ -206,6 +204,21 @@ public class UserEventManager {
         currentEvent = null;
         currentEventId = -1;
         cancelAlarm();
+    }
+    
+    /**
+     * Sets the Category of the current UserEvent.
+     * @param category new category
+     * @throws Exception Thrown if there's no current UserEvent
+     */
+    public void setCategory(UserEvent.Category category) throws Exception {
+        if (currentEvent == null) {
+            Log.e(Alibi.TAG, "setCategory: no current event");
+            throw new Exception("setCategory: no current event");
+        }
+        assert currentEventId >= 0; // if we have event, should have valid ID
+        currentEvent.setCategory(category);
+        ReminderAlarm.updateNotification(context);
     }
     
     /**

@@ -25,19 +25,15 @@ public class ReminderAlarm extends BroadcastReceiver {
         UserEventManager uem = alibi.getUserEventManager();
         UserEvent event = uem.getCurrentEvent();
 
-        String msgNotify = "Activity " + event.getCategory().getTitle() +
-                          " in progress";
-        String msgToast = msgNotify + " since " + event.getNiceStartTime();
-        Toast.makeText(
-                context,
-                context.getString(R.string.reminder_title) + "\n" + msgToast,
-                Toast.LENGTH_LONG
-        ).show();
-        
-        createNotification(context, msgNotify);
+        String msgNotify = getNotificationMessage(event);
+        String msgToast = context.getString(R.string.reminder_title) + "\n" +
+                          msgNotify + " since " + event.getNiceStartTime();
+            
+        setNotification(context, msgNotify);
+        createToast(context, msgToast);
     }
-    
-    private void createNotification(Context context, String message) {
+
+    private static void setNotification(Context context, String message) {
         NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         Notification notification = new Notification(R.drawable.icon, message, System.currentTimeMillis());
         
@@ -50,8 +46,32 @@ public class ReminderAlarm extends BroadcastReceiver {
         nm.notify(NOTIFICATION_ID, notification);
     }
 
-    public static void destroyNotification(Context context) {
+    public static void cancelNotification(Context context) {
         NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);   
         nm.cancel(NOTIFICATION_ID);
+    }
+
+    public static void updateNotification(Context context) {
+        Alibi alibi = (Alibi) context.getApplicationContext();
+        UserEvent event = alibi.getUserEventManager().getCurrentEvent();
+        
+        /* Don't set a notification if there isn't already one active; if the
+         * event has not been running as long as the reminder interval, there
+         * hasn't been a notification set yet.
+         */
+        long interval = alibi.getSettingsManager().getReminderDelayMillis();
+        long startTime = event.getStartTime();
+        long currentTime = System.currentTimeMillis();
+        
+        if (currentTime >= startTime + interval)
+            setNotification(context, getNotificationMessage(event));
+    }    
+
+    private static String getNotificationMessage(UserEvent event) {
+        return "Activity " + event.getCategory().getTitle() + " in progress";
+    }
+
+    private static void createToast(Context context, String message) {        
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
     }
 }
