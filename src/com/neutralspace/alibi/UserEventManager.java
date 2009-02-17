@@ -151,6 +151,7 @@ public class UserEventManager {
 
         Log.i(Alibi.TAG, "Stopped a " + currentEvent.getCategory().getTitle()
 				+ " event (ID: " + currentEventId + ").");
+        cancelAlarm();
         delete();
         return rowUri;
     }
@@ -203,7 +204,6 @@ public class UserEventManager {
         clearCurrentEventDb();
         currentEvent = null;
         currentEventId = -1;
-        cancelAlarm();
     }
     
     /**

@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.Toast;
 
 /**
@@ -25,6 +26,11 @@ public class ReminderAlarm extends BroadcastReceiver {
         UserEventManager uem = alibi.getUserEventManager();
         UserEvent event = uem.getCurrentEvent();
 
+        if (event == null) {
+            Log.d(Alibi.TAG, "ReminderAlarm: null current event");
+            return;
+        }
+        
         String msgNotify = getNotificationMessage(event);
         String msgToast = context.getString(R.string.reminder_title) + "\n" +
                           msgNotify + " since " + event.getNiceStartTime();
