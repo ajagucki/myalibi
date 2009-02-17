@@ -30,6 +30,7 @@ public class StartEvent extends AlibiActivity {
 		    Intent i = new Intent(this, CurrentEvent.class);
 		    startActivity(i);
 		    finish();
+		    return;
 		}
 		
 		setContentView(R.layout.start_event);

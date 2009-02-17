@@ -3,6 +3,8 @@ package com.neutralspace.alibi;
 import android.os.Bundle;
 import android.content.Intent;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -26,10 +28,16 @@ public class ChangeEvent extends AlibiActivity {
 		eatButton.setOnClickListener(new ChangeListener(UserEvent.Category.EAT));
 		otherButton.setOnClickListener(new ChangeListener(UserEvent.Category.OTHER));
 
-		
-
-			
 	}
+	
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        boolean retVal = super.onCreateOptionsMenu(menu);
+        
+        menu.removeItem(MENU_SETTINGS);
+        
+        return retVal;
+    }
 	
 	class ChangeListener implements OnClickListener{
 		UserEvent.Category category;
