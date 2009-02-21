@@ -62,24 +62,21 @@ public class UserEventManager {
         if (currentEvent != null) {
             Log.w(Alibi.TAG, "Beginning an event before the current finished.");
         }
-        currentEvent = userEvent;
 
         // Persist current event in the database (to restore application state later)
         userEventDAO.open();
         currentEventId = userEventDAO.createUserEvent(userEvent);
         if (currentEventId == -1) {
-        	Log.e(Alibi.TAG, "Failed to create the user event.");
-        	delete();
+            userEventDAO.close();
+            Log.e(Alibi.TAG, "Failed to create the user event.");
+            throw new Exception("Failed to create the user event.");
         }
-        else {
-	        Log.i(Alibi.TAG, "Started a " + userEvent.getCategory().getTitle()
-					+ " event (ID: " + currentEventId + ").");
-        }
+        currentEvent = userEvent;
         userEventDAO.updateCurrentId(currentEventId);
         userEventDAO.close();
-
-        // Don't set the alarm until the event is completely created
         setAlarm();
+        Log.i(Alibi.TAG, "Started a " + userEvent.getCategory().getTitle()
+                + " event (ID: " + currentEventId + ").");
     }
 
     /**
@@ -152,13 +149,28 @@ public class UserEventManager {
         Log.i(Alibi.TAG, "Stopped a " + currentEvent.getCategory().getTitle()
 				+ " event (ID: " + currentEventId + ").");
         cancelAlarm();
-        delete();
+        clearCurrentEventDb();
         return rowUri;
     }
 
+    /**
+     * Ends the current event and discards it.
+     */
+    public void cancel() {
+        cancelAlarm();
+        clearCurrentEventDb();
+    }
+
+    /**
+     * Deletes the current event from Alibi (not from the phone's calendar).
+     */
 	private void clearCurrentEventDb() {
-		userEventDAO.open();
-		if (userEventDAO.deleteUserEvent(currentEventId) == false) {
+        long oldEventId = currentEventId;
+        currentEvent = null;
+        currentEventId = -1;
+
+	    userEventDAO.open();
+		if (userEventDAO.deleteUserEvent(oldEventId) == false) {
         	Log.e(Alibi.TAG, "Failed to delete the current user event.");
         }
         if (userEventDAO.updateCurrentId(-1) == false) {
@@ -166,7 +178,7 @@ public class UserEventManager {
         }
         userEventDAO.close();
 	}
-    
+
     private ContentValues getCalendarContentValues(UserEvent userEvent) {
         String title = "My Alibi: " + userEvent.getCategory().getTitle();
         String eventLocation = Double.toString(userEvent.getLocation()
@@ -195,17 +207,7 @@ public class UserEventManager {
 
         return values;
     }
-    
-    /**
-     * Deletes the current event from Alibi (not from the phone's calendar).
-     */
-    public void delete() {
-        // Remove current event from local database
-        clearCurrentEventDb();
-        currentEvent = null;
-        currentEventId = -1;
-    }
-    
+
     /**
      * Sets the Category of the current UserEvent.
      * @param category new category
@@ -229,5 +231,4 @@ public class UserEventManager {
     public UserEvent getCurrentEvent() {
         return currentEvent;
     }
-    
 }

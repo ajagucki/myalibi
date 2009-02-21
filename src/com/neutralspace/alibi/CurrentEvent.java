@@ -79,7 +79,7 @@ public class CurrentEvent extends AlibiActivity {
             
             UserEventManager uem = ((Alibi)getApplication()).getUserEventManager();
             
-            uem.delete();
+            uem.cancel();
             finish();
             return true;
         case MENU_CHANGE_CATEGORY:
