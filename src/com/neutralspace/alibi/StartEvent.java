@@ -39,6 +39,10 @@ public class StartEvent extends AlibiActivity {
 		Button eatButton = (Button) findViewById(R.id.eat);
 		Button otherButton = (Button) findViewById(R.id.other);
 		
+		workButton.setBackgroundResource(R.drawable.category_work);
+		eatButton.setBackgroundResource(R.drawable.category_eat);
+		playButton.setBackgroundResource(R.drawable.category_play);
+		otherButton.setBackgroundResource(R.drawable.category_other);
 		workButton.setOnClickListener(new StartEventListener(UserEvent.Category.WORK));
         eatButton.setOnClickListener(new StartEventListener(UserEvent.Category.EAT));
         playButton.setOnClickListener(new StartEventListener(UserEvent.Category.PLAY));
