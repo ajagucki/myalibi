@@ -39,14 +39,17 @@ public class AlibiActivity extends Activity {
 
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
-        switch (item.getItemId()) {
+        Intent intent;
+    	switch (item.getItemId()) {
         case MENU_SETTINGS: 
             // Go to Setup screen
-            Intent intent = new Intent(this, Setup.class);
+            intent = new Intent(this, Setup.class);
             startActivity(intent);
             return true;
         case MENU_ABOUT:
-            // TODO: Go to About screen
+        	// Open the AboutAlibi dialog
+            intent = new Intent(this, AboutAlibi.class);
+            startActivity(intent);
             return true;
         }
         return super.onMenuItemSelected(featureId, item);
