@@ -27,7 +27,7 @@
 				
 	<!--  put these buttons in one layout so their width is equal -->			
 	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:gravity="center"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
