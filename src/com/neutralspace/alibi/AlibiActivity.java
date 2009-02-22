@@ -48,12 +48,9 @@ public class AlibiActivity extends Activity {
             startActivity(intent);
             return true;
         case MENU_ABOUT:
-        	// Open the AboutAlibi dialog
-            Dialog dialog = new Dialog(this);
-            dialog.setCancelable(true);
-            dialog.setContentView(R.layout.about_alibi);
-            dialog.setTitle("About myAlibi");
-            dialog.show();
+        	// Open the About myAlibi dialog
+            AboutDialog about = new AboutDialog(this);
+            about.show();
             return true;
         }
         return super.onMenuItemSelected(featureId, item);
