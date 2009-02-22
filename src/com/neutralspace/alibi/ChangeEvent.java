@@ -23,6 +23,11 @@ public class ChangeEvent extends AlibiActivity {
 		Button eatButton = (Button) findViewById(R.id.eat);
 		Button otherButton = (Button) findViewById(R.id.other);
 		
+		workButton.setBackgroundResource(R.drawable.category_work);
+	    eatButton.setBackgroundResource(R.drawable.category_eat);
+	    playButton.setBackgroundResource(R.drawable.category_play);
+	    otherButton.setBackgroundResource(R.drawable.category_other);
+		
 		workButton.setOnClickListener(new ChangeListener(UserEvent.Category.WORK));
 		playButton.setOnClickListener(new ChangeListener(UserEvent.Category.PLAY));
 		eatButton.setOnClickListener(new ChangeListener(UserEvent.Category.EAT));

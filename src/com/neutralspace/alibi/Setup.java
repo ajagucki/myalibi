@@ -1,6 +1,7 @@
 package com.neutralspace.alibi;
 
 import android.database.Cursor;
+import android.widget.ScrollView;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -24,6 +25,7 @@ public class Setup extends AlibiActivity {
     public static final Uri CALENDARS_URI = Uri.parse("content://calendar/calendars");
     public static final String[] calsProjection = new String[] { "_id", "displayName" };
     
+    private ScrollView scrollView;
     private Spinner calendarS;
     private CheckBox remindCb;
     private DelayPicker reminderDp;
@@ -59,6 +61,12 @@ public class Setup extends AlibiActivity {
 		
 		doneButton = (Button) findViewById(R.id.done_button);
 		doneButton.setOnClickListener(doneButtonListener);
+
+		//Try to find the ScrollView which only exists in landscape
+		//If it's there, scroll to the top
+		if((scrollView = (ScrollView) findViewById(R.id.setup_scrollview)) != null) {
+		    scrollView.smoothScrollTo(0, 0);
+		}
 	}
 
     private void setCalendarId(int calendarId) {
