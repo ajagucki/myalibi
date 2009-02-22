@@ -1,22 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:padding="0dip">
-		
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent" android:padding="0dip">
+
 	<TextView android:id="@+id/caption_text"
-		android:layout_gravity="center_horizontal"
-		android:layout_width="wrap_content"
+		android:layout_gravity="center_horizontal" android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:text=
-"MyAlibi\nVersion 1.0.0\n
-MyAlibi for Google Android\n\n
-© 2009 neutralSpace.  All Rights Reserved.
-MyAlibi, MyAlibi logos, and neutralSpace logos
-are trademarks of neutralSpace.  All Rights Reserved."
-		android:textSize="15sp"
-		android:padding="10dip"/>
+"MyAlibi\nVersion 1.0.0\nMyAlibi for Google Android\n\n© 2009 neutralSpace.  All Rights Reserved.  MyAlibi, MyAlibi logos, and neutralSpace logos are trademarks of neutralSpace.  All Rights Reserved."
+		android:textSize="15sp" android:padding="10dip" />
+
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+
+	    <Button android:id="@+id/open_help" 
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"
+			android:width="80dip"
+			android:text="Help"
+			android:textSize="16sp"/>
+    			
+	    <Button android:id="@+id/open_credits" 
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"
+			android:width="80dip"
+			android:text="Credits"
+			android:textSize="16sp"/>
+	
+	    <Button android:id="@+id/close_about" 
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"
+			android:width="80dip"
+			android:text="Close"
+			android:textSize="16sp"/>
 		
+	</LinearLayout>
 
 </LinearLayout>
