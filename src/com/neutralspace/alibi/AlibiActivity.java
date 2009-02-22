@@ -1,6 +1,7 @@
 package com.neutralspace.alibi;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -48,8 +49,11 @@ public class AlibiActivity extends Activity {
             return true;
         case MENU_ABOUT:
         	// Open the AboutAlibi dialog
-            intent = new Intent(this, AboutAlibi.class);
-            startActivity(intent);
+            Dialog dialog = new Dialog(this);
+            dialog.setCancelable(true);
+            dialog.setContentView(R.layout.about_alibi);
+            dialog.setTitle("About myAlibi");
+            dialog.show();
             return true;
         }
         return super.onMenuItemSelected(featureId, item);

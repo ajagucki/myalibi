@@ -13,8 +13,7 @@
         </activity>
         <receiver android:name=".ReminderAlarm" />
         <activity android:name=".Setup"></activity>
-        <activity android:name=".AboutAlibi"></activity>
-        <activity android:name=".CurrentEvent"></activity>
+       	<activity android:name=".CurrentEvent"></activity>
         <activity android:name=".EventSummary"></activity>
         <activity android:name=".ChangeEvent"></activity>
     	<activity android:name=".FindLocation"></activity>
