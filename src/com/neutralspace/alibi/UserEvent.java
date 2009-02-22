@@ -1,6 +1,8 @@
 package com.neutralspace.alibi;
 
 import android.location.Location;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * An Alibi user event whose members correlate to calendar event fields.
@@ -19,7 +21,7 @@ import android.location.Location;
  * User Notes -> Description
  * 
  */
-public class UserEvent {
+public class UserEvent implements Parcelable {
     
     private Location location;
     private Category category;
@@ -82,6 +84,38 @@ public class UserEvent {
         return DateUtils.getNiceTime(endTime);
     }
 
+    public int describeContents() {
+        return 0;
+    }
+
+    public void writeToParcel(Parcel out, int flags) {
+        out.writeParcelable(location, flags);
+        out.writeValue(category);
+        out.writeLong(startTime);
+        out.writeLong(endTime);
+        out.writeString(userNotes);
+    }
+    
+    public static final Parcelable.Creator<UserEvent> CREATOR 
+            = new Parcelable.Creator<UserEvent>() {
+        public UserEvent createFromParcel(Parcel in) {
+            return new UserEvent(in);
+        }
+
+        public UserEvent[] newArray(int size) {
+            return new UserEvent[size];
+        }
+    };
+
+    private UserEvent(Parcel in) {
+        super();
+        setLocation((Location) in.readParcelable(Location.class.getClassLoader()));
+        setCategory((Category) in.readValue(Category.class.getClassLoader()));
+        setStartTime(in.readLong());
+        setEndTime(in.readLong());
+        setUserNotes(in.readString());
+    }
+    
 	enum Category {
         
         WORK( "Work" ),
