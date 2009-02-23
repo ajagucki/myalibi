@@ -50,8 +50,8 @@ public class CurrentEvent extends AlibiActivity {
     }
     
     //TODO: find a solution here, the offsets should not be hardcoded
-    public static final int MENU_CHANGE_CATEGORY = Menu.FIRST + 2;
-    public static final int MENU_CANCEL = Menu.FIRST + 3;
+    public static final int MENU_CHANGE_CATEGORY = Menu.FIRST + 3;
+    public static final int MENU_CANCEL = Menu.FIRST + 4;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
