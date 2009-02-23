@@ -7,12 +7,13 @@
 	
 	<TextView android:id="@+id/caption_text"
 		android:layout_gravity="center_horizontal"
-		android:layout_width="wrap_content"
+		android:gravity="center"
+		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:text=" Change Category "
+		android:text="CHANGE CATEGORY"
 		android:textStyle="bold"
-		android:textSize="34sp"
-		android:padding="10dip"/>
+		android:textSize="40sp"
+		android:padding="0dip"/>
 		
 	<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
 		android:layout_width="wrap_content"
