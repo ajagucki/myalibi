@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:gravity="center"
+    android:gravity="center_horizontal"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:paddingTop="50dip"
     >
 	
     <ImageView android:id="@+id/current_category_image" android:src="@drawable/category_work"
@@ -15,7 +16,8 @@
 				android:layout_width="wrap_content" 
 				android:layout_height="wrap_content" 
 				android:text="Event Started: "
-				android:textSize="@dimen/text_sp"/>
+				android:textSize="@dimen/text_sp"
+				android:paddingBottom="10dip"/>
 	
     <Button android:id="@+id/stop" 
 		android:layout_width="wrap_content" 
