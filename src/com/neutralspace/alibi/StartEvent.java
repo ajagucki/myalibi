@@ -11,21 +11,14 @@ import android.widget.Button;
  * This is the default main screen of Alibi.
  */
 public class StartEvent extends AlibiActivity {
-	
-    // Custom Activity result codes
-    public static final int YOUR_CUSTOM_RESULT_CODE = RESULT_FIRST_USER + 1;
-
-	
-
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		
 		UserEventManager uem = ((Alibi) getApplication()).getUserEventManager();
 		
-		//Check to see if there is a current event. If so, go to CurrentEvent
+		// Check to see if there is a current event. If so, go to CurrentEvent
 		if(uem.getCurrentEvent() != null) {
 		    Intent i = new Intent(this, CurrentEvent.class);
 		    startActivity(i);
@@ -76,20 +69,5 @@ public class StartEvent extends AlibiActivity {
             finish();
 
 		}
-
-
 	};
-	
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        
-//        Bundle extras = data != null ? data.getExtras() : null;
-
-        switch(requestCode) {
-            case YOUR_CUSTOM_RESULT_CODE:
-                // Do something
-                break;
-        }
-    }
 }

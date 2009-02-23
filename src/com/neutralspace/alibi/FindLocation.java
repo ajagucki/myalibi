@@ -16,7 +16,6 @@ public class FindLocation extends AlibiActivity {
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.retrieve_location);
-		
 
         LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Criteria c = new Criteria();

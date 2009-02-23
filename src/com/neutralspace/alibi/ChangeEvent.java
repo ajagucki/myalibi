@@ -9,9 +9,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 public class ChangeEvent extends AlibiActivity {
-
-
-
+    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -64,9 +62,4 @@ public class ChangeEvent extends AlibiActivity {
 			finish();
 		}
 	};
-	
-
-
-		
-
 }

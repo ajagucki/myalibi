@@ -27,7 +27,6 @@ public class AlibiActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
     }
-
 	
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

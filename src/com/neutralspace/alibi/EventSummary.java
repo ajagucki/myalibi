@@ -24,10 +24,6 @@ public class EventSummary extends AlibiActivity {
     private static final String EVENT_BEGIN_TIME = "beginTime";
     private static final String EVENT_END_TIME = "endTime";
     
-    
-    // Custom Activity result codes
-    public static final int YOUR_CUSTOM_RESULT_CODE = RESULT_FIRST_USER + 1;
-    
     private UserEventManager userEventManager;
     private UserEvent userEvent = null;
     private Uri userEventUri = null; // from calendar
@@ -98,18 +94,5 @@ public class EventSummary extends AlibiActivity {
 		});
 		
 	}
-	
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        
-//        Bundle extras = data != null ? data.getExtras() : null;
-
-        switch(requestCode) {
-            case YOUR_CUSTOM_RESULT_CODE:
-                // Do something
-                break;
-        }
-    }
 }
 
