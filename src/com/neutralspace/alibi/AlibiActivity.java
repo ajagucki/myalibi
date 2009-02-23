@@ -63,6 +63,7 @@ public class AlibiActivity extends Activity {
         case MENU_HELP:
             intent = new Intent(Intent.ACTION_VIEW, Uri.parse(URL_HELP));
             startActivity(intent);
+            return true;
         }
         return super.onMenuItemSelected(featureId, item);
     }
