@@ -23,6 +23,7 @@ public class FindLocation extends AlibiActivity implements LocationListener {
 		skipButton.setOnClickListener(new View.OnClickListener(){
 			@Override
 			public void onClick(View v) {
+				lm.removeUpdates((LocationListener) v.getContext());
 				Log.i(Alibi.TAG, "event started without GPS location");
 			    Intent currentEventIntent = new Intent(v.getContext(), CurrentEvent.class);
 				startActivity(currentEventIntent);
