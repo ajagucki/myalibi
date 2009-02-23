@@ -1,7 +1,6 @@
 package com.neutralspace.alibi;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
