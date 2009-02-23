@@ -2,11 +2,16 @@ package com.neutralspace.alibi;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class AboutDialog extends Dialog{
+public class AboutDialog extends Dialog {
+    
+    // TODO: Change to Alibi's credits website
+    private final String URL_CREDITS = "http://www.google.com";
 
 	public AboutDialog(Context context) {
 		super(context);
@@ -46,8 +51,8 @@ public class AboutDialog extends Dialog{
 		}
 
 		public void onClick(View v) {
-			// TODO Auto-generated method stub
-			
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(URL_CREDITS));
+            v.getContext().startActivity(intent);
 		}
 		
 	}
