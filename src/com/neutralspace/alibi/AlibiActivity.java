@@ -3,6 +3,7 @@ package com.neutralspace.alibi;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +19,10 @@ public class AlibiActivity extends Activity {
     
     public static final int MENU_SETTINGS = Menu.FIRST;
     public static final int MENU_ABOUT = Menu.FIRST + 1;
+    public static final int MENU_HELP = Menu.FIRST + 2;
+    
+    // TODO: Change to Alibi's help website
+    private final String URL_HELP = "http://www.google.com";
   
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +39,9 @@ public class AlibiActivity extends Activity {
         
         menuItem = menu.add(Menu.NONE, MENU_ABOUT, Menu.CATEGORY_SECONDARY, R.string.menu_about);
         menuItem.setIcon(android.R.drawable.ic_menu_info_details);
+        
+        menuItem = menu.add(Menu.NONE, MENU_HELP, Menu.NONE, R.string.menu_help);
+        menuItem.setIcon(android.R.drawable.ic_menu_help);
         
         return retVal;
     }
@@ -52,6 +60,9 @@ public class AlibiActivity extends Activity {
             AboutDialog about = new AboutDialog(this);
             about.show();
             return true;
+        case MENU_HELP:
+            intent = new Intent(Intent.ACTION_VIEW, Uri.parse(URL_HELP));
+            startActivity(intent);
         }
         return super.onMenuItemSelected(featureId, item);
     }

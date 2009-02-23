@@ -6,4 +6,6 @@
     <string name="menu_cancel">Cancel Event</string>
     <string name="menu_change_category">Change Category</string>
     <string name="reminder_title">My Alibi Reminder</string>
+<string name="menu_help">Help</string>
+
 </resources>
