@@ -33,16 +33,32 @@ public class EventSummary extends AlibiActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
         
-        userEventManager = ((Alibi)getApplication()).getUserEventManager();
+		//If savedInstanceState is null then we are accessing 
+		//this activity with an unfinished event. So we need
+		//to save a reference to it, stop it, and save a ref
+		//to the URI so we can recover information.
+		if(savedInstanceState == null) {
 		
-        try {
-            userEvent = userEventManager.getCurrentEvent(); 
-            //XXX: would there ever be a case where userEvent would be null?
-            userEventUri = userEventManager.stop(); //stops, saves, and cleans up event resources
-        } catch (Exception e) {
-            Log.e(Alibi.TAG, "Couldn't finish event: " + e.getMessage());
-            //XXX: what do we do to handle this error - go back to start?
-        }
+		    userEventManager = ((Alibi)getApplication()).getUserEventManager();
+		
+		    try {
+		        userEvent = userEventManager.getCurrentEvent(); 
+		        //XXX: would there ever be a case where userEvent would be null?
+		        userEventUri = userEventManager.stop(); //stops, saves, and cleans up event resources
+		    } catch (Exception e) {
+		        Log.e(Alibi.TAG, "Couldn't finish event: " + e.getMessage());
+		        //XXX: what do we do to handle this error - go back to start?
+		    }
+        
+		    //If savedInstanceState is not null, then we are accessing
+		    //this activity after an orientation change, so we can
+		    //pull the userEvent and the userEventUri out of savedInstanceState.
+		} else {
+		    
+		    userEvent = (UserEvent) savedInstanceState.getParcelable("userEvent");
+		    userEventUri = (Uri) savedInstanceState.getParcelable("userEventUri");
+		    
+		}
         
         setContentView(R.layout.event_summary);
         
@@ -94,5 +110,20 @@ public class EventSummary extends AlibiActivity {
 		});
 		
 	}
+	
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+	    super.onSaveInstanceState(outState);
+	    
+	    //So we don't loose information during an orientation
+	    //change, save the userEvent and userEventUri by
+	    //putting them in the savedInstanceState (outState)
+	    //bundle
+	    
+	    outState.putParcelable("userEvent", userEvent);
+	    outState.putParcelable("userEventUri", userEventUri);
+	    
+	}
+	
 }
 
