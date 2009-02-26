@@ -7,6 +7,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,11 +15,19 @@ import android.widget.Button;
 public class FindLocation extends AlibiActivity implements LocationListener {
 //	private Location userLocation;
 	private LocationManager lm;
+	private Handler timeHandler = new Handler();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.retrieve_location);
+		
+		//GPS time-out setup
+		ListenerRunnable skipLocation = new ListenerRunnable(this);
+		timeHandler.removeCallbacks(skipLocation);
+		timeHandler.postDelayed(skipLocation, 30000);
+		
+		
 		Button skipButton = (Button) findViewById(R.id.skip_location);		
 		skipButton.setOnClickListener(new View.OnClickListener(){
 			@Override
@@ -32,8 +41,8 @@ public class FindLocation extends AlibiActivity implements LocationListener {
 		});
 	
 
+		// get location manager and location provider
         lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
- 
         Criteria c = new Criteria();
         c.setAccuracy(Criteria.ACCURACY_FINE);
         c.setBearingRequired(false);
@@ -41,20 +50,17 @@ public class FindLocation extends AlibiActivity implements LocationListener {
         c.setCostAllowed(false);
         String provider = lm.getBestProvider(c, true);
         
+        // debugging output
         String s = android.provider.Settings.System.getString
         (getContentResolver(), android.provider.Settings.System.LOCATION_PROVIDERS_ALLOWED);
         Log.d(Alibi.TAG, " avail GPS: " + s);
 
-        
+        //register the request for location updates
         lm.requestLocationUpdates(provider, 0, 0, this);
- //       userLocation = lm.getLastKnownLocation(provider);
-        
-        Log.d(Alibi.TAG, "Provider enabled status: " + lm.isProviderEnabled(provider));
-       
-
         
 
 	}
+
 	
 	@Override
 	public void onLocationChanged(Location loc){
@@ -87,5 +93,22 @@ public class FindLocation extends AlibiActivity implements LocationListener {
 	}
 	
 	
+	private class ListenerRunnable implements Runnable{
+		private LocationListener ll;
+		
+		public ListenerRunnable(LocationListener l){
+			ll = l;
+		}
+		
+		@Override
+		public void run(){
+			// go on without location information
+			lm.removeUpdates(ll);
+			Log.i(Alibi.TAG, "event started without GPS location");
+	    	Intent currentEventIntent = new Intent(((AlibiActivity)ll).getBaseContext(), CurrentEvent.class);
+			startActivity(currentEventIntent);
+			finish();
+		}
+	};
 
 }
