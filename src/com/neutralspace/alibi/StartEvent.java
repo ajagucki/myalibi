@@ -63,8 +63,8 @@ public class StartEvent extends AlibiActivity {
                 e.printStackTrace();
             }
             
-            Intent locationIntent = new Intent(view.getContext(), FindLocation.class);
-            startActivity(locationIntent);
+            Intent i = new Intent(view.getContext(), CurrentEvent.class);
+            startActivity(i);
             
             finish();
 
