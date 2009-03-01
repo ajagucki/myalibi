@@ -47,7 +47,8 @@ public class CurrentEvent extends AlibiActivity implements LocationListener {
             userEvent = userEventManager.getCurrentEvent(); 
             //XXX: would there ever be a case where userEvent would be null?
             //register the request for location updates, start timer
-            if (userEvent.getLocation().getLatitude() == 0){
+            if (userEvent.getLocationTried() == false){
+            	userEvent.setLocationTried(true);
             	lm.requestLocationUpdates(provider, 0, 0, this);
             	timeHandler.postDelayed(skipLocation, 30000);
             } else {
