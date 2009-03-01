@@ -1,6 +1,7 @@
 package com.neutralspace.alibi;
 
 import android.database.SQLException;
+import android.location.Location;
 import android.test.ApplicationTestCase;
 
 public class UserEventDAOTest extends ApplicationTestCase<Alibi> {
@@ -117,6 +118,42 @@ public class UserEventDAOTest extends ApplicationTestCase<Alibi> {
 		userEventDAO.updateCurrentId(1);
 		assertTrue(userEventDAO.deleteAll());
 		userEventDAO.close();
+	}
+	
+	public void testUpdateUserEvent() {
+	    userEventDAO.open();
+	    
+	    // Add an event
+	    UserEvent userEvent = UserEventTest.getFakeUserEvent();
+	    long rowId = userEventDAO.createUserEvent(userEvent);
+	    
+	    // Update with changed fields
+	    UserEvent.Category newCategory = UserEvent.Category.OTHER;
+	    long newEndTime = 1337;
+	    long newStartTime = 31337;
+	    double newLongitude = 42.42;
+	    double newLatitude = 13.37;
+	    String newNotes = "oh hi";
+	    userEvent.setCategory(newCategory);
+	    userEvent.setEndTime(newEndTime);
+	    userEvent.setStartTime(newStartTime);
+	    Location newLocation = userEvent.getLocation();
+	    newLocation.setLongitude(newLongitude);
+	    newLocation.setLatitude(newLatitude);
+	    userEvent.setLocation(newLocation);
+	    userEvent.setUserNotes(newNotes);
+	    assertTrue(userEventDAO.updateUserEvent(rowId, userEvent));
+	    
+	    // Compare fetched event with the event we used to update with
+	    UserEvent retrievedEvent = userEventDAO.fetchUserEvent(rowId);
+	    assertEquals(newCategory, retrievedEvent.getCategory());
+	    assertEquals(newEndTime, retrievedEvent.getEndTime());
+	    assertEquals(newStartTime, retrievedEvent.getStartTime());
+	    assertEquals(newLongitude, retrievedEvent.getLocation().getLongitude());
+	    assertEquals(newLatitude, retrievedEvent.getLocation().getLatitude());
+	    assertEquals(newNotes, retrievedEvent.getUserNotes());
+	    
+	    userEventDAO.close();
 	}
 
 	@Override
