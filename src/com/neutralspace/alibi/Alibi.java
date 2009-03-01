@@ -5,7 +5,7 @@ import android.util.Log;
 
 public class Alibi extends Application {
 
-    public static final String TAG = "Alibi";
+    public static final String TAG = "myAlibi";
     
     private SettingsManager settingsManager;
     private UserEventManager userEventManager;

@@ -6,8 +6,7 @@
 	<TextView android:id="@+id/caption_text"
 		android:layout_gravity="center_horizontal" android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text=
-"MyAlibi\nVersion 1.0.0\nMyAlibi for Google Android\n\n© 2009 neutralSpace.  All Rights Reserved.  MyAlibi, MyAlibi logos, and neutralSpace logos are trademarks of neutralSpace.  All Rights Reserved."
+		android:text="@string/copyright"
 		android:textSize="15sp" android:padding="10dip" />
 
 	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
