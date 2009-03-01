@@ -1,4 +1,4 @@
-<project name="Android" default="debug">
+<project name="alibi" default="debug">
     <!-- SDK Locations -->
     <property name="sdk-folder" value="/opt/android" />
     <property name="android-tools" value="/opt/android/tools" />
