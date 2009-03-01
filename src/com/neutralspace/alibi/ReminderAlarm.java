@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Vibrator;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -16,9 +17,10 @@ import android.widget.Toast;
 public class ReminderAlarm extends BroadcastReceiver {
 
     private static final int NOTIFICATION_ID = 0;
+    private static final long VIBRATE_MILLIS = 600;
     
     /**
-     * Triggered when Reminder Time Interval expires
+     * Triggered by the OS when Reminder Time Interval expires
      */
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -34,11 +36,16 @@ public class ReminderAlarm extends BroadcastReceiver {
         String msgNotify = getNotificationMessage(event);
         String msgToast = context.getString(R.string.reminder_title) + "\n" +
                           msgNotify + " since " + event.getNiceStartTime();
-            
+
         setNotification(context, msgNotify);
-        createToast(context, msgToast);
+        remind(context, msgToast);
     }
 
+    /**
+     * Turns on a notification.
+     * @param context
+     * @param message Message for notification
+     */
     private static void setNotification(Context context, String message) {
         NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         Notification notification = new Notification(R.drawable.icon, message, System.currentTimeMillis());
@@ -52,11 +59,21 @@ public class ReminderAlarm extends BroadcastReceiver {
         nm.notify(NOTIFICATION_ID, notification);
     }
 
+    /**
+     * Cancels the previously set notification
+     * @param context
+     */
     public static void cancelNotification(Context context) {
         NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);   
         nm.cancel(NOTIFICATION_ID);
     }
 
+    /**
+     * Updates a reminder that previously has been set, such as for when the
+     * currently running event's category changes, and as such the notification
+     * message must reflect that change.
+     * @param context
+     */
     public static void updateNotification(Context context) {
         Alibi alibi = (Alibi) context.getApplicationContext();
         UserEvent event = alibi.getUserEventManager().getCurrentEvent();
@@ -73,11 +90,24 @@ public class ReminderAlarm extends BroadcastReceiver {
             setNotification(context, getNotificationMessage(event));
     }    
 
+    /**
+     * Builds the base notification message.
+     * @param event Event we're notifying about
+     * @return Base notification message
+     */
     private static String getNotificationMessage(UserEvent event) {
         return "Activity " + event.getCategory().getTitle() + " in progress";
     }
 
-    private static void createToast(Context context, String message) {        
+    /**
+     * Creates a momentary pop-up message with the given string and vibrates
+     * the phone.
+     * @param context
+     * @param message
+     */
+    private static void remind(Context context, String message) {        
         Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+        Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator.vibrate(VIBRATE_MILLIS);
     }
 }
