@@ -10,6 +10,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.SQLException;
+import android.location.Location;
 import android.net.Uri;
 import android.os.SystemClock;
 import android.util.Log;
@@ -179,6 +180,18 @@ public class UserEventManager {
         userEventDAO.close();
 	}
 
+	/**
+	 * Updates the current event in Alibi's database (not the phone's
+	 * calendar). Assumes the EventId has not changed.
+	 * @param 
+	 * @return
+	 */
+	private void updateCurrentEventDb() {
+	    userEventDAO.open();
+	    userEventDAO.updateUserEvent(currentEventId, currentEvent);
+	    userEventDAO.close();
+	}
+	
     private ContentValues getCalendarContentValues(UserEvent userEvent) {
         String title = "My Alibi: " + userEvent.getCategory().getTitle();
         String eventLocation = Double.toString(userEvent.getLocation()
@@ -220,7 +233,23 @@ public class UserEventManager {
         }
         assert currentEventId >= 0; // if we have event, should have valid ID
         currentEvent.setCategory(category);
+        updateCurrentEventDb();
         ReminderAlarm.updateNotification(context);
+    }
+    
+    /**
+     * Sets the Location of the current UserEvent.
+     * @param location   new location
+     * @throws Exception Thrown if there's no current UserEvent
+     */
+    public void setLocation(Location location) throws Exception {
+        if (currentEvent == null) {
+            Log.e(Alibi.TAG, "setLocation: no current event");
+            throw new Exception("setLocation: no current event");
+        }
+        assert currentEventId >= 0; // if we have event, should have valid ID
+        currentEvent.setLocation(location);
+        updateCurrentEventDb();
     }
     
     /**

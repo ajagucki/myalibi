@@ -133,10 +133,14 @@ public class CurrentEvent extends AlibiActivity implements LocationListener {
         if (loc == null) {
         	Log.e(Alibi.TAG, "Location is null. This is very bad");
         } else {
-        	Log.i(Alibi.TAG, "Location set to " + loc.toString());
-            ((Alibi) getApplication()).getUserEventManager().getCurrentEvent().setLocation(loc);
+            try {
+                ((Alibi) getApplication()).getUserEventManager().setLocation(loc);
+                Log.i(Alibi.TAG, "Location set to " + loc.toString());
+            } catch (Exception e) {
+                // TODO: Error dialog
+                e.printStackTrace();
+            }
         }
-		
 	}
 
 	@Override
