@@ -28,14 +28,14 @@ public class UserEvent implements Parcelable {
     private long startTime; // in ms
     private long endTime;
     private String userNotes;
-    private boolean locationFlag;
-    
+    private boolean locationTried;
+
     public UserEvent(Location location, Category category, long startTime) {
         super();
         this.location = location;
         this.category = category;
         this.startTime = startTime;
-        this.locationFlag = false;
+        this.locationTried = false;
     }
 
     public Location getLocation() {
@@ -90,12 +90,12 @@ public class UserEvent implements Parcelable {
         return 0;
     }
     
-    public void setLocationTried(boolean value){
-    	locationFlag = value;
+    public void setLocationTried(boolean value) {
+    	locationTried = value;
     }
     
-    public boolean getLocationTried(){
-    	return locationFlag;
+    public boolean getLocationTried() {
+    	return locationTried;
     }
 
     public void writeToParcel(Parcel out, int flags) {
@@ -104,7 +104,7 @@ public class UserEvent implements Parcelable {
         out.writeLong(startTime);
         out.writeLong(endTime);
         out.writeString(userNotes);
-        out.writeValue(new Boolean(locationFlag));
+        out.writeValue(new Boolean(locationTried));
     }
     
     public static final Parcelable.Creator<UserEvent> CREATOR 

@@ -71,9 +71,9 @@ public class EventSummary extends AlibiActivity {
 		Button editButton = (Button) findViewById(R.id.edit_event);
 		Button finishButton = (Button) findViewById(R.id.finish_event);
 		
-		editButton.setOnClickListener(new View.OnClickListener(){
+		editButton.setOnClickListener(new View.OnClickListener() {
 			
-		    public void onClick(View view){
+		    public void onClick(View view) {
 		        Log.i(TAG, "Editing event in calendar...");
 		        Intent intent = new Intent(Intent.ACTION_EDIT);
 		        ComponentName componentName = new ComponentName("com.android.calendar", "com.android.calendar.EditEvent");
@@ -97,9 +97,9 @@ public class EventSummary extends AlibiActivity {
 		    }
 		});
 		
-		finishButton.setOnClickListener(new View.OnClickListener(){
+		finishButton.setOnClickListener(new View.OnClickListener() {
 			
-			public void onClick(View view){
+			public void onClick(View view) {
 			    // Finish event & return to Start screen.
 			    Log.i(TAG, "Finished " + userEvent.getCategory().getTitle() + " event.");
 			    

@@ -1,6 +1,5 @@
 package com.neutralspace.alibi;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.location.Criteria;
@@ -18,16 +17,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class CurrentEvent extends AlibiActivity implements LocationListener {
-	private LocationManager lm;
+    private final long GPS_TIMEOUT_MILLIS = 30 * 1000;
+
+    private LocationManager lm;
 	private Handler timeHandler = new Handler();
 	ListenerRunnable skipLocation = new ListenerRunnable(this);
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.current_event);
         
-		// Get GPS location manager and location provider
+        // Get GPS location manager and location provider
         lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Criteria c = new Criteria();
         c.setAccuracy(Criteria.ACCURACY_FINE);
@@ -35,54 +36,48 @@ public class CurrentEvent extends AlibiActivity implements LocationListener {
         c.setAltitudeRequired(false);
         c.setCostAllowed(false);
         String provider = lm.getBestProvider(c, true);
-        
-        // Set up GPS timer
-		timeHandler.removeCallbacks(skipLocation);
 
-		// Get the current event
+        // Set up GPS timer
+        timeHandler.removeCallbacks(skipLocation);
+
         UserEventManager userEventManager = ((Alibi)getApplication()).getUserEventManager();
-        UserEvent userEvent = null;
-        
-        try {
-            userEvent = userEventManager.getCurrentEvent(); 
-            //XXX: would there ever be a case where userEvent would be null?
-            //register the request for location updates, start timer
-            if (userEvent.getLocationTried() == false){
-            	userEvent.setLocationTried(true);
-            	lm.requestLocationUpdates(provider, 0, 0, this);
-            	timeHandler.postDelayed(skipLocation, 30000);
-            } else {
-            	Log.d(Alibi.TAG, "Event already had location");
-            }
-            
-        } catch (Exception e) {
-            Log.e(Alibi.TAG, "Couldn't finish event: " + e.getMessage());
-            //XXX: what do we do to handle this error - go back to start?
+        UserEvent userEvent = userEventManager.getCurrentEvent(); 
+        if (userEvent == null) {
+            Log.e(Alibi.TAG, "CurrentEvent: userEvent is null!");
+            // TODO: Error dialog, transfer to StartEvent activity
+            return;
         }
 
-    
+        if (userEvent.getLocationTried()) {
+            Log.d(Alibi.TAG, "Event already had location");
+        } else {
+            userEvent.setLocationTried(true);
+            // Register the request for location updates, start time-out timer
+            lm.requestLocationUpdates(provider, 0, 0, this);
+            timeHandler.postDelayed(skipLocation, GPS_TIMEOUT_MILLIS);
+        }
+        
         ImageView categoryImage = (ImageView) findViewById(R.id.current_category_image);
         TextView startTimeLabel = (TextView) findViewById(R.id.current_start_time_label);
-        
+
         setCurrentEventInfo(userEvent, categoryImage, startTimeLabel, null);
-        
-        Button stopButton = (Button) findViewById(R.id.stop);;
-        
-        stopButton.setOnClickListener(new View.OnClickListener(){
+
+        Button stopButton = (Button) findViewById(R.id.stop);
+
+        stopButton.setOnClickListener(new View.OnClickListener() {
             
-            public void onClick(View view){
-                //jump directly to EventSummary, which will stop the event.
+            public void onClick(View view) {
+                // jump directly to EventSummary, which will stop the event.
                 Log.i(Alibi.TAG, "CurrentEvent -> EventSummary");
-        		timeHandler.removeCallbacks(skipLocation);
-				lm.removeUpdates((LocationListener) view.getContext());
+                timeHandler.removeCallbacks(skipLocation);
+                lm.removeUpdates((LocationListener) view.getContext());
                 Intent i = new Intent(view.getContext(), EventSummary.class);
                 startActivity(i);
                 finish();
             }
         });
-        
     }
-    
+
     //TODO: find a solution here, the offsets should not be hardcoded
     public static final int MENU_CHANGE_CATEGORY = Menu.FIRST + 3;
     public static final int MENU_CANCEL = Menu.FIRST + 4;
@@ -90,17 +85,15 @@ public class CurrentEvent extends AlibiActivity implements LocationListener {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         boolean retVal = super.onCreateOptionsMenu(menu);
-        
+
         menu.removeItem(MENU_SETTINGS);
-        
+
         MenuItem menuItem = menu.add(Menu.NONE, MENU_CHANGE_CATEGORY, Menu.CATEGORY_ALTERNATIVE, R.string.menu_change_category);
         menuItem.setIcon(android.R.drawable.ic_menu_edit);
-        
+
         menuItem = menu.add(Menu.NONE, MENU_CANCEL, Menu.CATEGORY_ALTERNATIVE + 1, R.string.menu_cancel);
         menuItem.setIcon(android.R.drawable.ic_menu_delete);
-        
 
-        
         return retVal;
     }
 
@@ -124,9 +117,9 @@ public class CurrentEvent extends AlibiActivity implements LocationListener {
         }
         return super.onMenuItemSelected(featureId, item);
     }
-    
+
 	@Override
-	public void onLocationChanged(Location loc){
+	public void onLocationChanged(Location loc) {
 		lm.removeUpdates(this);
 		timeHandler.removeCallbacks(skipLocation);
 		
@@ -153,21 +146,19 @@ public class CurrentEvent extends AlibiActivity implements LocationListener {
 	public void onStatusChanged(String provider, int status,
 			Bundle extras) {				
 	}
-    
-	private class ListenerRunnable implements Runnable{
+
+	private class ListenerRunnable implements Runnable {
 		private LocationListener ll;
 		
-		public ListenerRunnable(LocationListener l){
+		public ListenerRunnable(LocationListener l) {
 			ll = l;
 		}
-		
+
 		@Override
-		public void run(){
+		public void run() {
 			// go on without location information
 			lm.removeUpdates(ll);
 			Log.i(Alibi.TAG, "event started without GPS location");
-
 		}
 	};
-
 }

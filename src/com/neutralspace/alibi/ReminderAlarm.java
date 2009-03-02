@@ -15,10 +15,9 @@ import android.widget.Toast;
  * the user that their event has been running for a while.
  */
 public class ReminderAlarm extends BroadcastReceiver {
-
     private static final int NOTIFICATION_ID = 0;
     private static final long VIBRATE_MILLIS = 600;
-    
+
     /**
      * Triggered by the OS when Reminder Time Interval expires
      */
@@ -32,7 +31,7 @@ public class ReminderAlarm extends BroadcastReceiver {
             Log.d(Alibi.TAG, "ReminderAlarm: null current event");
             return;
         }
-        
+
         String msgNotify = getNotificationMessage(event);
         String msgToast = context.getString(R.string.reminder_title) + "\n" +
                           msgNotify + " since " + event.getNiceStartTime();
@@ -49,7 +48,7 @@ public class ReminderAlarm extends BroadcastReceiver {
     private static void setNotification(Context context, String message) {
         NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         Notification notification = new Notification(R.drawable.icon, message, System.currentTimeMillis());
-        
+
         Intent currentEvent = new Intent(context, CurrentEvent.class);
         PendingIntent target = PendingIntent.getActivity(context, 0, currentEvent, 0);
         String title = context.getString(R.string.reminder_title);
@@ -77,7 +76,7 @@ public class ReminderAlarm extends BroadcastReceiver {
     public static void updateNotification(Context context) {
         Alibi alibi = (Alibi) context.getApplicationContext();
         UserEvent event = alibi.getUserEventManager().getCurrentEvent();
-        
+
         /* Don't set a notification if there isn't already one active; if the
          * event has not been running as long as the reminder interval, there
          * hasn't been a notification set yet.
@@ -85,7 +84,7 @@ public class ReminderAlarm extends BroadcastReceiver {
         long interval = alibi.getSettingsManager().getReminderDelayMillis();
         long startTime = event.getStartTime();
         long currentTime = System.currentTimeMillis();
-        
+
         if (currentTime >= startTime + interval)
             setNotification(context, getNotificationMessage(event));
     }    

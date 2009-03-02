@@ -29,7 +29,6 @@ public class ChangeEvent extends AlibiActivity {
 		playButton.setOnClickListener(new ChangeListener(UserEvent.Category.PLAY));
 		eatButton.setOnClickListener(new ChangeListener(UserEvent.Category.EAT));
 		otherButton.setOnClickListener(new ChangeListener(UserEvent.Category.OTHER));
-
 	}
 	
     @Override
@@ -41,19 +40,18 @@ public class ChangeEvent extends AlibiActivity {
         return retVal;
     }
 	
-	class ChangeListener implements OnClickListener{
+	class ChangeListener implements OnClickListener {
 		UserEvent.Category category;
 		
-		public ChangeListener(UserEvent.Category category){
+		public ChangeListener(UserEvent.Category category) {
 			this.category = category;
 		}
 		
-		public void onClick(View view){
-			
-			try{
+		public void onClick(View view) {
+			try {
 				((Alibi) getApplication()).getUserEventManager().setCategory(category);
-			} catch (Exception e){
-				Log.e(Alibi.TAG, "Unable to change location");
+			} catch (Exception e) {
+				Log.e(Alibi.TAG, "Unable to change category");
 			}
 			
 			Intent i = new Intent(view.getContext(), CurrentEvent.class);
