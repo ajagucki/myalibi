@@ -65,7 +65,7 @@ public class AboutDialog extends Dialog {
 		}
 
 		/**
-		 * Open the URL
+		 * Open the URL in the web browser
 		 */
 		public void onClick(View v) {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(URL_CREDITS));
