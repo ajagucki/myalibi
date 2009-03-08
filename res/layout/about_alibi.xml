@@ -2,6 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical" android:layout_width="fill_parent"
 	android:layout_height="fill_parent" android:padding="0dip">
+	
+	<ImageView android:src="@drawable/myalibi"
+		android:layout_gravity="center_horizontal"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:width="236dip"
+		android:height="79dip"/>
 
 	<TextView android:id="@+id/caption_text"
 		android:layout_gravity="center_horizontal" android:layout_width="wrap_content"
