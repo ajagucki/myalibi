@@ -20,8 +20,7 @@ public class AlibiActivity extends Activity {
     public static final int MENU_ABOUT = Menu.FIRST + 1;
     public static final int MENU_HELP = Menu.FIRST + 2;
     
-    // TODO: Change to Alibi's help website
-    private final String URL_HELP = "http://www.google.com";
+    private final String URL_HELP = "http://neutralspace.com/myAlibi/help/";
   
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

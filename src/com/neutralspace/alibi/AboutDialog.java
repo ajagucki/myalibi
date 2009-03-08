@@ -13,8 +13,7 @@ import android.widget.Button;
  */
 public class AboutDialog extends Dialog {
     
-    // TODO: Change to Alibi's credits website
-    private final String URL_CREDITS = "http://www.google.com";
+    private final String URL_CREDITS = "http://neutralspace.com/myAlibi/credit/";
 
 	public AboutDialog(Context context) {
 		super(context);
