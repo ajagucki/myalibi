@@ -31,13 +31,13 @@ public class AlibiActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         boolean retVal = super.onCreateOptionsMenu(menu);
         
-        MenuItem menuItem = menu.add(Menu.NONE, MENU_SETTINGS, Menu.NONE, R.string.menu_settings);
+        MenuItem menuItem = menu.add(Menu.NONE, MENU_SETTINGS, Menu.CATEGORY_SECONDARY, R.string.menu_settings);
         menuItem.setIcon(android.R.drawable.ic_menu_preferences);
         
-        menuItem = menu.add(Menu.NONE, MENU_ABOUT, Menu.CATEGORY_SECONDARY, R.string.menu_about);
+        menuItem = menu.add(Menu.NONE, MENU_ABOUT, Menu.CATEGORY_SECONDARY + 2, R.string.menu_about);
         menuItem.setIcon(android.R.drawable.ic_menu_info_details);
         
-        menuItem = menu.add(Menu.NONE, MENU_HELP, Menu.NONE, R.string.menu_help);
+        menuItem = menu.add(Menu.NONE, MENU_HELP, Menu.CATEGORY_SECONDARY + 1, R.string.menu_help);
         menuItem.setIcon(android.R.drawable.ic_menu_help);
         
         return retVal;

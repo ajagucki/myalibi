@@ -88,10 +88,10 @@ public class CurrentEvent extends AlibiActivity implements LocationListener {
 
         menu.removeItem(MENU_SETTINGS);
 
-        MenuItem menuItem = menu.add(Menu.NONE, MENU_CHANGE_CATEGORY, Menu.CATEGORY_ALTERNATIVE, R.string.menu_change_category);
+        MenuItem menuItem = menu.add(Menu.NONE, MENU_CHANGE_CATEGORY, Menu.FIRST, R.string.menu_change_category);
         menuItem.setIcon(android.R.drawable.ic_menu_edit);
 
-        menuItem = menu.add(Menu.NONE, MENU_CANCEL, Menu.CATEGORY_ALTERNATIVE + 1, R.string.menu_cancel);
+        menuItem = menu.add(Menu.NONE, MENU_CANCEL, Menu.FIRST + 1, R.string.menu_cancel);
         menuItem.setIcon(android.R.drawable.ic_menu_delete);
 
         return retVal;
