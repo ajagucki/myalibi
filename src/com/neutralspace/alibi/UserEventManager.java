@@ -193,7 +193,7 @@ public class UserEventManager {
 	}
 	
     private ContentValues getCalendarContentValues(UserEvent userEvent) {
-        String title = "My Alibi: " + userEvent.getCategory().getTitle();
+        String title = context.getString(R.string.app_name) + ": " + userEvent.getCategory().getTitle();
         String eventLocation = Double.toString(userEvent.getLocation()
                 .getLatitude())
                 + "," + Double.toString(userEvent.getLocation().getLongitude());
