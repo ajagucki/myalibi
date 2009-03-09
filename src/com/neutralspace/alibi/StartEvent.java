@@ -2,8 +2,11 @@ package com.neutralspace.alibi;
 
 import android.content.Intent;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -11,6 +14,9 @@ import android.widget.Button;
  * This is the default main screen of Alibi.
  */
 public class StartEvent extends AlibiActivity {
+
+    public static final int MENU_ABOUT = MENU_SETTINGS + 1;
+    public static final int MENU_HELP = MENU_SETTINGS + 2;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +47,19 @@ public class StartEvent extends AlibiActivity {
         playButton.setOnClickListener(new StartEventListener(UserEvent.Category.PLAY));
         otherButton.setOnClickListener(new StartEventListener(UserEvent.Category.OTHER));
 	}
+	
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        boolean retVal = super.onCreateOptionsMenu(menu);
+        
+        MenuItem menuItem = menu.add(Menu.NONE, MENU_ABOUT, Menu.CATEGORY_SECONDARY + 2, R.string.menu_about);
+        menuItem.setIcon(android.R.drawable.ic_menu_info_details);
+        
+        menuItem = menu.add(Menu.NONE, MENU_HELP, Menu.CATEGORY_SECONDARY + 1, R.string.menu_help);
+        menuItem.setIcon(android.R.drawable.ic_menu_help);
+
+        return retVal;
+    }
 		
 	private class StartEventListener implements View.OnClickListener {
 	    UserEvent.Category category;
@@ -70,4 +89,21 @@ public class StartEvent extends AlibiActivity {
 
 		}
 	};
+	
+    @Override
+    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+        Intent intent;
+        switch (item.getItemId()) {
+        case MENU_ABOUT:
+            // Open the About myAlibi dialog
+            AboutDialog about = new AboutDialog(this);
+            about.show();
+            return true;
+        case MENU_HELP:
+            intent = new Intent(Intent.ACTION_VIEW, Uri.parse(URL_HELP));
+            startActivity(intent);
+            return true;
+        }
+        return super.onMenuItemSelected(featureId, item);
+    }
 }

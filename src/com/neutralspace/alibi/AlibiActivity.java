@@ -2,7 +2,6 @@ package com.neutralspace.alibi;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,10 +16,8 @@ import android.widget.TextView;
 public class AlibiActivity extends Activity {
     
     public static final int MENU_SETTINGS = Menu.FIRST;
-    public static final int MENU_ABOUT = Menu.FIRST + 1;
-    public static final int MENU_HELP = Menu.FIRST + 2;
     
-    private final String URL_HELP = "http://neutralspace.com/myAlibi/help/";
+    public final String URL_HELP = "http://neutralspace.com/myAlibi/help/";
   
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +31,6 @@ public class AlibiActivity extends Activity {
         MenuItem menuItem = menu.add(Menu.NONE, MENU_SETTINGS, Menu.CATEGORY_SECONDARY, R.string.menu_settings);
         menuItem.setIcon(android.R.drawable.ic_menu_preferences);
         
-        menuItem = menu.add(Menu.NONE, MENU_ABOUT, Menu.CATEGORY_SECONDARY + 2, R.string.menu_about);
-        menuItem.setIcon(android.R.drawable.ic_menu_info_details);
-        
-        menuItem = menu.add(Menu.NONE, MENU_HELP, Menu.CATEGORY_SECONDARY + 1, R.string.menu_help);
-        menuItem.setIcon(android.R.drawable.ic_menu_help);
-        
         return retVal;
     }
 
@@ -50,15 +41,6 @@ public class AlibiActivity extends Activity {
         case MENU_SETTINGS: 
             // Go to Setup screen
             intent = new Intent(this, Setup.class);
-            startActivity(intent);
-            return true;
-        case MENU_ABOUT:
-        	// Open the About myAlibi dialog
-            AboutDialog about = new AboutDialog(this);
-            about.show();
-            return true;
-        case MENU_HELP:
-            intent = new Intent(Intent.ACTION_VIEW, Uri.parse(URL_HELP));
             startActivity(intent);
             return true;
         }
