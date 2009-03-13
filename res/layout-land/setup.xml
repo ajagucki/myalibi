@@ -24,7 +24,7 @@
 				android:layout_width="wrap_content" 
 				android:layout_height="wrap_content"
 				android:layout_gravity="center_vertical" 
-				android:text="Default Calendar:"
+				android:text="@string/settings_which_calendar"
 				android:textSize="@dimen/text_sp"
 			/>
 				
@@ -33,7 +33,7 @@
 		        android:layout_height="wrap_content"
 	 	       android:layout_gravity="center_vertical"
 	 	       android:drawSelectorOnTop="true"
-	 	   />
+	 	    />
 	    
     	</LinearLayout>
     
@@ -59,7 +59,7 @@
 				<TextView android:id="@+id/reminder_label" 
 					android:layout_width="wrap_content" 
 					android:layout_height="wrap_content" 
-					android:text="Remind me every:"
+					android:text="@string/settings_remind_me_every"
 					android:textSize="@dimen/text_sp"
 				/>	    
 		    
@@ -94,7 +94,7 @@
 					android:layout_width="wrap_content" 
 					android:layout_height="wrap_content"
 			    	android:layout_weight="1"
-					android:text="Done"
+					android:text="@string/settings_done_button"
 					android:textSize="@dimen/text_sp"
 				/>
 			
@@ -105,9 +105,6 @@
 		    	/>
 		
 			</LinearLayout>
-		
 		</LinearLayout>
-	
 	</LinearLayout>
-		    
 </ScrollView>

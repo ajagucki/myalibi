@@ -54,8 +54,7 @@ public class CurrentEvent extends AlibiActivity implements LocationListener {
 
         if (userEvent.getLocationTried()) {
             Log.d(Alibi.TAG, "Event already had location");
-    		locationLabel.setText("Location: " + userEvent.getLocation().getLatitude() + ", " + userEvent.getLocation().getLongitude());
-
+    		locationLabel.setText(getString(R.string.location) + " " + userEvent.getLocation().getLatitude() + ", " + userEvent.getLocation().getLongitude());
         } else {
             userEvent.setLocationTried(true);
             // Register the request for location updates, start time-out timer
@@ -65,13 +64,10 @@ public class CurrentEvent extends AlibiActivity implements LocationListener {
         
         ImageView categoryImage = (ImageView) findViewById(R.id.current_category_image);
         TextView startTimeLabel = (TextView) findViewById(R.id.current_start_time_label);
- 
         setCurrentEventInfo(userEvent, categoryImage, startTimeLabel, null);
 
         Button stopButton = (Button) findViewById(R.id.stop);
-
         stopButton.setOnClickListener(new View.OnClickListener() {
-            
             public void onClick(View view) {
                 // jump directly to EventSummary, which will stop the event.
                 Log.i(Alibi.TAG, "CurrentEvent -> EventSummary");
@@ -131,14 +127,12 @@ public class CurrentEvent extends AlibiActivity implements LocationListener {
 		
         if (loc == null) {
         	Log.e(Alibi.TAG, "Location is null. This is very bad");
-    		locationLabel.setText("Location Not Found");
-
+    		locationLabel.setText(getString(R.string.location_not_found));
         } else {
             try {
                 ((Alibi) getApplication()).getUserEventManager().setLocation(loc);
                 Log.i(Alibi.TAG, "Location set to " + loc.toString());
-        		locationLabel.setText("Location: " + loc.getLatitude() + ", " + loc.getLongitude());
-
+        		locationLabel.setText(getString(R.string.location) + " " + loc.getLatitude() + ", " + loc.getLongitude());
             } catch (Exception e) {
                 // TODO: Error dialog
                 e.printStackTrace();
@@ -170,7 +164,7 @@ public class CurrentEvent extends AlibiActivity implements LocationListener {
 			// go on without location information
 			lm.removeUpdates(ll);
 			Log.i(Alibi.TAG, "event started without GPS location");
-			locationLabel.setText("Location Not Found");
+			locationLabel.setText(getString(R.string.location_not_found));
 		}
 	};
 }

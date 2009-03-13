@@ -19,13 +19,14 @@ public class AboutDialog extends Dialog {
 		super(context);
         this.setCancelable(true);
         this.setContentView(R.layout.about_alibi);
-        this.setTitle("About myAlibi");
+        this.setTitle(context.getString(R.string.about_title));
 	}
 	
 	/**
 	 * Create the buttons and give them actions
 	 */
-	protected void onCreate(Bundle savedInstanceState) {
+	@Override
+    protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
 		Button creditsButton = (Button) findViewById(R.id.open_credits);
@@ -49,7 +50,6 @@ public class AboutDialog extends Dialog {
 		public void onClick(View v) {
 			aboutDialog.cancel();			
 		}
-		
 	}
 	
 	/**
@@ -70,7 +70,5 @@ public class AboutDialog extends Dialog {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(URL_CREDITS));
             v.getContext().startActivity(intent);
 		}
-		
 	}
-	
 }

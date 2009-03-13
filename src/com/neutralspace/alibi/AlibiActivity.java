@@ -80,11 +80,11 @@ public class AlibiActivity extends Activity {
             }
             
             if (startTimeLabel != null) {
-                startTimeLabel.setText("Event Started: " + userEvent.getNiceStartTime());
+                startTimeLabel.setText(getString(R.string.event_started) + " " + userEvent.getNiceStartTime());
             }
             
             if (stopTimeLabel != null) {
-                stopTimeLabel.setText("Event stopped: " + userEvent.getNiceEndTime());
+                stopTimeLabel.setText(getString(R.string.event_stopped) + " " + userEvent.getNiceEndTime());
             }
         }
     }

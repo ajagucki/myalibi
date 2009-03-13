@@ -6,14 +6,6 @@
     android:layout_height="fill_parent"
     android:paddingTop="10dip"
     >
-	
-	<TextView android:id="@+id/gps_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Finding Location"
-                android:textSize="@dimen/text_sp"
-                android:paddingBottom="8dip"/>
-            
             
     <ImageView android:id="@+id/current_category_image" android:src="@drawable/category_work"
 	           android:layout_width="wrap_content" 
@@ -23,16 +15,23 @@
 	<TextView android:id="@+id/current_start_time_label" 
 				android:layout_width="wrap_content" 
 				android:layout_height="wrap_content" 
-				android:text="Event Started: "
+				android:text="@string/event_started"
 				android:textSize="@dimen/text_sp"
 				android:paddingBottom="10dip"/>
+
+    <TextView android:id="@+id/gps_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/finding_location"
+                android:textSize="@dimen/text_sp"
+                android:paddingBottom="8dip"/>
 	
     <Button android:id="@+id/stop" 
 		android:layout_width="wrap_content" 
 		android:layout_height="wrap_content"
 		android:width="140dip"
 		android:height="70dip"
-		android:text="Stop Event"
+		android:text="@string/stop_event_button"
 		android:textSize="18sp"
 		android:textStyle="bold"/>
 		
