@@ -7,6 +7,14 @@
     android:paddingTop="50dip"
     >
 	
+	<TextView android:id="@+id/gps_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Finding Location"
+            android:textSize="@dimen/text_sp"
+            android:paddingBottom="10dip"/>
+            
+            
     <ImageView android:id="@+id/current_category_image" android:src="@drawable/category_work"
 	           android:layout_width="wrap_content" 
 	           android:layout_height="wrap_content"
