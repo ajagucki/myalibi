@@ -22,7 +22,6 @@ public class CurrentEvent extends AlibiActivity implements LocationListener {
     private LocationManager lm;
 	private Handler timeHandler = new Handler();
 	ListenerRunnable skipLocation = new ListenerRunnable(this);
-	private TextView locationLabel;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,6 +123,7 @@ public class CurrentEvent extends AlibiActivity implements LocationListener {
 	public void onLocationChanged(Location loc) {
 		lm.removeUpdates(this);
 		timeHandler.removeCallbacks(skipLocation);
+        TextView locationLabel = (TextView) findViewById(R.id.gps_status);
 		
         if (loc == null) {
         	Log.e(Alibi.TAG, "Location is null. This is very bad");
